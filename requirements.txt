@@ -1,0 +1,23 @@
+# Core scientific stack
+numpy
+pandas
+scikit-learn
+
+# NLP & embeddings
+spacy
+sentence-transformers
+transformers
+keybert
+rake-nltk
+
+# PDF parsing
+pdfplumber
+PyPDF2
+
+# Streamlit frontend
+streamlit
+
+# Utilities
+textstat
+matplotlib
+plotly
