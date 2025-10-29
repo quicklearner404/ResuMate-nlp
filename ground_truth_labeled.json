@@ -1,0 +1,1041 @@
+{
+  "instructions": "Manually label the correct entities for each resume. Look at the actual PDF and list ALL entities you see.",
+  "resumes": [
+   {
+  "resume_id": "resume_186",
+  "filename": "Frontend_Developer_307.pdf",
+  "extracted_entities": {
+    "EMAIL": [],
+    "PHONE": [],
+    "JOB_TITLE": [
+      "frontend developer"
+    ],
+    "SKILLS": {
+      "programming_languages": [
+        "javascript"
+      ],
+      "frameworks": [
+        "angular"
+      ],
+      "databases": [],
+      "cloud": [],
+      "tools": []
+    }
+  },
+  "ground_truth": {
+    "skills": {
+      "programming_languages": ["html", "css", "javascript"],
+      "frameworks": ["react.js", "angular", "backbone.js", "mobx", "redux"],
+      "databases": [],
+      "cloud": [],
+      "tools": ["css preprocessors", "front-end build tools", "serverless architectures"]
+    },
+    "job_titles": ["frontend developer"],
+    "emails": [],
+    "phones": []
+  },
+  "notes": "Strong frontend focus with multiple frameworks and tools mentioned"
+},
+    {
+  "resume_id": "resume_331",
+  "filename": "Mobile_App_Developer_(iOSAndroid)_336.pdf",
+  "extracted_entities": {
+    "EMAIL": [],
+    "PHONE": [],
+    "JOB_TITLE": [],
+    "SKILLS": {
+      "programming_languages": [
+        "java"
+      ],
+      "frameworks": [],
+      "databases": [],
+      "cloud": [],
+      "tools": []
+    }
+  },
+  "ground_truth": {
+    "skills": {
+      "programming_languages": ["swift", "objective-c", "java", "kotlin"],
+      "frameworks": [],
+      "databases": [],
+      "cloud": [],
+      "tools": ["ui/ux design", "responsive layout", "third-party apis", "push notifications", "app store submissions"]
+    },
+    "job_titles": ["mobile app developer"],
+    "emails": [],
+    "phones": []
+  },
+  "notes": "Cross-platform mobile developer with iOS and Android expertise"
+},
+    {
+  "resume_id": "resume_371",
+  "filename": "Python_Developer_146.pdf",
+  "extracted_entities": {
+    "EMAIL": [],
+    "PHONE": [],
+    "JOB_TITLE": [],
+    "SKILLS": {
+      "programming_languages": [
+        "python"
+      ],
+      "frameworks": [
+        "django",
+        "flask"
+      ],
+      "databases": [],
+      "cloud": [],
+      "tools": []
+    }
+  },
+  "ground_truth": {
+    "skills": {
+      "programming_languages": ["python"],
+      "frameworks": ["django", "flask"],
+      "databases": [],
+      "cloud": [],
+      "tools": ["matplotlib", "seaborn", "web scrapers", "microservices", "unit tests", "continuous integration"]
+    },
+    "job_titles": ["python developer"],
+    "emails": [],
+    "phones": []
+  },
+  "notes": "Strong Python focus with data analysis and web development expertise"
+},
+    {
+  "resume_id": "resume_203",
+  "filename": "Frontend_Developer_77.pdf",
+  "extracted_entities": {
+    "EMAIL": [],
+    "PHONE": [],
+    "JOB_TITLE": [
+      "frontend developer"
+    ],
+    "SKILLS": {
+      "programming_languages": [
+        "javascript"
+      ],
+      "frameworks": [
+        "react",
+        "angular"
+      ],
+      "databases": [],
+      "cloud": [],
+      "tools": []
+    }
+  },
+  "ground_truth": {
+    "skills": {
+      "programming_languages": ["html5", "css3", "javascript"],
+      "frameworks": ["react.js", "angular", "styled-components"],
+      "databases": [],
+      "cloud": [],
+      "tools": ["graphql", "responsive design", "accessibility standards", "animations", "caching strategies"]
+    },
+    "job_titles": ["frontend developer"],
+    "emails": [],
+    "phones": []
+  },
+  "notes": "Modern frontend developer with focus on React, styling, and performance optimization"
+},
+    {
+  "resume_id": "resume_169",
+  "filename": "Frontend_Developer_18.pdf",
+  "extracted_entities": {
+    "EMAIL": [],
+    "PHONE": [],
+    "JOB_TITLE": [
+      "frontend developer"
+    ],
+    "SKILLS": {
+      "programming_languages": [
+        "javascript"
+      ],
+      "frameworks": [
+        "angular"
+      ],
+      "databases": [],
+      "cloud": [],
+      "tools": []
+    }
+  },
+  "ground_truth": {
+    "skills": {
+      "programming_languages": ["html", "css", "javascript"],
+      "frameworks": ["react.js", "angular", "redux"],
+      "databases": [],
+      "cloud": [],
+      "tools": ["context api", "restful apis"]
+    },
+    "job_titles": ["frontend developer"],
+    "emails": [],
+    "phones": []
+  },
+  "notes": "Senior frontend developer with 5+ years experience, strong React/Angular skills"
+},
+    {
+  "resume_id": "resume_056",
+  "filename": "Backend_Developer_98.pdf",
+  "extracted_entities": {
+    "EMAIL": [],
+    "PHONE": [],
+    "JOB_TITLE": [
+      "backend developer"
+    ],
+    "SKILLS": {
+      "programming_languages": [
+        "java",
+        "python"
+      ],
+      "frameworks": [
+        "django",
+        "flask"
+      ],
+      "databases": [
+        "mysql",
+        "mongodb",
+        "redis"
+      ],
+      "cloud": [],
+      "tools": [
+        "docker"
+      ]
+    }
+  },
+  "ground_truth": {
+    "skills": {
+      "programming_languages": ["python", "java", "node.js"],
+      "frameworks": ["django", "express.js", "flask"],
+      "databases": ["mysql", "mongodb", "redis", "memcached"],
+      "cloud": [],
+      "tools": ["docker", "microservices", "api gateways", "encryption", "tokenization"]
+    },
+    "job_titles": ["backend developer"],
+    "emails": [],
+    "phones": []
+  },
+  "notes": "Strong backend developer with microservices, caching, and security expertise"
+},
+    {
+  "resume_id": "resume_369",
+  "filename": "Python_Developer_144.pdf",
+  "extracted_entities": {
+    "EMAIL": [],
+    "PHONE": [],
+    "JOB_TITLE": [],
+    "SKILLS": {
+      "programming_languages": [
+        "python"
+      ],
+      "frameworks": [
+        "django",
+        "flask"
+      ],
+      "databases": [],
+      "cloud": [],
+      "tools": []
+    }
+  },
+  "ground_truth": {
+    "skills": {
+      "programming_languages": ["python"],
+      "frameworks": ["django", "flask"],
+      "databases": [],
+      "cloud": [],
+      "tools": ["numpy", "pandas", "scikit-learn", "data pipelines", "etl", "restful apis", "python scripting", "profiling"]
+    },
+    "job_titles": ["python developer"],
+    "emails": [],
+    "phones": []
+  },
+  "notes": "Python developer with strong data analysis and machine learning libraries"
+},
+    {
+  "resume_id": "resume_059",
+  "filename": "Cloud_Engineer_201.pdf",
+  "extracted_entities": {
+    "EMAIL": [],
+    "PHONE": [],
+    "JOB_TITLE": [],
+    "SKILLS": {
+      "programming_languages": [],
+      "frameworks": [],
+      "databases": [],
+      "cloud": [
+        "aws"
+      ],
+      "tools": [
+        "docker",
+        "kubernetes",
+        "terraform",
+        "ansible"
+      ]
+    }
+  },
+  "ground_truth": {
+    "skills": {
+      "programming_languages": [],
+      "frameworks": [],
+      "databases": [],
+      "cloud": ["aws"],
+      "tools": ["terraform", "ansible", "cloudformation", "docker", "kubernetes", "aws lambda", "prometheus", "grafana"]
+    },
+    "job_titles": ["cloud engineer"],
+    "emails": [],
+    "phones": []
+  },
+  "notes": "Strong cloud engineer with infrastructure as code, containerization, and monitoring expertise"
+},
+    {
+  "resume_id": "resume_301",
+  "filename": "Machine_Learning_Engineer_49.pdf",
+  "extracted_entities": {
+    "EMAIL": [],
+    "PHONE": [],
+    "JOB_TITLE": [],
+    "SKILLS": {
+      "programming_languages": [
+        "python"
+      ],
+      "frameworks": [],
+      "databases": [],
+      "cloud": [],
+      "tools": []
+    }
+  },
+  "ground_truth": {
+    "skills": {
+      "programming_languages": ["python", "r", "matlab"],
+      "frameworks": ["tensorflow", "pytorch", "scikit-learn"],
+      "databases": [],
+      "cloud": [],
+      "tools": ["supervised learning", "unsupervised learning", "deep learning", "data preprocessing", "feature engineering", "recurrent neural networks", "convolutional neural networks", "anomaly detection", "matrix factorization"]
+    },
+    "job_titles": ["machine learning engineer"],
+    "emails": [],
+    "phones": []
+  },
+  "notes": "Strong ML engineer with expertise in multiple programming languages and ML frameworks"
+},
+    {
+  "resume_id": "resume_321",
+  "filename": "Mobile_App_Developer_(iOSAndroid)_182.pdf",
+  "extracted_entities": {
+    "EMAIL": [],
+    "PHONE": [],
+    "JOB_TITLE": [],
+    "SKILLS": {
+      "programming_languages": [
+        "java"
+      ],
+      "frameworks": [],
+      "databases": [],
+      "cloud": [],
+      "tools": []
+    }
+  },
+  "ground_truth": {
+    "skills": {
+      "programming_languages": ["swift", "objective-c", "kotlin", "java"],
+      "frameworks": [],
+      "databases": [],
+      "cloud": [],
+      "tools": ["auto layout", "constraintlayout", "testflight", "firebase test lab", "biometric authentication", "augmented reality", "machine learning"]
+    },
+    "job_titles": ["mobile app developer"],
+    "emails": [],
+    "phones": []
+  },
+  "notes": "Cross-platform mobile developer with iOS/Android expertise and emerging technology interest"
+},
+    {
+  "resume_id": "resume_243",
+  "filename": "Full_Stack_Developer_168.pdf",
+  "extracted_entities": {
+    "EMAIL": [],
+    "PHONE": [],
+    "JOB_TITLE": [],
+    "SKILLS": {
+      "programming_languages": [
+        "javascript"
+      ],
+      "frameworks": [
+        "angular"
+      ],
+      "databases": [
+        "mysql",
+        "mongodb"
+      ],
+      "cloud": [],
+      "tools": []
+    }
+  },
+  "ground_truth": {
+    "skills": {
+      "programming_languages": ["html", "css", "javascript", "node.js"],
+      "frameworks": ["react.js", "angular", "express.js"],
+      "databases": ["mysql", "mongodb"],
+      "cloud": [],
+      "tools": ["restful apis", "socket.io", "caching", "lazy loading", "jest", "mocha"]
+    },
+    "job_titles": ["full stack developer"],
+    "emails": [],
+    "phones": []
+  },
+  "notes": "Strong full stack developer with both frontend and backend expertise"
+},
+    {
+  "resume_id": "resume_340",
+  "filename": "Mobile_App_Developer_(iOSAndroid)_344.pdf",
+  "extracted_entities": {
+    "EMAIL": [],
+    "PHONE": [],
+    "JOB_TITLE": [],
+    "SKILLS": {
+      "programming_languages": [
+        "java"
+      ],
+      "frameworks": [],
+      "databases": [],
+      "cloud": [],
+      "tools": []
+    }
+  },
+  "ground_truth": {
+    "skills": {
+      "programming_languages": ["swift", "objective-c", "java", "kotlin"],
+      "frameworks": [],
+      "databases": [],
+      "cloud": [],
+      "tools": ["ui/ux design", "performance optimization", "geolocation services", "wearables", "real-time communication", "app store optimization"]
+    },
+    "job_titles": ["mobile app developer"],
+    "emails": [],
+    "phones": []
+  },
+  "notes": "Mobile developer with healthcare and education app experience, strong on platform-specific features"
+},
+    {
+  "resume_id": "resume_287",
+  "filename": "Machine_Learning_Engineer_247.pdf",
+  "extracted_entities": {
+    "EMAIL": [],
+    "PHONE": [],
+    "JOB_TITLE": [],
+    "SKILLS": {
+      "programming_languages": [
+        "python"
+      ],
+      "frameworks": [],
+      "databases": [],
+      "cloud": [],
+      "tools": []
+    }
+  },
+  "ground_truth": {
+    "skills": {
+      "programming_languages": ["python"],
+      "frameworks": ["scikit-learn", "tensorflow", "pytorch"],
+      "databases": [],
+      "cloud": [],
+      "tools": ["data preprocessing", "feature engineering", "model evaluation", "model explainability", "fairness evaluation", "model deployment"]
+    },
+    "job_titles": ["machine learning engineer"],
+    "emails": [],
+    "phones": []
+  },
+  "notes": "ML engineer with focus on model interpretability, fairness, and deployment"
+},
+    {
+  "resume_id": "resume_387",
+  "filename": "Python_Developer_353.pdf",
+  "extracted_entities": {
+    "EMAIL": [],
+    "PHONE": [],
+    "JOB_TITLE": [],
+    "SKILLS": {
+      "programming_languages": [
+        "python"
+      ],
+      "frameworks": [
+        "django",
+        "fastapi"
+      ],
+      "databases": [],
+      "cloud": [],
+      "tools": []
+    }
+  },
+  "ground_truth": {
+    "skills": {
+      "programming_languages": ["python"],
+      "frameworks": ["django", "fastapi", "sqlalchemy", "flask sqlalchemy", "alembic"],
+      "databases": [],
+      "cloud": [],
+      "tools": ["microservices", "oauth2", "load testing", "data pipelines", "api integrations"]
+    },
+    "job_titles": ["python developer"],
+    "emails": [],
+    "phones": []
+  },
+  "notes": "Python developer with strong database ORM and API development expertise"
+},
+    {
+  "resume_id": "resume_046",
+  "filename": "Backend_Developer_299.pdf",
+  "extracted_entities": {
+    "EMAIL": [],
+    "PHONE": [],
+    "JOB_TITLE": [
+      "backend developer"
+    ],
+    "SKILLS": {
+      "programming_languages": [
+        "java",
+        "python"
+      ],
+      "frameworks": [
+        "django",
+        "spring boot"
+      ],
+      "databases": [],
+      "cloud": [],
+      "tools": []
+    }
+  },
+  "ground_truth": {
+    "skills": {
+      "programming_languages": ["java", "python", "node.js"],
+      "frameworks": ["spring boot", "django", "express.js"],
+      "databases": [],
+      "cloud": [],
+      "tools": ["microservices", "api development", "cloud deployment", "authentication", "authorization", "owasp", "third-party apis"]
+    },
+    "job_titles": ["backend developer"],
+    "emails": [],
+    "phones": []
+  },
+  "notes": "Backend developer with strong focus on microservices, security, and API development"
+},
+    {
+  "resume_id": "resume_152",
+  "filename": "Data_Scientist_368.pdf",
+  "extracted_entities": {
+    "EMAIL": [],
+    "PHONE": [],
+    "JOB_TITLE": [
+      "data scientist"
+    ],
+    "SKILLS": {
+      "programming_languages": [
+        "python"
+      ],
+      "frameworks": [],
+      "databases": [],
+      "cloud": [],
+      "tools": []
+    }
+  },
+  "ground_truth": {
+    "skills": {
+      "programming_languages": ["python"],
+      "frameworks": ["pandas", "scikit-learn", "xgboost"],
+      "databases": [],
+      "cloud": [],
+      "tools": ["exploratory data analysis", "statistical inference", "customer segmentation", "recommendation engines", "fraud detection", "data warehouses", "feature importance analysis"]
+    },
+    "job_titles": ["data scientist"],
+    "emails": [],
+    "phones": []
+  },
+  "notes": "Data scientist with strong focus on ML modeling and business applications"
+},
+    {
+  "resume_id": "resume_359",
+  "filename": "Python_Developer_122.pdf",
+  "extracted_entities": {
+    "EMAIL": [],
+    "PHONE": [],
+    "JOB_TITLE": [],
+    "SKILLS": {
+      "programming_languages": [
+        "python"
+      ],
+      "frameworks": [
+        "django",
+        "flask"
+      ],
+      "databases": [],
+      "cloud": [],
+      "tools": []
+    }
+  },
+  "ground_truth": {
+    "skills": {
+      "programming_languages": ["python"],
+      "frameworks": ["django", "flask"],
+      "databases": [],
+      "cloud": [],
+      "tools": ["matplotlib", "seaborn", "web scrapers", "data processing pipelines", "microservices", "unit tests", "continuous integration"]
+    },
+    "job_titles": ["python developer"],
+    "emails": [],
+    "phones": []
+  },
+  "notes": "Python developer with data visualization and DevOps experience"
+},
+    {
+  "resume_id": "resume_028",
+  "filename": "Backend_Developer_238.pdf",
+  "extracted_entities": {
+    "EMAIL": [],
+    "PHONE": [],
+    "JOB_TITLE": [
+      "backend developer"
+    ],
+    "SKILLS": {
+      "programming_languages": [
+        "scala",
+        "ruby",
+        "python"
+      ],
+      "frameworks": [
+        "flask"
+      ],
+      "databases": [],
+      "cloud": [],
+      "tools": []
+    }
+  },
+  "ground_truth": {
+    "skills": {
+      "programming_languages": ["python", "ruby", "scala"],
+      "frameworks": ["flask", "sinatra", "play framework"],
+      "databases": [],
+      "cloud": [],
+      "tools": ["microservices", "data pipelines", "kafka", "rest apis", "akka", "caching", "load balancing", "ci/cd", "serverless computing", "graphql"]
+    },
+    "job_titles": ["backend developer"],
+    "emails": [],
+    "phones": []
+  },
+  "notes": "Backend developer with diverse language skills and modern architecture patterns"
+},
+    {
+  "resume_id": "resume_320",
+  "filename": "Mobile_App_Developer_(iOSAndroid)_181.pdf",
+  "extracted_entities": {
+    "EMAIL": [],
+    "PHONE": [],
+    "JOB_TITLE": [],
+    "SKILLS": {
+      "programming_languages": [
+        "java"
+      ],
+      "frameworks": [
+        "react"
+      ],
+      "databases": [],
+      "cloud": [],
+      "tools": []
+    }
+  },
+  "ground_truth": {
+    "skills": {
+      "programming_languages": ["swift", "objective-c", "kotlin", "java"],
+      "frameworks": ["react native", "flutter"],
+      "databases": [],
+      "cloud": [],
+      "tools": ["bluetooth integration", "calendar integration", "in-app purchases", "third-party apis"]
+    },
+    "job_titles": ["mobile app developer"],
+    "emails": [],
+    "phones": []
+  },
+  "notes": "Cross-platform mobile developer with React Native and Flutter experience"
+},
+    {
+  "resume_id": "resume_135",
+  "filename": "Data_Scientist_27.pdf",
+  "extracted_entities": {
+    "EMAIL": [],
+    "PHONE": [],
+    "JOB_TITLE": [
+      "data scientist"
+    ],
+    "SKILLS": {
+      "programming_languages": [
+        "python"
+      ],
+      "frameworks": [],
+      "databases": [],
+      "cloud": [
+        "azure",
+        "aws"
+      ],
+      "tools": [
+        "git"
+      ]
+    }
+  },
+  "ground_truth": {
+    "skills": {
+      "programming_languages": ["python", "r"],
+      "frameworks": ["pandas", "numpy", "matplotlib", "scikit-learn", "tensorflow"],
+      "databases": [],
+      "cloud": ["aws", "azure"],
+      "tools": ["git", "github"]
+    },
+    "job_titles": ["data scientist"],
+    "emails": [],
+    "phones": []
+  },
+  "notes": "Data scientist with 5 years experience, strong on ML libraries and cloud deployment"
+},
+    {
+  "resume_id": "resume_315",
+  "filename": "Mobile_App_Developer_(iOSAndroid)_176.pdf",
+  "extracted_entities": {
+    "EMAIL": [],
+    "PHONE": [],
+    "JOB_TITLE": [],
+    "SKILLS": {
+      "programming_languages": [
+        "java"
+      ],
+      "frameworks": [],
+      "databases": [],
+      "cloud": [],
+      "tools": []
+    }
+  },
+  "ground_truth": {
+    "skills": {
+      "programming_languages": ["swift", "objective-c", "kotlin", "java"],
+      "frameworks": ["uikit", "swiftui", "android sdk", "jetpack"],
+      "databases": [],
+      "cloud": [],
+      "tools": ["payment integration", "real-time messaging", "app store", "google play store", "push notifications", "code profiling", "optimization techniques"]
+    },
+    "job_titles": ["mobile app developer"],
+    "emails": [],
+    "phones": []
+  },
+  "notes": "Native mobile developer with strong iOS/Android platform-specific expertise"
+},
+    {
+  "resume_id": "resume_116",
+  "filename": "Data_Scientist_132.pdf",
+  "extracted_entities": {
+    "EMAIL": [],
+    "PHONE": [],
+    "JOB_TITLE": [
+      "data scientist"
+    ],
+    "SKILLS": {
+      "programming_languages": [
+        "python"
+      ],
+      "frameworks": [],
+      "databases": [],
+      "cloud": [],
+      "tools": []
+    }
+  },
+  "ground_truth": {
+    "skills": {
+      "programming_languages": ["python", "r"],
+      "frameworks": ["numpy", "pandas", "scikit-learn", "matplotlib", "seaborn"],
+      "databases": [],
+      "cloud": [],
+      "tools": ["predictive models", "demand forecasting", "a/b testing", "natural language processing", "sentiment analysis", "hypothesis testing", "recommendation systems"]
+    },
+    "job_titles": ["data scientist"],
+    "emails": [],
+    "phones": []
+  },
+  "notes": "Data scientist with strong statistical analysis and ML modeling expertise"
+},
+    {
+  "resume_id": "resume_373",
+  "filename": "Python_Developer_148.pdf",
+  "extracted_entities": {
+    "EMAIL": [],
+    "PHONE": [],
+    "JOB_TITLE": [],
+    "SKILLS": {
+      "programming_languages": [
+        "python"
+      ],
+      "frameworks": [
+        "django",
+        "flask"
+      ],
+      "databases": [],
+      "cloud": [],
+      "tools": []
+    }
+  },
+  "ground_truth": {
+    "skills": {
+      "programming_languages": ["python"],
+      "frameworks": ["django", "flask", "numpy", "pandas", "scikit-learn"],
+      "databases": [],
+      "cloud": [],
+      "tools": ["data pipelines", "etl", "restful apis", "python scripting", "profiling", "optimization techniques"]
+    },
+    "job_titles": ["python developer"],
+    "emails": [],
+    "phones": []
+  },
+  "notes": "Python developer with data science libraries and backend development expertise"
+},
+    {
+  "resume_id": "resume_018",
+  "filename": "Backend_Developer_228.pdf",
+  "extracted_entities": {
+    "EMAIL": [],
+    "PHONE": [],
+    "JOB_TITLE": [
+      "backend developer"
+    ],
+    "SKILLS": {
+      "programming_languages": [
+        "go",
+        "java",
+        "python"
+      ],
+      "frameworks": [
+        "django",
+        "spring boot"
+      ],
+      "databases": [],
+      "cloud": [],
+      "tools": []
+    }
+  },
+  "ground_truth": {
+    "skills": {
+      "programming_languages": ["python", "java", "go"],
+      "frameworks": ["django", "spring boot", "gin", "django rest framework", "spring cloud"],
+      "databases": [],
+      "cloud": [],
+      "tools": ["restful apis", "microservices", "oauth 2.0", "caching", "indexing", "celery", "rabbitmq"]
+    },
+    "job_titles": ["backend developer"],
+    "emails": [],
+    "phones": []
+  },
+  "notes": "Backend developer with diverse language skills and microservices expertise"
+},
+    {
+  "resume_id": "resume_388",
+  "filename": "Python_Developer_354.pdf",
+  "extracted_entities": {
+    "EMAIL": [],
+    "PHONE": [],
+    "JOB_TITLE": [],
+    "SKILLS": {
+      "programming_languages": [
+        "python"
+      ],
+      "frameworks": [
+        "django",
+        "flask"
+      ],
+      "databases": [
+        "redis"
+      ],
+      "cloud": [],
+      "tools": []
+    }
+  },
+  "ground_truth": {
+    "skills": {
+      "programming_languages": ["python"],
+      "frameworks": ["django", "flask", "django rest framework", "celery"],
+      "databases": ["redis"],
+      "cloud": [],
+      "tools": ["real-time chat", "task management", "data processing pipelines", "database schemas", "third-party apis", "ci/cd"]
+    },
+    "job_titles": ["python developer"],
+    "emails": [],
+    "phones": []
+  },
+  "notes": "Python developer with distributed systems and real-time application expertise"
+},
+   {
+  "resume_id": "resume_094",
+  "filename": "Cloud_Engineer_394.pdf",
+  "extracted_entities": {
+    "EMAIL": [],
+    "PHONE": [],
+    "JOB_TITLE": [],
+    "SKILLS": {
+      "programming_languages": [],
+      "frameworks": [],
+      "databases": [],
+      "cloud": [
+        "azure",
+        "aws",
+        "gcp"
+      ],
+      "tools": [
+        "terraform"
+      ]
+    }
+  },
+  "ground_truth": {
+    "skills": {
+      "programming_languages": [],
+      "frameworks": [],
+      "databases": [],
+      "cloud": ["aws", "azure", "gcp", "ec2", "rds", "cloud storage"],
+      "tools": ["terraform", "pulumi", "microservices", "serverless", "resource tagging", "budgeting", "disaster recovery", "monitoring", "alerting", "performance tuning"]
+    },
+    "job_titles": ["cloud engineer"],
+    "emails": [],
+    "phones": []
+  },
+  "notes": "Cloud engineer with multi-cloud expertise and strong infrastructure as code skills"
+},
+    {
+  "resume_id": "resume_316",
+  "filename": "Mobile_App_Developer_(iOSAndroid)_177.pdf",
+  "extracted_entities": {
+    "EMAIL": [],
+    "PHONE": [],
+    "JOB_TITLE": [],
+    "SKILLS": {
+      "programming_languages": [
+        "java"
+      ],
+      "frameworks": [
+        "react"
+      ],
+      "databases": [],
+      "cloud": [],
+      "tools": []
+    }
+  },
+  "ground_truth": {
+    "skills": {
+      "programming_languages": ["swift", "objective-c", "kotlin", "java"],
+      "frameworks": ["react native", "flutter"],
+      "databases": [],
+      "cloud": [],
+      "tools": ["bluetooth integration", "calendar integration", "in-app purchases", "third-party apis"]
+    },
+    "job_titles": ["mobile app developer"],
+    "emails": [],
+    "phones": []
+  },
+  "notes": "Cross-platform mobile developer with React Native and Flutter experience"
+},
+    {
+  "resume_id": "resume_115",
+  "filename": "Data_Scientist_12.pdf",
+  "extracted_entities": {
+    "EMAIL": [],
+    "PHONE": [],
+    "JOB_TITLE": [
+      "data scientist"
+    ],
+    "SKILLS": {
+      "programming_languages": [
+        "python"
+      ],
+      "frameworks": [],
+      "databases": [],
+      "cloud": [],
+      "tools": [
+        "kubernetes",
+        "docker"
+      ]
+    }
+  },
+  "ground_truth": {
+    "skills": {
+      "programming_languages": ["python", "r"],
+      "frameworks": ["tensorflow", "scikit-learn", "pytorch", "apache spark"],
+      "databases": [],
+      "cloud": [],
+      "tools": ["docker", "kubernetes", "recommendation systems", "predictive maintenance", "customer segmentation", "data preprocessing", "feature engineering", "distributed computing"]
+    },
+    "job_titles": ["data scientist"],
+    "emails": [],
+    "phones": []
+  },
+  "notes": "Data scientist with strong ML deployment skills and distributed computing expertise"
+},
+    {
+  "resume_id": "resume_061",
+  "filename": "Cloud_Engineer_203.pdf",
+  "extracted_entities": {
+    "EMAIL": [],
+    "PHONE": [],
+    "JOB_TITLE": [],
+    "SKILLS": {
+      "programming_languages": [],
+      "frameworks": [],
+      "databases": [],
+      "cloud": [
+        "aws"
+      ],
+      "tools": [
+        "jenkins",
+        "kubernetes",
+        "docker"
+      ]
+    }
+  },
+  "ground_truth": {
+    "skills": {
+      "programming_languages": [],
+      "frameworks": [],
+      "databases": [],
+      "cloud": ["aws", "kubernetes", "docker swarm", "aws ecs"],
+      "tools": ["jenkins", "gitlab ci/cd", "aws codepipeline", "docker", "blue-green deployment", "spot instances", "reserved capacity", "disaster recovery", "elk stack", "prometheus"]
+    },
+    "job_titles": ["cloud engineer"],
+    "emails": [],
+    "phones": []
+  },
+  "notes": "Cloud engineer with strong DevOps and infrastructure automation expertise"
+},
+    {
+  "resume_id": "resume_182",
+  "filename": "Frontend_Developer_23.pdf",
+  "extracted_entities": {
+    "EMAIL": [],
+    "PHONE": [],
+    "JOB_TITLE": [
+      "frontend developer"
+    ],
+    "SKILLS": {
+      "programming_languages": [
+        "javascript"
+      ],
+      "frameworks": [],
+      "databases": [],
+      "cloud": [],
+      "tools": [
+        "git"
+      ]
+    }
+  },
+  "ground_truth": {
+    "skills": {
+      "programming_languages": ["html", "css", "javascript"],
+      "frameworks": ["react.js", "vue.js", "svelte", "redux", "vuex", "styled-components"],
+      "databases": [],
+      "cloud": [],
+      "tools": ["git", "github", "responsive design", "css-in-js"]
+    },
+    "job_titles": ["frontend developer"],
+    "emails": [],
+    "phones": []
+  },
+  "notes": "Frontend developer with 4+ years experience and modern framework expertise"
+}
+  ]
+}
