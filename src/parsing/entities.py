@@ -79,7 +79,8 @@ JOB_TITLES = [
 # 2. Regex Patterns
 # -----------------------------
 EMAIL_REGEX = r"[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+"
-PHONE_REGEX = r"(\+?\d{1,3}[-\s]?)?\(?\d{2,4}\)?[-\s]?\d{3,4}[-\s]?\d{3,4}"
+# In entities.py, update the phone regex:
+PHONE_REGEX = r"[\+]?[(]?[\d\s\-\(\)]{10,}"
 
 # -----------------------------
 # 3. Setup spaCy PhraseMatcher
