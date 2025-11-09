@@ -2,6 +2,7 @@
 numpy
 pandas
 scikit-learn
+sklearn-crfsuite
 
 # NLP & embeddings
 spacy
