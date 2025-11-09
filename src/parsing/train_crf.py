@@ -4,6 +4,8 @@ import sklearn_crfsuite
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 from collections import Counter
+import pickle
+import os
 
 # Expanded technical vocabulary
 TECH_SKILLS = {
@@ -69,10 +71,11 @@ def enhanced_word2features(sent, i):
         
     return features
 
-def prepare_complete_training_data(file_path):
+def prepare_complete_training_data(file_path=None):
     """Prepare data that maintains all entity types"""
     training_data = []
-    
+    base_dir = os.path.dirname(__file__)
+    file_path = os.path.join(base_dir, "entities2.json")
     with open(file_path, 'r', encoding='utf-8', errors='replace') as file:
         for line in file:
             data = json.loads(line)
@@ -175,6 +178,58 @@ def predict_complete_entities(text, crf_model):
     
     return entities
 
+# Get absolute path to project root (this file → parsing → src → project root)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+
+def save_crf_model(crf_model, filepath=None):
+    """Save trained CRF model to file"""
+    if filepath is None:
+        filepath = os.path.join(BASE_DIR, "models", "crf_model.pkl")
+    os.makedirs(os.path.dirname(filepath), exist_ok=True)
+
+    with open(filepath, 'wb') as f:
+        pickle.dump(crf_model, f)
+    print(f"✅ CRF model saved to {filepath}")
+
+def load_crf_model(filepath=None):
+    """Load trained CRF model from file"""
+    if filepath is None:
+        filepath = os.path.join(BASE_DIR, "models", "crf_model.pkl")
+
+    try:
+        with open(filepath, 'rb') as f:
+            crf_model = pickle.load(f)
+        print(f"✅ CRF model loaded from {filepath}")
+        return crf_model
+    except FileNotFoundError:
+        print(f"⚠️  No model found at {filepath}")
+        return None
+
+def get_crf_model():
+    """Get CRF model - load if exists, otherwise train on ALL 220"""
+    model = load_crf_model()
+    if model is None:
+        print("🔄 No saved model found. Training on ALL 220 resumes...")
+        # Your existing training code here
+        training_data = prepare_complete_training_data("entities2.json")
+        labeled_sentences = prepare_crf_data(training_data)
+        X_train = [sent2features(s) for s in labeled_sentences]
+        y_train = [sent2labels(s) for s in labeled_sentences]
+        
+        crf_model = sklearn_crfsuite.CRF(
+            algorithm='lbfgs',
+            c1=0.1,
+            c2=0.1,
+            max_iterations=100,
+            all_possible_transitions=True
+        )
+        crf_model.fit(X_train, y_train)
+        save_crf_model(crf_model)
+        return crf_model
+    return model
+
+    
+
 # Main execution - Focus on ALL entities
 if __name__ == "__main__":
     print("🚀 TRAINING COMPLETE ENTITY MODEL...")
@@ -232,3 +287,5 @@ if __name__ == "__main__":
     print(f"\n🏷️ ENTITIES FOUND IN TEST SET:")
     for label, count in entity_counts.most_common():
         print(f"  {label}: {count}")
+    
+    model = get_crf_model()  

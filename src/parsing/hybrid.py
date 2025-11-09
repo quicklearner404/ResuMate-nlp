@@ -5,11 +5,17 @@ import sklearn_crfsuite
 from sklearn.model_selection import train_test_split
 from collections import Counter
 
+# Always import CRF functions at top
+from src.parsing.train_crf import get_crf_model, predict_complete_entities
+
+# Always import rule-based extractor at top
+from src.parsing.entities import extract_entities
+
 print("🚀 INITIALIZING HYBRID RESUME PARSER...")
 
 # Check if entities.py exists and import it
 try:
-    from entities import extract_entities
+    from src.parsing.entities import extract_entities
     print("✅ Successfully imported your rule-based system from entities.py")
 except ImportError:
     print("❌ Could not import entities.py - creating mock function")
@@ -183,17 +189,19 @@ def extract_entities_with_crf(text, crf_model):
     return entities
 
 def analyze_resume(resume_text, crf_model):
-    """
-    Complete resume analysis using hybrid approach
-    """
-    # Clean the text
+    """Hybrid analysis - SIMPLIFIED VERSION"""
+    if crf_model is None:
+        crf_model = get_crf_model()  # only call once, no re-import
+    
     cleaned_text = re.sub(r'\s+', ' ', resume_text)
     
-    # Use your rule-based system for skills
+    # Use rule-based system for skills
     rule_based_results = extract_entities(cleaned_text)
     
-    # Use CRF for structured entities
-    crf_entities = extract_entities_with_crf(cleaned_text, crf_model)
+    # ✅ USE THE ENHANCED CRF PREDICTION FROM train_crf.py
+    from src.parsing.train_crf import predict_complete_entities
+    crf_entities = predict_complete_entities(cleaned_text, crf_model)
+    
     
     # Combine results
     analysis = {
@@ -245,14 +253,15 @@ def analyze_resume(resume_text, crf_model):
     analysis['skills'] = rule_based_results.get('SKILLS', {})
     
     return analysis
+    
 
 def print_analysis(analysis):
     """Print formatted analysis"""
     print("\n" + "="*60)
-    print("🎯 RESUME ANALYSIS REPORT")
+    print(" RESUME ANALYSIS REPORT")
     print("="*60)
     
-    print("\n👤 PERSONAL INFORMATION:")
+    print("\n PERSONAL INFORMATION:")
     if analysis['personal'].get('name'):
         print(f"  Name: {analysis['personal']['name']}")
     if analysis['personal'].get('email'):
@@ -262,13 +271,13 @@ def print_analysis(analysis):
     if analysis['personal'].get('location'):
         print(f"  Location: {analysis['personal']['location']}")
     
-    print("\n🎓 EDUCATION:")
+    print("\n EDUCATION:")
     if analysis['education'].get('degree'):
         print(f"  Degree: {analysis['education']['degree']}")
     if analysis['education'].get('college'):
         print(f"  Institution: {analysis['education']['college']}")
     
-    print("\n💼 EXPERIENCE:")
+    print("\n EXPERIENCE:")
     if analysis['experience'].get('designation'):
         print(f"  Designation: {analysis['experience']['designation']}")
     if analysis['experience'].get('company'):
@@ -276,7 +285,7 @@ def print_analysis(analysis):
     if analysis['experience'].get('job_titles'):
         print(f"  Job Titles: {', '.join(analysis['experience']['job_titles'])}")
     
-    print("\n🛠️ TECHNICAL SKILLS:")
+    print("\n TECHNICAL SKILLS:")
     skills_found = 0
     for category, skills in analysis['skills'].items():
         if skills:
@@ -287,42 +296,21 @@ def print_analysis(analysis):
     print(f"\n📊 SKILLS SUMMARY: {skills_found} skills identified")
     print("="*60)
 
+
 # Main execution
 def main():
-    print("🚀 HYBRID RESUME PARSER - TRAINING PHASE")
-    print("="*50)
+    print("🚀 HYBRID RESUME PARSER - LOADING MODEL")
+    print("=" * 50)
     
-    # Check if training data exists
-    if not os.path.exists("entities2.json"):
-        print("❌ entities2.json not found!")
-        print("Please make sure entities2.json is in the current directory")
-        return
+    # 🎯 USE THE SAVED MODEL INSTEAD OF TRAINING
+    from src.parsing.train_crf import get_crf_model
+    crf_model = get_crf_model()  # This loads saved model or trains once
     
-    # Train the CRF model
-    training_data = train_crf_for_structured_entities("entities2.json")
-    labeled_sentences = prepare_crf_data(training_data)
+    print("✅ Model loaded successfully!")
     
-    print(f"📊 Training CRF model with {len(labeled_sentences)} samples...")
-    
-    # Train CRF
-    train_sentences, test_sentences = train_test_split(labeled_sentences, test_size=0.2, random_state=42)
-    X_train = [sent2features(s) for s in train_sentences]
-    y_train = [sent2labels(s) for s in train_sentences]
-    
-    crf = sklearn_crfsuite.CRF(
-        algorithm='lbfgs',
-        c1=0.1,
-        c2=0.1,
-        max_iterations=100,
-        all_possible_transitions=True
-    )
-    
-    crf.fit(X_train, y_train)
-    print("✅ CRF model trained successfully!")
-    
-    # Test with sample resumes
+    # Test with sample resumes (keep your existing test code)
     print("\n🔍 TESTING HYBRID SYSTEM")
-    print("="*50)
+    print("=" * 50)
     
     test_resumes = [
         """
@@ -364,7 +352,7 @@ def main():
     
     for i, resume in enumerate(test_resumes, 1):
         print(f"\n📄 Resume {i} Analysis:")
-        analysis = analyze_resume(resume, crf)
+        analysis = analyze_resume(resume, crf_model)
         print_analysis(analysis)
 
 if __name__ == "__main__":

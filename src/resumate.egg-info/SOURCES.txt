@@ -1,0 +1,16 @@
+README.md
+setup.py
+src/parsing/__init__.py
+src/parsing/convertdataset2.py
+src/parsing/csv_to_pdf.py
+src/parsing/entities.py
+src/parsing/hybrid.py
+src/parsing/integrateResume.py
+src/parsing/parser.py
+src/parsing/train_crf.py
+src/resumate.egg-info/PKG-INFO
+src/resumate.egg-info/SOURCES.txt
+src/resumate.egg-info/dependency_links.txt
+src/resumate.egg-info/top_level.txt
+tests/test.py
+tests/test_scorer.py

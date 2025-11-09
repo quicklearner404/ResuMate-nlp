@@ -6,23 +6,31 @@ A sophisticated hybrid NER system that combines rule-based and machine learning 
 
 ```
 ResuMate-nlp/
-├── 📂 src/parsing/               # PRODUCTION CODE
-│   ├── hybrid.py                 # MAIN SYSTEM: Hybrid NER (Rule-based + CRF)
-│   ├── entities.py               # Rule-based entity extraction
-│   ├── train_crf.py              # CRF model training
-│   └── entities2.json            # Training data (220 labeled resumes)
+├── 📂 src/
+│   ├── 📂 parsing/                # PRODUCTION CODE
+│   │   ├── __init__.py           # Package initializer
+│   │   ├── hybrid.py             # MAIN SYSTEM: Hybrid NER (Rule-based + CRF)
+│   │   ├── entities.py           # Rule-based entity extraction
+│   │   ├── train_crf.py          # CRF model training
+│   │   └── entities2.json        # Training data (220 labeled resumes)
+│   │
+│   └── 📂 models/                # Saved ML models
+│       └── crf_model.pkl         # Pre-trained CRF model
 │
-├── 📂 data/resume/               #  DATASETS
-│   ├── parsed_resumes.csv        # 400 processed resumes (text)
-│   └── pdfs/                     # Original PDF resumes
+├── 📂 data/
+│   └── 📂 resume/                # DATASETS
+│       ├── parsed_resumes.csv    # 400 processed resumes (text)
+│       └── pdfs/                 # Original PDF resumes
 │
-├── 📄 extracted_entities.json    #  400-resume analysis (Rule-based results)
-├── 📄 ground_truth_labeled.json  #   30 manually labeled resumes 
+├── 📄 extracted_entities.json     # 400-resume analysis (rule-based results)
+├── 📄 ground_truth_labeled.json   # 30 manually labeled resumes (gold standard)
+├── 📄 predictions.json            # Optional: predictions on user-uploaded resumes
+├── setup.py                       # Project installation script
 │
-└── 📂 test/                      #  TESTING & EVALUATION
-    ├── test.py                   # Complete evaluation suite
-    └── (evaluation results)      # Generated on-demand
-```
+└── 📂 test/                       # TESTING & EVALUATION
+    ├── __init__.py
+    ├── test.py                     # Complete evaluation suite
+    └── (evaluation results)        # Generated on-demand
 
 ##  Quick Start
 

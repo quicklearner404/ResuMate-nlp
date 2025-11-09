@@ -1,0 +1,7 @@
+📊 HYBRID SYSTEM EVALUATION SUMMARY
+==================================================
+Entity         Precision Recall    F1        TP    FP    FN    
+skills         0.835     0.801     0.818     289   57    72    
+job_titles     0.938     1.0       0.968     30    2     0     
+--------------------------------------------------
+Overall        0.844     0.816     0.83      319   59    72    
