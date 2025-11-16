@@ -1,9 +1,18 @@
-from sentence_transformers import SentenceTransformer, util
+from sentence_transformers import SentenceTransformer
+from sklearn.metrics.pairwise import cosine_similarity
 
 model = SentenceTransformer('all-MiniLM-L6-v2')
 
 def calculate_similarity(resume_text, job_description):
-    embeddings = model.encode([resume_text, job_description], convert_to_tensor=True)
-    score = util.cos_sim(embeddings[0], embeddings[1]).item()
-    return (score + 1) * 50  # converts -1 to 1 → 0 to 100%
 
+    if not resume_text.strip() or not job_description.strip():
+        return 0.0
+
+
+    embeddings = model.encode([resume_text, job_description])
+
+
+    similarity = cosine_similarity([embeddings[0]], [embeddings[1]])[0][0]
+
+
+    return round(similarity * 100, 2)
