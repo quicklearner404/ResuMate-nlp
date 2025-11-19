@@ -2,7 +2,7 @@ import os
 import pdfplumber
 import pandas as pd
 
-from entities import extract_entities
+from src.parsing.entities import extract_entities
   # ✅ import entity extractor
 
 INPUT_DIR = "data/resume/pdfs"
