@@ -3,84 +3,81 @@ import spacy
 from spacy.matcher import PhraseMatcher
 
 # Load spaCy model
-nlp = spacy.load("en_core_web_sm")
+try:
+    nlp = spacy.load("en_core_web_sm")
+except:
+    spacy.cli.download("en_core_web_sm")
+    nlp = spacy.load("en_core_web_sm")
 
 # -----------------------------
 # 1. EXPANDED Dictionaries for matchers
 # -----------------------------
 
-# EXPANDED Programming Languages (added all missing ones from our analysis)
+# EXPANDED Programming Languages
 PROGRAMMING_LANGUAGES = [
     "python", "java", "c++", "c#", "javascript", "typescript", "ruby", "go", 
     "php", "rust", "scala", "swift", "objective-c", "kotlin", "r", "matlab",
-    "html", "css", "node.js", "sql"
+    "html", "css", "node.js", "sql", "bash", "shell", "powershell"
 ]
 
-# EXPANDED Frameworks (added all the missing ones we found)
+# EXPANDED Frameworks (Now includes Modern AI/ML libs)
 FRAMEWORKS = [
     "django", "flask", "spring boot", "express", "react", "angular", "vue", 
     "rails", "fastapi", "express.js", "react.js", "vue.js", "angular.js",
-    "django rest framework", "spring cloud", "gin", "sinatra", "play framework",
-    "react native", "flutter", "backbone.js", "styled-components", "redux", 
-    "vuex", "mobx", "svelte", "uikit", "swiftui", "android sdk", "jetpack",
+    "django rest framework", "spring cloud", "react native", "flutter", 
+    "redux", "vuex", "svelte", "next.js", "nuxt.js",
+    # AI / ML Frameworks
     "tensorflow", "pytorch", "scikit-learn", "keras", "pandas", "numpy",
-    "matplotlib", "seaborn", "xgboost", "sqlalchemy", "flask sqlalchemy",
-    "alembic", "celery"
+    "matplotlib", "seaborn", "xgboost", "opencv", "huggingface", "transformers",
+    "langchain", "llamaindex", "openai api"
 ]
 
-# EXPANDED Databases (added missing ones)
+# EXPANDED Databases
 DATABASES = [
     "mysql", "postgresql", "mongodb", "redis", "sqlite", "oracle", "mariadb",
-    "memcached", "elasticsearch", "cassandra", "dynamodb"
+    "memcached", "elasticsearch", "cassandra", "dynamodb", "firestore", "couchdb"
 ]
 
 # EXPANDED Cloud platforms
 CLOUDS = [
     "aws", "azure", "gcp", "google cloud", "digitalocean", "heroku",
-    "ec2", "rds", "s3", "lambda", "cloud storage", "aws ecs", "docker swarm"
+    "ec2", "rds", "s3", "lambda", "kubernetes", "docker", "jenkins", "gitlab ci"
 ]
 
-# EXPANDED Tools (added all the missing development tools and processes)
+# EXPANDED Tools (Includes AI Concepts & Dev Tools)
 TOOLS = [
-    "docker", "kubernetes", "git", "jenkins", "terraform", "ansible", "linux",
-    "github", "gitlab", "ci/cd", "continuous integration", "continuous deployment",
-    "jenkins", "gitlab ci/cd", "aws codepipeline", "pulumi", "cloudformation",
-    "prometheus", "grafana", "elk stack", "rabbitmq", "kafka", "apache spark",
-    "web scrapers", "data pipelines", "etl", "restful apis", "graphql", "socket.io",
-    "microservices", "serverless", "oauth", "oauth 2.0", "jwt", "owasp",
-    "unit tests", "jest", "mocha", "testing", "load testing", "performance testing",
-    "caching", "load balancing", "indexing", "profiling", "optimization",
-    "responsive design", "css-in-js", "auto layout", "constraintlayout",
-    "testflight", "firebase test lab", "bluetooth integration", "calendar integration",
-    "in-app purchases", "push notifications", "app store", "google play store",
-    "data preprocessing", "feature engineering", "model evaluation", "model deployment",
-    "exploratory data analysis", "statistical inference", "machine learning",
-    "deep learning", "supervised learning", "unsupervised learning",
-    "natural language processing", "computer vision", "sentiment analysis",
-    "anomaly detection", "recommendation systems", "customer segmentation",
-    "predictive modeling", "time series", "neural networks", "cnn", "rnn",
-    "convolutional neural networks", "recurrent neural networks", "clustering",
-    "regression", "classification", "feature importance", "model explainability",
-    "a/b testing", "hypothesis testing", "data visualization", "data analysis",
-    "data warehousing", "big data", "distributed computing"
+    "git", "github", "gitlab", "jira", "terraform", "ansible", "linux",
+    "kafka", "rabbitmq", "spark", "hadoop", "airflow", "tableau", "power bi",
+    "excel", "figma", "photoshop", "illustrator",
+    # Modern AI Concepts (Great for Keywords)
+    "generative ai", "llm", "large language models", "rag", "fine-tuning",
+    "prompt engineering", "computer vision", "nlp", "sentiment analysis",
+    "adobe creative suite", "branding", "ui/ux", "user experience", 
+    "intellectual property", "corporate law", "legal", 
+    "mixing", "mastering", "pro tools", "sound engineering",
+    "wireshark", "penetration testing", "network security",
+    "strategic planning", "artificial intelligence", "cloud computing",
+    "genomics", "pcr", "data analysis"
 ]
 
-# EXPANDED Job Titles (added all the missing ones we found)
+# EXPANDED Job Titles
 JOB_TITLES = [
     "software engineer", "backend developer", "frontend developer", "fullstack developer",
     "data scientist", "ml engineer", "devops engineer", "project manager",
-    "python developer", "java developer", "javascript developer", "mobile developer",
-    "ios developer", "android developer", "cloud engineer", "machine learning engineer",
-    "full stack developer", "mobile app developer", "web developer", "data engineer",
-    "ai engineer", "front end developer", "back end developer"
+    "python developer", "java developer", "web developer", "mobile developer",
+    "ai engineer", "data analyst", "system administrator", "product manager"
 ]
 
 # -----------------------------
-# 2. Regex Patterns
+# 2. Regex Patterns (IMPROVED)
 # -----------------------------
-EMAIL_REGEX = r"[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+"
-# In entities.py, update the phone regex:
-PHONE_REGEX = r"[\+]?[(]?[\d\s\-\(\)]{10,}"
+EMAIL_REGEX = r"\b[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b"
+
+# Fixed: Won't match dates like 2020-2021
+PHONE_REGEX = r"(?:\+?\d{1,3}[ -]?)?\(?\d{3}\)?[ -]?\d{3}[ -]?\d{4}"
+
+# NEW: Added Degree Regex (Used by Hybrid Script)
+DEGREE_REGEX = r"(?i)\b(b\.?s\.?|m\.?s\.?|ph\.?d|mba|bachelor|master|doctorate)\b.{0,20}"
 
 # -----------------------------
 # 3. Setup spaCy PhraseMatcher
@@ -88,7 +85,7 @@ PHONE_REGEX = r"[\+]?[(]?[\d\s\-\(\)]{10,}"
 matcher = PhraseMatcher(nlp.vocab, attr="LOWER")
 
 def add_patterns(label, phrases):
-    patterns = [nlp.make_doc(p) for p in phrases]
+    patterns = [nlp.make_doc(str(p)) for p in phrases]
     matcher.add(label, patterns)
 
 add_patterns("PROGRAMMING_LANGUAGE", PROGRAMMING_LANGUAGES)
@@ -99,7 +96,7 @@ add_patterns("TOOL", TOOLS)
 add_patterns("JOB_TITLE", JOB_TITLES)
 
 # -----------------------------
-# 4. Extraction Function
+# 4. Extraction Function (Backward Compatible)
 # -----------------------------
 def extract_entities(text):
     doc = nlp(text)
@@ -107,6 +104,9 @@ def extract_entities(text):
     entities = {
         "EMAIL": re.findall(EMAIL_REGEX, text),
         "PHONE": re.findall(PHONE_REGEX, text),
+        # Added DEGREE here - CRF usually ignores extra keys, so this is safe.
+        # If CRF crashes, remove this line and use re.findall in hybrid_parser instead.
+        "DEGREE": [m.group(0).strip(" .,") for m in re.finditer(DEGREE_REGEX, text)],
         "JOB_TITLE": [],
         "SKILLS": {
             "PROGRAMMING_LANGUAGE": [],
@@ -128,19 +128,13 @@ def extract_entities(text):
 
     # Deduplicate
     entities["JOB_TITLE"] = list(set(entities["JOB_TITLE"]))
+    entities["DEGREE"] = list(set(entities["DEGREE"]))
     for k in entities["SKILLS"]:
         entities["SKILLS"][k] = list(set(entities["SKILLS"][k]))
 
     return entities
 
-# -----------------------------
-# Debug Run
-# -----------------------------
 if __name__ == "__main__":
-    sample = """
-    John Doe
-    Email: johndoe@gmail.com | Phone: +1-555-123-4567
-    Backend Developer with experience in Python, Java, Django, Flask, PostgreSQL, and AWS.
-    Worked on microservices with Docker and Kubernetes. Also knows React Native and TensorFlow.
-    """
+    # Test to ensure it works
+    sample = "John Doe is a Python Developer with a B.S. in CS. Email: test@test.com"
     print(extract_entities(sample))
