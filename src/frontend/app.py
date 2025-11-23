@@ -1,7 +1,7 @@
 import streamlit as st
 from src.parsing.parser import process_resume
- # from Fatima’s parser
-from src.frontend.nlp_model import calculate_similarity
+# from Fatima’s parser
+from src.frontend.nlp_model import calculate_similarity, generate_recommendations
 
 # --- PAGE SETUP ---
 st.set_page_config(page_title="💼 ResuMate – AI Resume Analyzer", layout="centered")
@@ -27,6 +27,7 @@ if st.button("🚀 Analyze"):
 
                 # --- Step 2: Calculate similarity (Your part)
                 similarity_score = calculate_similarity(resume_text, job_description)
+                recommendation = generate_recommendations(resume_text, job_description)
 
                 # --- Step 3: Display results ---
                 st.success(f"✅ Compatibility Score: **{similarity_score:.2f}%**")
@@ -34,7 +35,8 @@ if st.button("🚀 Analyze"):
                 # --- Parsed Entities ---
                 st.subheader("📊 Extracted Information")
                 st.json(parsed_entities)
-
+                st.subheader("Recommendation to improve your CV")
+                st.write(recommendation)
                 # --- Raw Resume Text ---
                 with st.expander("🧾 View Extracted Resume Text"):
                     st.write(resume_text)
