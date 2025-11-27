@@ -41,13 +41,16 @@ The model was evaluated on a held-out test set of annotated resumes.
 
 ### 📈 Evidence of Training
 **Learning Curve:**
-![Accuracy Graph](accuracy_graph.png)
+![Accuracy Graph](src/parsing/accuracy_graph.png)
 *The Dual-Line graph demonstrates strong learning (Orange) and excellent generalization on validation data (Green), peaking at 94%.*
 
 **Loss Convergence:**
-![Loss Graph](loss_graph.png)
+![Loss Graph](src/parsing/training_curves.png)
 *Training and Validation loss stabilize early, indicating a healthy model fit without overfitting.*
 
+**Confusion Matrix:**
+![Loss Graph](src/parsing/confusion_matrix.png)
+*Confusion matrix shows that no labels are mistaken for other entities.*
 ---
 
 ## 📁 Project Structure
