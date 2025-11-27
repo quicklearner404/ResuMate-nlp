@@ -1,4 +1,12 @@
 import streamlit as st
+import os
+import sys
+# Get the absolute path to the project root (go up 2 levels from frontend/app.py)
+current_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.abspath(os.path.join(current_dir, "..", ".."))
+
+# Add the root to Python's search path
+sys.path.append(project_root)
 from src.parsing.parser import process_resume
  # from Fatima’s parser
 from src.frontend.nlp_model import calculate_similarity

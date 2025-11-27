@@ -1,156 +1,130 @@
-# ResuMate-NLP: Hybrid Resume Parser 🚀
 
-A sophisticated hybrid NER system that combines rule-based and machine learning approaches to extract entities from resumes with **80.7% F1 score** accuracy.
+# 🚀 ResuMate-NLP: Intelligent AI Resume Parser
 
-## 📁 Project Structure
+[![Python](https://img.shields.io/badge/Python-3.9%2B-blue)](https://www.python.org/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B)](https://streamlit.io/)
+[![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97-Transformers-yellow)](https://huggingface.co/)
+[![Accuracy](https://img.shields.io/badge/F1%20Score-94%25-brightgreen)]()
 
-```
-ResuMate-nlp/
-├── 📂 src/
-│   ├── 📂 parsing/                # PRODUCTION CODE
-│   │   ├── __init__.py           # Package initializer
-│   │   ├── hybrid.py             # MAIN SYSTEM: Hybrid NER (Rule-based + CRF)
-│   │   ├── entities.py           # Rule-based entity extraction
-│   │   ├── train_crf.py          # CRF model training
-│   │   └── entities2.json        # Training data (220 labeled resumes)
-│   │
-│   └── 📂 models/                # Saved ML models
-│       └── crf_model.pkl         # Pre-trained CRF model
-│
-├── 📂 data/
-│   └── 📂 resume/                # DATASETS
-│       ├── parsed_resumes.csv    # 400 processed resumes (text)
-│       └── pdfs/                 # Original PDF resumes
-│
-├── 📄 extracted_entities.json     # 400-resume analysis (rule-based results)
-├── 📄 ground_truth_labeled.json   # 30 manually labeled resumes (gold standard)
-├── 📄 predictions.json            # Optional: predictions on user-uploaded resumes
-├── setup.py                       # Project installation script
-│
-└── 📂 test/                       # TESTING & EVALUATION
-    ├── __init__.py
-    ├── test.py                     # Complete evaluation suite
-    └── (evaluation results)        # Generated on-demand
+**ResuMate** is a state-of-the-art Named Entity Recognition (NER) system designed to extract structured information from resumes (PDFs). It utilizes a **Hybrid Architecture** that combines a fine-tuned **DistilBERT model** (Deep Learning) with **Smart Heuristics**, achieving a **93.90% Weighted F1-Score**.
 
-##  Quick Start
-
-### 1. Use the Hybrid System
-```python
-from src.parsing.hybrid import analyze_resume
-from src.parsing.train_crf import prepare_complete_training_data, prepare_crf_data, sent2features, sent2labels
-import sklearn_crfsuite
-
-# Train the system once
-training_data = prepare_complete_training_data("src/parsing/entities2.json")
-labeled_sentences = prepare_crf_data(training_data)
-X_train = [sent2features(s) for s in labeled_sentences]
-y_train = [sent2labels(s) for s in labeled_sentences]
-
-crf_model = sklearn_crfsuite.CRF(algorithm='lbfgs', c1=0.1, c2=0.1, max_iterations=100)
-crf_model.fit(X_train, y_train)
-
-# Extract entities from any resume
-result = analyze_resume(resume_text, crf_model)
-```
-
-### 2. Run Evaluation
-```bash
-cd test/
-python test.py  # Generates comprehensive evaluation report
-```
-
-##  System Performance
-
-| Metric | Score | Assessment |
-|--------|-------|------------|
-| **Overall F1** | 80.7% |  **Excellent** |
-| **Precision** | 83.7% |  High Accuracy |
-| **Recall** | 79.9% |  Good Coverage |
-| **Tested On** | 30 resumes | Statistically Significant |
-
-**Performance Level:**  **PRODUCTION-READY**
-
-##  What Each File Does
-
-###  Core System (`src/parsing/`)
-- **`hybrid.py`** - **MAIN ENTRY POINT**: Combines rule-based + CRF ML for entity extraction
-- **`entities.py`** - Rule-based skills/job titles extraction using pattern matching
-- **`train_crf.py`** - Trains CRF model on labeled data for structured entity recognition
-- **`entities2.json`** - 220 labeled resumes used for training the CRF model
-
-###  Data Files
-- **`extracted_entities.json`** - Complete analysis of 400 resumes using rule-based system
-- **`ground_truth_labeled.json`** - 30 manually verified resumes (gold standard for evaluation)
-- **`data/resume/parsed_resumes.csv`** - Raw processed resume texts from 400 PDFs
-
-### Testing & Evaluation
-- **`test/test.py`** - Complete evaluation suite (regenerates all metrics)
-- Run this to get F1 scores, precision/recall, and performance analysis
-
-##  Entity Types Extracted
-
-| Entity Type | Examples | Performance |
-|-------------|----------|-------------|
-| **Skills** | Python, React, AWS, Docker | 80.8% F1 |
-| **Job Titles** | Software Engineer, Data Scientist | 97.8% F1 |
-| **Education** | Degrees, Universities | CRF-enhanced |
-| **Experience** | Companies, Designations | CRF-enhanced |
-| **Contact Info** | Emails, Phones | Rule-based |
-
-##  Development Workflow
-
-### Adding New Skills
-1. Edit skill patterns in `src/parsing/entities.py`
-2. Test with `test/test.py`
-3. Regenerate evaluation metrics
-
-### Improving ML Model
-1. Add more labeled data to `entities2.json`
-2. Retrain CRF: `python src/parsing/train_crf.py`
-3. Evaluate improvements
-
-### Full System Evaluation
-```bash
-cd test/
-python test.py > evaluation_report.txt
-```
-
-##  Key Features
-
-- **🤖 Hybrid Architecture**: Rule-based precision + ML recall
-- **🎯 High Accuracy**: 80.7% F1 score on real resume data
-- **📊 Scalable**: Processes 400+ resumes efficiently
-- **🔍 Comprehensive**: Extracts 280+ technical skills across categories
-- **📝 Professional**: Industry-standard evaluation methodology
-
-##  Production Deployment
-
-The system is **production-ready** and can be used for:
-- Resume screening and parsing
-- Skill gap analysis across organizations
-- Talent acquisition pipelines
-- HR analytics and reporting
-
-##  Requirements
-
-```txt
-pandas>=1.3.0
-scikit-learn>=1.0.0
-sklearn-crfsuite>=0.3.0
-numpy>=1.21.0
-```
-
-## 👥 Contributing
-
-1. Fork the repository
-2. Add new skill patterns to `entities.py`
-3. Test with `test/test.py`
-4. Submit pull request with evaluation results
-
-## 📄 License
-
-MIT License - feel free to use this project for personal and commercial purposes.
+Unlike traditional parsers, ResuMate understands layout context, separates "Job Titles" from "Company Names" even on the same line, and provides a real-time visualization dashboard.
 
 ---
 
-**Built for efficient resume processing and talent analytics**
+## 🚀 Key Features
+
+* **🧠 Hybrid Intelligence Engine:**
+    * **DistilBERT (Fine-Tuned):** Precision extraction for complex entities (Names, Companies, Designations, Degrees).
+    * **Rule-Based Logic:** 100% accuracy for structured data (Emails, Phone Numbers).
+    * **Skill Matcher:** Dictionary-based identification of 1,000+ technical skills.
+* **📄 Structure-Aware Parsing:**
+    * Uses `pdfplumber` with layout analysis to handle multi-column resumes.
+    * **Smart Cleaning:** Automatically removes bullet points, emojis, and visual noise while preserving document structure.
+* **💻 Interactive Dashboard:**
+    * A user-friendly **Streamlit** frontend.
+    * Real-time parsing and JSON visualization.
+    * **Job Compatibility Check:** Calculates similarity between the resume and a job description.
+
+---
+
+## 📊 System Performance
+
+The model was evaluated on a held-out test set of annotated resumes.
+
+| Metric | Score | Assessment |
+| :--- | :--- | :--- |
+| **✨ Weighted F1-Score** | **93.90%** | **Outstanding.** Captures nearly all relevant data. |
+| **💎 Precision** | **100.00%** | **Trustworthy.** Zero false positives (no hallucinations). |
+| **🔍 Recall** | **89.36%** | **High.** Misses very little information. |
+| **🎯 Exact Match (EM)** | **53.33%** | **Strong.** >50% of documents parsed with zero errors. |
+
+### 📈 Evidence of Training
+**Learning Curve:**
+![Accuracy Graph](accuracy_graph.png)
+*The Dual-Line graph demonstrates strong learning (Orange) and excellent generalization on validation data (Green), peaking at 94%.*
+
+**Loss Convergence:**
+![Loss Graph](loss_graph.png)
+*Training and Validation loss stabilize early, indicating a healthy model fit without overfitting.*
+
+---
+
+## 📁 Project Structure
+
+```text
+ResuMate-nlp/
+├── models/                  # Training logs & Checkpoints (Weights ignored by Git)
+├── src/
+│   ├── frontend/            # Streamlit Dashboard UI
+│   │   └── app.py           # Main Web Application
+│   └── parsing/             # Core Logic
+│       ├── hybridBert.py    # The "Brain" (DistilBERT + Regex Rules)
+│       └── parser.py        # The "Bridge" (PDF Cleaning + Smart Fallbacks)
+├── data/                    # Test Data
+├── final_metrics.csv        # Detailed performance metrics per entity
+├── em_score.txt             # Exact Match Score evidence
+├── accuracy_graph.png       # Training visualization
+├── loss_graph.png           # Loss visualization
+├── requirements.txt         # Project Dependencies
+└── README.md                # Documentation
+```
+
+---
+
+## 🛠️ Installation & Usage
+
+### 1\. Setup
+
+Clone the repository and install the required dependencies.
+
+```bash
+git clone [https://github.com/YOUR_USERNAME/resumate-nlp.git](https://github.com/YOUR_USERNAME/resumate-nlp.git)
+cd resumate-nlp
+pip install -r requirements.txt
+```
+
+### 2\. Run the Dashboard
+
+Launch the web interface to test the model in real-time.
+
+```bash
+streamlit run src/frontend/app.py
+```
+
+### 3\. Usage
+
+1.  **Upload:** Drag & drop any PDF resume into the UI.
+2.  **Analyze:** The system extracts **Name, Email, Skills, Degree, Designation, and Company**.
+3.  **Match:** Paste a Job Description to see a **Compatibility Score**.
+
+---
+
+## ⚖️ Entity Extraction Capabilities
+
+| Entity Type | Method | Performance |
+| :--- | :--- | :--- |
+| **Name** | DistilBERT + Heuristic Fallback | **98.1% F1** |
+| **Designation** | DistilBERT | **88.9% F1** |
+| **Company** | DistilBERT + Layout Analysis | **90.9% F1** |
+| **Degree/College** | DistilBERT | **96.5% F1** |
+| **Skills** | Phrase Matcher (Dictionary) | **100% Precision** |
+| **Email/Phone** | Regex Patterns | **100% Precision** |
+
+---
+
+## 👥 Development Workflow
+
+### Improving the Model
+
+1.  **Code Logic:** Edit `src/parsing/parser.py` to improve text cleaning or fallback logic.
+2.  **Model Weights:** The model is loaded from `models/final_model`. To retrain, use the training scripts (not included in this release version).
+3.  **Frontend:** Modify `src/frontend/app.py` to change the UI layout.
+
+---
+
+## 📄 License
+
+MIT License - Open for personal and academic use.
+
+
