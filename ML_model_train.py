@@ -1,51 +1,74 @@
+import json
 import pandas as pd
-from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.linear_model import LogisticRegression
-from sklearn.svm import SVC
-from sklearn.metrics import classification_report, accuracy_score
 from sklearn.preprocessing import LabelEncoder
-import joblib
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+from sklearn.feature_extraction import DictVectorizer
+import numpy as np
 
-df = pd.read_csv("ml_training_data.csv")
 
-X = df["text"]
-y = df["label"]
+data_file = "tech_resumes.json"
+resumes = []
 
-# Encode string labels → numbers
+with open(data_file, "r", encoding="utf-8") as f:
+    for line in f:
+        resumes.append(json.loads(line.strip()))
+
+print(f"Loaded {len(resumes)} resumes")
+
+texts = []
+entity_features = []
+labels = []
+
+for r in resumes:
+    texts.append(r["content"])
+
+
+    entities = {ann['label'][0]: ann['points'][0]['text'] for ann in r['annotation']}
+
+
+    feature_dict = {
+        "Name": entities.get("Name", ""),
+        "Company": entities.get("Companies worked at", ""),
+        "Location": entities.get("Location", ""),
+        "Degree": entities.get("Degree", ""),
+        "College": entities.get("College Name", ""),
+        "Email": entities.get("Email Address", "")
+    }
+    entity_features.append(feature_dict)
+
+
+    labels.append(entities.get("Designation", "Unknown"))
+
+vectorizer_text = TfidfVectorizer(max_features=5000)
+X_text = vectorizer_text.fit_transform(texts)
+
+
+vec_entities = DictVectorizer()
+X_entities = vec_entities.fit_transform(entity_features)
+
+
+from scipy.sparse import hstack
+
+X = hstack([X_text, X_entities])
+
+
+le = LabelEncoder()
+y = le.fit_transform(labels)
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+clf = LogisticRegression(max_iter=1000)
+clf.fit(X_train, y_train)
+
+y_pred = clf.predict(X_test)
 label_encoder = LabelEncoder()
-y_encoded = label_encoder.fit_transform(y)
+label_encoder.fit(y_train)   # your training labels
+np.save("classes.npy", label_encoder.classes_)
 
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y_encoded, test_size=0.2, random_state=42, stratify=y_encoded
-)
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print("\nClassification Report:\n", classification_report(y_test, y_pred))
+print("\nConfusion Matrix:\n", confusion_matrix(y_test, y_pred))
 
-vectorizer = TfidfVectorizer(max_features=5000)
-X_train_vec = vectorizer.fit_transform(X_train)
-X_test_vec = vectorizer.transform(X_test)
-
-# Logistic Regression
-logreg = LogisticRegression(max_iter=2000,class_weight="balanced")
-logreg.fit(X_train_vec, y_train)
-logreg_preds = logreg.predict(X_test_vec)
-
-print("\n===== LOGISTIC REGRESSION =====")
-print("Accuracy:", accuracy_score(y_test, logreg_preds))
-print(classification_report(y_test, logreg_preds))
-
-# SVM
-svm = SVC(kernel="linear",class_weight="balanced")
-svm.fit(X_train_vec, y_train)
-svm_preds = svm.predict(X_test_vec)
-
-print("\n===== SVM CLASSIFIER =====")
-print("Accuracy:", accuracy_score(y_test, svm_preds))
-print(classification_report(y_test, svm_preds))
-
-# Save models + vectorizer + label encoder
-joblib.dump(logreg, "logreg_model.pkl")
-joblib.dump(svm, "svm_model.pkl")
-joblib.dump(vectorizer, "tfidf_vectorizer.pkl")
-joblib.dump(label_encoder, "label_encoder.pkl")
-
-print("\nModels saved successfully!")
