@@ -8,50 +8,58 @@ project_root = os.path.abspath(os.path.join(current_dir, "..", ".."))
 # Add the root to Python's search path
 sys.path.append(project_root)
 from src.parsing.parser import process_resume
- # from Fatima’s parser
-from src.frontend.nlp_model import calculate_similarity
+from src.frontend.nlp_model import (
+    ml_score,
+    generate_recommendations,
+    predict_job_title
+)
 
-# --- PAGE SETUP ---
 st.set_page_config(page_title="💼 ResuMate – AI Resume Analyzer", layout="centered")
 
-# --- HEADER ---
 st.title("💼 ResuMate – AI Resume Analyzer")
 st.markdown("""
-Welcome to **ResuMate**, your AI-powered career assistant!
-Upload your resume and paste a job description to check how well your profile matches.
+Welcome to **ResuMate**, your AI-powered resume evaluation assistant!
+Upload a resume and paste a job description to check compatibility, extract
+important information, and receive improvement recommendations.
 """)
 
-# --- INPUTS ---
 uploaded_file = st.file_uploader("📄 Upload Resume (PDF only)", type=["pdf"])
 job_description = st.text_area("📝 Paste Job Description", height=200)
 
-# --- PROCESSING ---
 if st.button("🚀 Analyze"):
     if uploaded_file is not None and job_description.strip() != "":
         with st.spinner("Processing your resume... Please wait ⏳"):
+
             try:
-                # --- Step 1: Parse resume (Fatima’s part)
+
                 resume_text, parsed_entities = process_resume(uploaded_file)
 
-                # --- Step 2: Calculate similarity (Your part)
-                similarity_score = calculate_similarity(resume_text, job_description)
+                ml_prediction = predict_job_title(resume_text)
 
-                # --- Step 3: Display results ---
-                st.success(f"✅ Compatibility Score: **{similarity_score:.2f}%**")
+                similarity_score = ml_score(resume_text, job_description)
 
-                # --- Parsed Entities ---
-                st.subheader("📊 Extracted Information")
+                recommendation = generate_recommendations(resume_text, job_description)
+
+                st.success(f"✅ Compatibility Score: **{similarity_score}%**")
+
+                st.subheader("🤖 ML Predicted Job Title")
+                st.info(f"**{ml_prediction}**")
+
+                st.subheader("📌 Extracted Information (BERT)")
                 st.json(parsed_entities)
 
-                # --- Raw Resume Text ---
-                with st.expander("🧾 View Extracted Resume Text"):
+                st.subheader("💡 Recommendations")
+                st.write(recommendation)
+
+                with st.expander("📄 View Resume Text"):
                     st.write(resume_text)
 
             except Exception as e:
                 st.error(f"⚠️ Error: {str(e)}")
-    else:
-        st.warning("⚠️ Please upload a resume and paste a job description before analyzing.")
 
-# --- FOOTER ---
+    else:
+        st.warning("⚠️ Please upload a resume and paste a job description.")
+
+# Footer
 st.markdown("---")
-st.caption("Made with ❤️ using Streamlit, Sentence Transformers, and spaCy.")
+st.caption("Made with ❤️ using Streamlit, BERT, ML models, and Sentence Transformers.")
