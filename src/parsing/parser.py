@@ -4,17 +4,15 @@ import re
 import pdfplumber
 import unicodedata
 
-# Ensure we can find your Champion Model
 sys.path.append(os.getcwd())
 
 try:
     from src.parsing.hybridBert import ResumeParser
-    print("✅ Loaded Champion Logic from hybridBert")
 except ImportError:
     try:
         from hybridBert import ResumeParser
     except:
-        print("⚠️ Warning: Could not load hybridBert.")
+        pass
 
 def parse_pdf_robust(file_obj):
     text = ""
@@ -26,7 +24,6 @@ def parse_pdf_robust(file_obj):
                 if extracted:
                     text += extracted + "\n"
     except Exception as e:
-        print(f"❌ PDF Read Error: {e}")
         return ""
     return text
 
@@ -35,10 +32,14 @@ def advanced_clean_text(text: str) -> str:
     text = unicodedata.normalize('NFKC', text)
     text = text.encode('ascii', 'ignore').decode('utf-8')
     
-    # Structure Fixes
-    text = text.replace('|', '\n').replace('–', '\n').replace('—', '\n')
+    # Force split on pipes/dashes
+    text = text.replace('|', '\n')
+    text = text.replace('–', '-') 
+    text = text.replace('—', '-') 
+    
+    # Fix Bullets
     text = re.sub(r'[\u2022\u2023\u25E6\u2043\u2219\*\>]', '\n', text)
-    text = re.sub(r' {3,}', '\n', text)
+    text = re.sub(r' {3,}', '\n', text) 
 
     lines = text.split('\n')
     cleaned_lines = []
@@ -48,8 +49,7 @@ def advanced_clean_text(text: str) -> str:
         line = line.strip()
         if not line: continue 
         upper_line = line.upper()
-        
-        # Header detection
+        # Header Detection
         is_header = any(h == upper_line for h in headers) or (any(h in upper_line for h in headers) and len(line) < 30)
         
         if is_header:
@@ -62,40 +62,26 @@ def advanced_clean_text(text: str) -> str:
     return "\n".join(cleaned_lines)
 
 def scrub_entities_aggressive(entities):
-    """
-    🧼 THE CLEANER: Removes junk words.
-    """
     junk_words = [
-        'is', 'was', 'are', 'were', 'at', 'in', 'of', 'to', 'from', 'with', 'for', 'on', 'by', 'as',
+        'is', 'was', 'are', 'were', 'in', 'of', 'to', 'from', 'with', 'for', 'on', 'by', 'as',
         'and', 'or', '&', 'current', 'present', 'a', 'an', 'the', 'he', 'she', 'his', 'her', 'my',
         'dr.', 'mr.', 'ms.', 'prof.', 'graduated', 'completed', 'earned', 'obtained',
-        'works', 'worked', 'working', 'job', 'position', 'role'
+        'works', 'worked', 'working', 'job', 'position', 'role', 'senior', 'junior'
     ]
-
     cleaned_entities = {}
     for label, items in entities.items():
         clean_items = []
         for txt in items:
             if not txt: continue
             txt = txt.strip()
-            dirty = True
-            while dirty:
-                dirty = False
-                txt_lower = txt.lower()
-                for junk in junk_words:
-                    if txt_lower.endswith(f" {junk}"):
-                        txt = txt[:-len(junk)-1].strip()
-                        dirty = True
-                        txt_lower = txt.lower()
-                    if txt_lower.startswith(f"{junk} "):
-                        txt = txt[len(junk)+1:].strip()
-                        dirty = True
-                        txt_lower = txt.lower()
-
-            if len(txt) < 2 and txt.lower() not in ['c', 'r']: continue
-            if txt.lower() in junk_words: continue
-            if txt not in clean_items: clean_items.append(txt)
-
+            words = txt.split()
+            while words and words[0].lower() in junk_words: words.pop(0)
+            while words and words[-1].lower() in junk_words: words.pop()
+            
+            clean_txt = " ".join(words)
+            if len(clean_txt) > 2 and clean_txt.lower() not in junk_words:
+                if clean_txt not in clean_items:
+                    clean_items.append(clean_txt)
         cleaned_entities[label] = clean_items
     return cleaned_entities
 
@@ -117,63 +103,83 @@ def smart_entity_fallback(text, entities):
                     entities['Name'] = [line]
                     break
 
-    # 2. Experience Fallback (Strict Description Filter)
-    if not entities.get('Company') or not entities.get('Designation'):
-        in_experience = False
-        date_pattern = r'(20\d\d|Present|Current|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)'
-        # Words that start bullet points (Not Company Names!)
-        verb_blocklist = ['LED', 'MANAGED', 'CREATED', 'BUILT', 'OPTIMIZED', 'DEVELOPED', 'ANALYZED', 'IMPLEMENTED', 'DESIGNED']
+    # 2. Company/Role Hunter
+    in_experience = False
+    
+    # Expanded Keyword Lists
+    company_indicators = ['SOLUTIONS', 'SYSTEMS', 'TECHNOLOGIES', 'SERVICES', 'DIGITAL', 'LABS', 'INC', 'LLC', 'GROUP', 'CORP', 'LIMITED', 'PVT', 'AGENCY', 'STUDIO']
+    role_indicators = ['ENGINEER', 'DEVELOPER', 'MANAGER', 'ANALYST', 'CONSULTANT', 'ADMIN', 'SPECIALIST', 'DESIGNER', 'DIRECTOR', 'HEAD', 'LEAD', 'SCIENTIST', 'ARCHITECT']
+    
+    # 🚀 FIX 1: Word Boundaries (\b) prevent "Jun" deleting "June" -> "e"
+    date_pattern = r'\b(20\d\d|Present|Current|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec|January|February|March|April|May|June|July|August|September|October|November|December)\b'
 
-        for line in lines:
-            if "EXPERIENCE" in line.upper():
-                in_experience = True
-                continue
+    for i, line in enumerate(lines):
+        upper_line = line.upper()
+        
+        if "EXPERIENCE" in upper_line:
+            in_experience = True
+            continue
+        
+        if in_experience:
+            if line.isupper() and len(line) < 20: break 
+            if line.endswith('.'): continue
             
-            if in_experience:
-                if line.isupper() and len(line) < 20: break # Hit next section
-                
-                # 🛑 FILTER 1: Skip Dates
-                if re.search(date_pattern, line, re.IGNORECASE): continue
-                
-                # 🛑 FILTER 2: Skip Sentences (ending in period)
-                if line.endswith('.'): continue
-                
-                # 🛑 FILTER 3: Skip Bullet Points (starts with Verb)
-                first_word = line.split()[0].upper()
-                if first_word in verb_blocklist: continue
+            # Remove Dates cleanly
+            clean_line = re.sub(date_pattern, '', line, flags=re.IGNORECASE).strip()
+            clean_line = clean_line.strip('-,| ')
+            
+            if len(clean_line) < 3: continue
+            upper_clean = clean_line.upper()
 
-                # 🛑 FILTER 4: Skip Long Lines (Companies usually < 6 words)
-                if len(line.split()) > 7: continue
+            # A. Company Check
+            if any(ind in upper_clean for ind in company_indicators):
+                if 'Company' not in entities: entities['Company'] = []
+                if clean_line not in entities['Company']:
+                    entities['Company'].append(clean_line)
+                    
+                    #  FIX 2: Look BACKWARDS for the Role
+                    # If we found a Company, check the previous line for the Role
+                    if i > 0:
+                        prev_line = lines[i-1].strip()
+                        prev_clean = re.sub(date_pattern, '', prev_line, flags=re.IGNORECASE).strip('-,| ')
+                        
+                        # If previous line has a Role Keyword or is Title Case
+                        if any(ind in prev_clean.upper() for ind in role_indicators) or (prev_clean[0].isupper() and len(prev_clean.split()) < 5):
+                            if 'Designation' not in entities: entities['Designation'] = []
+                            if prev_clean not in entities['Designation'] and prev_clean != clean_line:
+                                entities['Designation'].append(prev_clean)
 
-                # If it survived all filters, it's likely a Title or Company
-                if len(line) > 3 and not "http" in line:
-                    if not entities.get('Designation'):
-                        entities['Designation'] = [line]
-                    elif not entities.get('Company') and line != entities.get('Designation', [''])[0]:
-                        entities['Company'] = [line]
-                        # Don't break immediately, look for one more
+            # B. Role Check
+            elif any(ind in upper_clean for ind in role_indicators):
+                if 'Designation' not in entities: entities['Designation'] = []
+                if clean_line not in entities['Designation']:
+                    entities['Designation'].append(clean_line)
+                    
+                    # C. Look FORWARD for the Company (Existing Logic)
+                    if i + 1 < len(lines):
+                        next_line = lines[i+1]
+                        next_clean = re.sub(date_pattern, '', next_line, flags=re.IGNORECASE).strip('-,| ')
+                        if next_clean and next_clean[0].isupper() and len(next_clean.split()) < 6:
+                            # Only add if it's NOT a role
+                            if not any(ind in next_clean.upper() for ind in role_indicators):
+                                if 'Company' not in entities: entities['Company'] = []
+                                if next_clean not in entities['Company']:
+                                    entities['Company'].append(next_clean)
+
     return entities
 
 def process_resume(file_obj):
-    print("🚀 Processing Resume...")
-    
-    # 1. Read
     raw_text = parse_pdf_robust(file_obj)
-    if not raw_text:
-        return "", {"Error": "Empty PDF"}
+    if not raw_text: return "", {"Error": "Empty PDF"}
     
-    # 2. Clean
     cleaned_text = advanced_clean_text(raw_text)
     
-    # 3. Predict
     try:
         parser = ResumeParser()
         entities = parser.parse(cleaned_text)
-    except Exception as e:
-        print(f"❌ Model Error: {e}")
-        return cleaned_text, {"Error": "Model Failed"}
+    except:
+        entities = {}
 
-    # 4. Scrub & Fallback
     entities = scrub_entities_aggressive(entities)
     entities = smart_entity_fallback(cleaned_text, entities)
 
