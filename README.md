@@ -1,5 +1,5 @@
 
-# 🚀 ResuMate-NLP: Intelligent AI Resume Parser
+# ResuMate-NLP: Intelligent AI Resume Parser
 
 [![Python](https://img.shields.io/badge/Python-3.9%2B-blue)](https://www.python.org/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B)](https://streamlit.io/)
@@ -12,32 +12,32 @@ Unlike traditional parsers, ResuMate understands layout context, separates "Job 
 
 ---
 
-## 🚀 Key Features
+##  Key Features
 
-* **🧠 Hybrid Intelligence Engine:**
+* ** Hybrid Intelligence Engine:**
     * **DistilBERT (Fine-Tuned):** Precision extraction for complex entities (Names, Companies, Designations, Degrees).
     * **Rule-Based Logic:** 100% accuracy for structured data (Emails, Phone Numbers).
     * **Skill Matcher:** Dictionary-based identification of 1,000+ technical skills.
-* **📄 Structure-Aware Parsing:**
+* ** Structure-Aware Parsing:**
     * Uses `pdfplumber` with layout analysis to handle multi-column resumes.
     * **Smart Cleaning:** Automatically removes bullet points, emojis, and visual noise while preserving document structure.
-* **💻 Interactive Dashboard:**
+* ** Interactive Dashboard:**
     * A user-friendly **Streamlit** frontend.
     * Real-time parsing and JSON visualization.
     * **Job Compatibility Check:** Calculates similarity between the resume and a job description.
 
 ---
 
-## 📊 System Performance
+##  System Performance
 
 The model was evaluated on a held-out test set of annotated resumes.
 
 | Metric | Score | Assessment |
 | :--- | :--- | :--- |
-| **✨ Weighted F1-Score** | **93.90%** | **Outstanding.** Captures nearly all relevant data. |
-| **💎 Precision** | **100.00%** | **Trustworthy.** Zero false positives (no hallucinations). |
-| **🔍 Recall** | **89.36%** | **High.** Misses very little information. |
-| **🎯 Exact Match (EM)** | **53.33%** | **Strong.** >50% of documents parsed with zero errors. |
+| ** Weighted F1-Score** | **93.90%** | **Outstanding.** Captures nearly all relevant data. |
+| ** Precision** | **100.00%** | **Trustworthy.** Zero false positives (no hallucinations). |
+| ** Recall** | **89.36%** | **High.** Misses very little information. |
+| ** Exact Match (EM)** | **53.33%** | **Strong.** >50% of documents parsed with zero errors. |
 
 ### 📈 Evidence of Training
 **Learning Curve:**
@@ -53,7 +53,7 @@ The model was evaluated on a held-out test set of annotated resumes.
 *Confusion matrix shows that no labels are mistaken for other entities.*
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```text
 ResuMate-nlp/
@@ -75,7 +75,7 @@ ResuMate-nlp/
 
 ---
 
-## 🛠️ Installation & Usage
+##  Installation & Usage
 
 ### 1\. Setup
 
@@ -103,7 +103,7 @@ streamlit run src/frontend/app.py
 
 ---
 
-## ⚖️ Entity Extraction Capabilities
+##  Entity Extraction Capabilities
 
 | Entity Type | Method | Performance |
 | :--- | :--- | :--- |
@@ -116,7 +116,7 @@ streamlit run src/frontend/app.py
 
 ---
 
-## 👥 Development Workflow
+##  Development Workflow
 
 ### Improving the Model
 
