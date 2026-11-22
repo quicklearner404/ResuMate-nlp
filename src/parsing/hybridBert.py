@@ -17,8 +17,16 @@ except ImportError:
 # ==============================================================================
 # 1. THE BERT MODEL ENGINE (Using Training Logic)
 # ==============================================================================
+# Fine-tuned weights are published on the Hugging Face Hub; a local copy in
+# models/final_model takes precedence if present.
+HUB_MODEL_ID = "quicklearner404/DistillbertNER"
+LOCAL_MODEL_DIR = "models/final_model"
+
+
 class BertExtractor:
-    def __init__(self, model_path="models/final_model"):
+    def __init__(self, model_path=None):
+        if model_path is None:
+            model_path = LOCAL_MODEL_DIR if os.path.isdir(LOCAL_MODEL_DIR) else HUB_MODEL_ID
         print(f"🤖 Loading BERT Model from {model_path}...")
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         print(f"🖥️  Running on: {self.device}")
@@ -39,26 +47,37 @@ class BertExtractor:
         # 1. Clean Text (Crucial for model context)
         text = text.strip()
 
-        inputs = self.tokenizer(text, return_tensors="pt", truncation=True, max_length=512, return_offsets_mapping=True)
-        offset_mapping = inputs.pop("offset_mapping")[0].cpu()
-        inputs = {key: val.to(self.device) for key, val in inputs.items()}
+        encoding = self.tokenizer(text, return_tensors="pt", truncation=True, max_length=512, return_offsets_mapping=True)
+        offset_mapping = encoding["offset_mapping"][0].cpu()
+        inputs = {key: val.to(self.device) for key, val in encoding.items() if key != "offset_mapping"}
         
         self.model.eval()
         with torch.no_grad():
             outputs = self.model(**inputs)
             
         predictions = torch.argmax(outputs.logits, dim=2)[0].cpu()
-        predicted_labels = [self.id2label[p.item()] for p in predictions]
-        
+        word_ids = encoding.word_ids(0)
+
+        # Word-level decoding: each word takes the label of its FIRST sub-token
+        # and its full character span. Decoding sub-tokens directly produced
+        # fragments such as "care" for "Careem" or "kubernet" for "Kubernetes".
+        words = []  # (label, start, end, word_id)
+        for idx, word_id in enumerate(word_ids):
+            if word_id is None:
+                continue
+            start, end = (int(x) for x in offset_mapping[idx])
+            if words and words[-1][3] == word_id:
+                words[-1] = (words[-1][0], words[-1][1], end, word_id)
+            else:
+                words.append((self.id2label[predictions[idx].item()], start, end, word_id))
+
         entities = []
         current_ent = None
-        
-        for label, (start, end) in zip(predicted_labels, offset_mapping):
-            if start == end == 0: continue
-            
+
+        for label, start, end, _ in words:
             tag = label[2:] if label != 'O' else 'O'
             prefix = label[0]
-            
+
             # 🧠 SMART MERGE LOGIC 🧠
             should_merge = False
             if current_ent and current_ent['label'] == tag:
@@ -72,12 +91,12 @@ class BertExtractor:
             if should_merge:
                 current_ent['text'] = text[current_ent['start']:end]
                 current_ent['end'] = end
-            
+
             # Start New Entity
             elif prefix == 'B' or (prefix == 'I' and not current_ent):
                 if current_ent: entities.append(current_ent)
                 current_ent = {
-                    'label': tag, 
+                    'label': tag,
                     'text': text[start:end],
                     'start': start,
                     'end': end
@@ -85,7 +104,7 @@ class BertExtractor:
             else:
                 if current_ent: entities.append(current_ent)
                 current_ent = None
-                
+
         if current_ent: entities.append(current_ent)
         
         # 3. Cleaning

@@ -1,0 +1,158 @@
+{
+  "model": "quicklearner404/DistillbertNER",
+  "n_resumes": 30,
+  "exact": {
+    "micro": {
+      "precision": 0.5777,
+      "recall": 0.5992,
+      "f1": 0.5882,
+      "tp": 145,
+      "fp": 106,
+      "fn": 97
+    },
+    "per_label": {
+      "Name": {
+        "precision": 0.7241,
+        "recall": 0.7778,
+        "f1": 0.75,
+        "tp": 21,
+        "fp": 8,
+        "fn": 6
+      },
+      "Email": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      "Company": {
+        "precision": 0.6087,
+        "recall": 0.4118,
+        "f1": 0.4912,
+        "tp": 14,
+        "fp": 9,
+        "fn": 20
+      },
+      "Designation": {
+        "precision": 0.7647,
+        "recall": 0.6842,
+        "f1": 0.7222,
+        "tp": 26,
+        "fp": 8,
+        "fn": 12
+      },
+      "Degree": {
+        "precision": 0.2683,
+        "recall": 0.3548,
+        "f1": 0.3056,
+        "tp": 11,
+        "fp": 30,
+        "fn": 20
+      },
+      "College": {
+        "precision": 0.3393,
+        "recall": 0.6129,
+        "f1": 0.4368,
+        "tp": 19,
+        "fp": 37,
+        "fn": 12
+      },
+      "Location": {
+        "precision": 0.5,
+        "recall": 0.3929,
+        "f1": 0.44,
+        "tp": 11,
+        "fp": 11,
+        "fn": 17
+      },
+      "Skills": {
+        "precision": 0.9333,
+        "recall": 0.8077,
+        "f1": 0.866,
+        "tp": 42,
+        "fp": 3,
+        "fn": 10
+      }
+    },
+    "resumes_fully_correct": "1/30"
+  },
+  "lenient": {
+    "micro": {
+      "precision": 0.8171,
+      "recall": 0.8306,
+      "f1": 0.8238,
+      "tp": 201,
+      "fp": 45,
+      "fn": 41
+    },
+    "per_label": {
+      "Name": {
+        "precision": 0.9643,
+        "recall": 1.0,
+        "f1": 0.9818,
+        "tp": 27,
+        "fp": 1,
+        "fn": 0
+      },
+      "Email": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      "Company": {
+        "precision": 0.7826,
+        "recall": 0.5294,
+        "f1": 0.6316,
+        "tp": 18,
+        "fp": 5,
+        "fn": 16
+      },
+      "Designation": {
+        "precision": 0.9412,
+        "recall": 0.8421,
+        "f1": 0.8889,
+        "tp": 32,
+        "fp": 2,
+        "fn": 6
+      },
+      "Degree": {
+        "precision": 0.7895,
+        "recall": 0.9677,
+        "f1": 0.8696,
+        "tp": 30,
+        "fp": 8,
+        "fn": 1
+      },
+      "College": {
+        "precision": 0.5179,
+        "recall": 0.9355,
+        "f1": 0.6667,
+        "tp": 29,
+        "fp": 27,
+        "fn": 2
+      },
+      "Location": {
+        "precision": 1.0,
+        "recall": 0.75,
+        "f1": 0.8571,
+        "tp": 21,
+        "fp": 0,
+        "fn": 7
+      },
+      "Skills": {
+        "precision": 0.9556,
+        "recall": 0.8269,
+        "f1": 0.8866,
+        "tp": 43,
+        "fp": 2,
+        "fn": 9
+      }
+    },
+    "resumes_fully_correct": "8/30"
+  }
+}
