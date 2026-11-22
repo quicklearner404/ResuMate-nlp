@@ -11,7 +11,7 @@ It is a **hybrid system**:
 - a **DistilBERT token classifier** for free-text fields (name, designation, company, degree, college, location), fine-tuned on 220 hand-annotated resumes plus 2,000 template-generated ones
 - **rules** for structured fields: regex for email and phone, and a phrase matcher with a skill dictionary.
 
-![ResuMate app analysing the sample resume against the sample job description](docs/app_screenshot.png)
+![ResuMate app analysing the fictional sample resume against the sample job description](docs/app_screenshot.png)
 
 ## Results
 
@@ -19,8 +19,8 @@ Evaluated on **30 hand-annotated test resumes** that are not in the training dat
 
 | Matching | Precision | Recall | F1 |
 |---|---|---|---|
-| Lenient: substring match, e.g. "London" vs "London UK" | 81.7% | 83.1% | **82.4%** |
-| Exact: normalized strings must be equal | 57.8% | 59.9% | **58.8%** |
+| Lenient: substring match, e.g. "London" vs "London UK" | 82.4% | 83.1% | **82.7%** |
+| Exact: normalized strings must be equal | 66.0% | 68.2% | **67.1%** |
 
 The large gap between the two rows comes from boundary errors. The model usually finds the right entity but includes or drops a word ("MBA, Stockholm School" vs "Stockholm School of Economics").
 
@@ -32,8 +32,8 @@ Per field, lenient matching ([full report with every error](evaluation/results/r
 | Designation | DistilBERT | 94.1% | 84.2% | 88.9% |
 | Skills | Phrase matcher | 95.6% | 82.7% | 88.7% |
 | Degree | DistilBERT + rules | 79.0% | 96.8% | 87.0% |
-| Location | DistilBERT | 100.0% | 75.0% | 85.7% |
-| College | DistilBERT | 51.8% | 93.5% | 66.7% |
+| Location | DistilBERT | 95.5% | 75.0% | 84.0% |
+| College | DistilBERT | 54.7% | 93.5% | 69.0% |
 | Company | DistilBERT | 78.3% | 52.9% | 63.2% |
 
 ### Evaluation audit: what changed and why
@@ -45,18 +45,25 @@ An earlier version of this README reported **93.90% weighted F1 with 100% precis
 3. **A training-curve graph was partly synthetic.** When F1 values were missing from the training log, the plotting script filled them with `np.linspace` estimates. The graph and its script have been removed. The loss curve below is kept: its values are transcribed from the Colab training logs.
 4. **The published checkpoint does not reproduce the old numbers**, even with the old scorer (90.9% versus 93.9% weighted F1), so the original figures probably came from a different checkpoint. All numbers here are for the published model, which anyone can download and check.
 
-### A decoding bug found by the new evaluation
+### Two bugs found by the new evaluation
+
+**1. Sub-word decoding.**
 
 The error report showed entity fragments such as *"care"* for **Careem** and *"kubernet"* for **Kubernetes**. Entities were being assembled from WordPiece sub-tokens, so when the model labelled only the first piece of a word, the entity was cut off mid-word.
 
-`BertExtractor.predict` now decodes at **word level**: each word takes the label of its first sub-token and its full character span, which matches how the model was trained. Results on the same model and test set:
+`BertExtractor.predict` now decodes at **word level**: each word takes the label of its first sub-token and its full character span, which matches how the model was trained. [`tests/test_decoding.py`](tests/test_decoding.py) reproduces the bug with a stub model: it fails on the old decoder (`['Care']`) and passes on the new one (`['Careem']`).
 
-| | Lenient F1 | Exact F1 | Name F1 | Location precision |
-|---|---|---|---|---|
-| Sub-token decoding (before) | 81.1% | 58.0% | 92.9% | 95.5% |
-| Word-level decoding (now) | **82.4%** | **58.8%** | **98.2%** | **100%** |
+**2. Clean-up that cut words.** Post-processing removed "junk" words such as *in*, *a* and *at* from the edges of each entity by matching raw string suffixes, with no word boundary. So *California* became *Californi* and *Salesforce in San Francisco* became *Salesforce in S*. Edges are now trimmed by whole words and punctuation only, and section headings (*EDUCATION*, *SUMMARY*) are no longer returned as entities.
 
-[`tests/test_decoding.py`](tests/test_decoding.py) reproduces the bug with a stub model: it fails on the old decoder (`['Care']`) and passes on the new one (`['Careem']`).
+Results on the same model and test set:
+
+| | Lenient F1 | Exact F1 | Name F1 |
+|---|---|---|---|
+| Original decoding and clean-up | 81.1% | 58.0% | 92.9% |
+| + word-level decoding | 82.4% | 58.8% | 98.2% |
+| + whole-word clean-up (now) | **82.7%** | **67.1%** | **98.2%** |
+
+The clean-up fix mainly improves **exact** matches (+8.3 points): the model was finding the right entities, but their edges were being damaged after prediction.
 
 ### Known weaknesses
 

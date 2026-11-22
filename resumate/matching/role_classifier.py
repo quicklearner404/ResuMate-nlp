@@ -122,6 +122,14 @@ def ml_score(resume_text, job_description):
 
     return min(max(scores), 98.0)
 
+def skill_gap(resume_text, job_description):
+    """Skills from SKILL_DB that the job asks for, split into (matched, missing)."""
+    job_words = set(re.findall(r"\w+", job_description.lower()))
+    resume_words = set(re.findall(r"\w+", resume_text.lower()))
+    required = {w for w in job_words if w in SKILL_DB}
+    return sorted(required & resume_words), sorted(required - resume_words)
+
+
 def generate_recommendations(resume_text, job_description):
     """ 
     Smart Logic: Scans Job Description for KNOWN SKILLS (from SKILL_DB)

@@ -159,16 +159,26 @@ def smart_entity_fallback(text, entities):
 
     return entities
 
+_PARSER = None
+
+
+def get_parser():
+    """Load the DistilBERT parser once and reuse it across resumes."""
+    global _PARSER
+    if _PARSER is None:
+        _PARSER = ResumeParser()
+    return _PARSER
+
+
 def process_resume(file_obj):
     raw_text = parse_pdf_robust(file_obj)
     if not raw_text: return "", {"Error": "Empty PDF"}
-    
+
     cleaned_text = advanced_clean_text(raw_text)
-    
+
     try:
-        parser = ResumeParser()
-        entities = parser.parse(cleaned_text)
-    except:
+        entities = get_parser().parse(cleaned_text)
+    except Exception:
         entities = {}
 
     entities = scrub_entities_aggressive(entities)
