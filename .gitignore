@@ -1,0 +1,44 @@
+# --- CORE PROJECT ARTIFACTS (CRITICAL FOR PUSH SAFETY) ---
+
+# 1. Model Binaries & Checkpoints (The BIG files)
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.h5
+*.pkl
+*.joblib
+optimizer.pt
+
+
+# 2. Model & Data Folders (Ignore contents recursively)
+
+# 3. Virtual Environments
+venv/
+env/
+.venv/
+.env/
+
+# --- PYTHON ARTIFACTS & BUILD ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+*.egg
+build/
+dist/
+
+# --- LOGS & IDE/System Files ---
+*.log
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+Thumbs.db
+
+# Evaluation outputs are committed on purpose
+!evaluation/results/
+.pytest_cache/
+models/

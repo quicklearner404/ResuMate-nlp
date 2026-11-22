@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [dev, main]
+  pull_request:
+
+jobs:
+  evaluate:
+    name: Tests and model evaluation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install (CPU-only PyTorch)
+        run: |
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install transformers huggingface_hub spacy pdfplumber pytest
+          python -m spacy download en_core_web_sm
+      - name: Unit and regression tests
+        run: pytest -v
+      - name: Evaluate published model on the test set
+        run: python evaluation/evaluate.py
+      - name: Fail if results drift from the committed report
+        run: |
+          python - <<'PY'
+          import json, subprocess
+          new = json.load(open("evaluation/results/metrics.json"))
+          old = json.loads(subprocess.check_output(["git", "show", "HEAD:evaluation/results/metrics.json"]))
+          for mode in ("exact", "lenient"):
+              a, b = new[mode]["micro"], old[mode]["micro"]
+              print(mode, "now", a, "committed", b)
+              assert abs(a["f1"] - b["f1"]) < 0.005, f"{mode} F1 changed: {b['f1']} -> {a['f1']}"
+          PY

@@ -1,0 +1,1911 @@
+[
+  {
+    "filename": "Frontend_Developer_307.pdf",
+    "resume_id": "resume_186",
+    "true_entities": {
+      "skills": [
+        "html",
+        "css",
+        "javascript",
+        "react.js",
+        "angular",
+        "backbone.js",
+        "mobx",
+        "redux",
+        "css preprocessors",
+        "front-end build tools",
+        "serverless architectures"
+      ],
+      "job_titles": [
+        "frontend developer"
+      ]
+    },
+    "pred_entities": {
+      "skills": [
+        "css",
+        "javascript",
+        "html",
+        "mobx",
+        "react.js",
+        "backbone.js",
+        "angular",
+        "redux",
+        "serverless",
+        "responsive design"
+      ],
+      "job_titles": [
+        "frontend developer"
+      ]
+    },
+    "metrics": {
+      "skills": {
+        "TP": 8,
+        "FP": 2,
+        "FN": 3,
+        "precision": 0.8,
+        "recall": 0.727,
+        "f1": 0.762,
+        "true_count": 11,
+        "pred_count": 10
+      },
+      "job_titles": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "true_count": 1,
+        "pred_count": 1
+      }
+    }
+  },
+  {
+    "filename": "Mobile_App_Developer_(iOSAndroid)_336.pdf",
+    "resume_id": "resume_331",
+    "true_entities": {
+      "skills": [
+        "swift",
+        "objective-c",
+        "java",
+        "kotlin",
+        "ui/ux design",
+        "responsive layout",
+        "third-party apis",
+        "push notifications",
+        "app store submissions"
+      ],
+      "job_titles": [
+        "mobile app developer"
+      ]
+    },
+    "pred_entities": {
+      "skills": [
+        "java",
+        "objective-c",
+        "kotlin",
+        "swift",
+        "optimization",
+        "push notifications",
+        "app store"
+      ],
+      "job_titles": [
+        "mobile app developer"
+      ]
+    },
+    "metrics": {
+      "skills": {
+        "TP": 5,
+        "FP": 2,
+        "FN": 4,
+        "precision": 0.714,
+        "recall": 0.556,
+        "f1": 0.625,
+        "true_count": 9,
+        "pred_count": 7
+      },
+      "job_titles": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "true_count": 1,
+        "pred_count": 1
+      }
+    }
+  },
+  {
+    "filename": "Python_Developer_146.pdf",
+    "resume_id": "resume_371",
+    "true_entities": {
+      "skills": [
+        "python",
+        "django",
+        "flask",
+        "matplotlib",
+        "seaborn",
+        "web scrapers",
+        "microservices",
+        "unit tests",
+        "continuous integration"
+      ],
+      "job_titles": [
+        "python developer"
+      ]
+    },
+    "pred_entities": {
+      "skills": [
+        "python",
+        "seaborn",
+        "matplotlib",
+        "flask",
+        "django",
+        "microservices",
+        "continuous integration",
+        "data analysis",
+        "testing",
+        "unit tests",
+        "web scrapers"
+      ],
+      "job_titles": [
+        "python developer"
+      ]
+    },
+    "metrics": {
+      "skills": {
+        "TP": 9,
+        "FP": 2,
+        "FN": 0,
+        "precision": 0.818,
+        "recall": 1.0,
+        "f1": 0.9,
+        "true_count": 9,
+        "pred_count": 11
+      },
+      "job_titles": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "true_count": 1,
+        "pred_count": 1
+      }
+    }
+  },
+  {
+    "filename": "Frontend_Developer_77.pdf",
+    "resume_id": "resume_203",
+    "true_entities": {
+      "skills": [
+        "html5",
+        "css3",
+        "javascript",
+        "react.js",
+        "angular",
+        "styled-components",
+        "graphql",
+        "responsive design",
+        "accessibility standards",
+        "animations",
+        "caching strategies"
+      ],
+      "job_titles": [
+        "frontend developer"
+      ]
+    },
+    "pred_entities": {
+      "skills": [
+        "javascript",
+        "react",
+        "react.js",
+        "styled-components",
+        "angular",
+        "profiling",
+        "graphql",
+        "caching"
+      ],
+      "job_titles": [
+        "frontend developer"
+      ]
+    },
+    "metrics": {
+      "skills": {
+        "TP": 5,
+        "FP": 3,
+        "FN": 6,
+        "precision": 0.625,
+        "recall": 0.455,
+        "f1": 0.526,
+        "true_count": 11,
+        "pred_count": 8
+      },
+      "job_titles": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "true_count": 1,
+        "pred_count": 1
+      }
+    }
+  },
+  {
+    "filename": "Frontend_Developer_18.pdf",
+    "resume_id": "resume_169",
+    "true_entities": {
+      "skills": [
+        "html",
+        "css",
+        "javascript",
+        "react.js",
+        "angular",
+        "redux",
+        "context api",
+        "restful apis"
+      ],
+      "job_titles": [
+        "frontend developer"
+      ]
+    },
+    "pred_entities": {
+      "skills": [
+        "css",
+        "javascript",
+        "html",
+        "react.js",
+        "redux",
+        "angular",
+        "restful apis"
+      ],
+      "job_titles": [
+        "frontend developer"
+      ]
+    },
+    "metrics": {
+      "skills": {
+        "TP": 7,
+        "FP": 0,
+        "FN": 1,
+        "precision": 1.0,
+        "recall": 0.875,
+        "f1": 0.933,
+        "true_count": 8,
+        "pred_count": 7
+      },
+      "job_titles": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "true_count": 1,
+        "pred_count": 1
+      }
+    }
+  },
+  {
+    "filename": "Backend_Developer_98.pdf",
+    "resume_id": "resume_056",
+    "true_entities": {
+      "skills": [
+        "python",
+        "java",
+        "node.js",
+        "django",
+        "express.js",
+        "flask",
+        "mysql",
+        "mongodb",
+        "redis",
+        "memcached",
+        "docker",
+        "microservices",
+        "api gateways",
+        "encryption",
+        "tokenization"
+      ],
+      "job_titles": [
+        "backend developer"
+      ]
+    },
+    "pred_entities": {
+      "skills": [
+        "node.js",
+        "java",
+        "python",
+        "express.js",
+        "flask",
+        "django",
+        "mongodb",
+        "mysql",
+        "memcached",
+        "redis",
+        "microservices",
+        "docker",
+        "caching"
+      ],
+      "job_titles": [
+        "backend developer"
+      ]
+    },
+    "metrics": {
+      "skills": {
+        "TP": 12,
+        "FP": 1,
+        "FN": 3,
+        "precision": 0.923,
+        "recall": 0.8,
+        "f1": 0.857,
+        "true_count": 15,
+        "pred_count": 13
+      },
+      "job_titles": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "true_count": 1,
+        "pred_count": 1
+      }
+    }
+  },
+  {
+    "filename": "Python_Developer_144.pdf",
+    "resume_id": "resume_369",
+    "true_entities": {
+      "skills": [
+        "python",
+        "django",
+        "flask",
+        "numpy",
+        "pandas",
+        "scikit-learn",
+        "data pipelines",
+        "etl",
+        "restful apis",
+        "python scripting",
+        "profiling"
+      ],
+      "job_titles": [
+        "python developer"
+      ]
+    },
+    "pred_entities": {
+      "skills": [
+        "python",
+        "pandas",
+        "django",
+        "numpy",
+        "flask",
+        "scikit-learn",
+        "profiling",
+        "data analysis",
+        "data pipelines",
+        "restful apis",
+        "etl",
+        "optimization",
+        "machine learning"
+      ],
+      "job_titles": [
+        "python developer"
+      ]
+    },
+    "metrics": {
+      "skills": {
+        "TP": 10,
+        "FP": 3,
+        "FN": 1,
+        "precision": 0.769,
+        "recall": 0.909,
+        "f1": 0.833,
+        "true_count": 11,
+        "pred_count": 13
+      },
+      "job_titles": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "true_count": 1,
+        "pred_count": 1
+      }
+    }
+  },
+  {
+    "filename": "Cloud_Engineer_201.pdf",
+    "resume_id": "resume_059",
+    "true_entities": {
+      "skills": [
+        "aws",
+        "terraform",
+        "ansible",
+        "cloudformation",
+        "docker",
+        "kubernetes",
+        "aws lambda",
+        "prometheus",
+        "grafana"
+      ],
+      "job_titles": [
+        "cloud engineer"
+      ]
+    },
+    "pred_entities": {
+      "skills": [
+        "lambda",
+        "aws",
+        "cloud storage",
+        "ansible",
+        "microservices",
+        "serverless",
+        "load balancing",
+        "terraform",
+        "docker",
+        "prometheus",
+        "cloudformation",
+        "grafana",
+        "kubernetes"
+      ],
+      "job_titles": [
+        "cloud engineer"
+      ]
+    },
+    "metrics": {
+      "skills": {
+        "TP": 8,
+        "FP": 5,
+        "FN": 1,
+        "precision": 0.615,
+        "recall": 0.889,
+        "f1": 0.727,
+        "true_count": 9,
+        "pred_count": 13
+      },
+      "job_titles": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "true_count": 1,
+        "pred_count": 1
+      }
+    }
+  },
+  {
+    "filename": "Machine_Learning_Engineer_49.pdf",
+    "resume_id": "resume_301",
+    "true_entities": {
+      "skills": [
+        "python",
+        "r",
+        "matlab",
+        "tensorflow",
+        "pytorch",
+        "scikit-learn",
+        "supervised learning",
+        "unsupervised learning",
+        "deep learning",
+        "data preprocessing",
+        "feature engineering",
+        "recurrent neural networks",
+        "convolutional neural networks",
+        "anomaly detection",
+        "matrix factorization"
+      ],
+      "job_titles": [
+        "machine learning engineer"
+      ]
+    },
+    "pred_entities": {
+      "skills": [
+        "matlab",
+        "r",
+        "python",
+        "scikit-learn",
+        "pytorch",
+        "tensorflow",
+        "convolutional neural networks",
+        "classification",
+        "deep learning",
+        "time series",
+        "recurrent neural networks",
+        "feature engineering",
+        "neural networks",
+        "anomaly detection",
+        "computer vision",
+        "unsupervised learning",
+        "machine learning",
+        "supervised learning",
+        "data preprocessing"
+      ],
+      "job_titles": [
+        "machine learning engineer"
+      ]
+    },
+    "metrics": {
+      "skills": {
+        "TP": 14,
+        "FP": 5,
+        "FN": 1,
+        "precision": 0.737,
+        "recall": 0.933,
+        "f1": 0.824,
+        "true_count": 15,
+        "pred_count": 19
+      },
+      "job_titles": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "true_count": 1,
+        "pred_count": 1
+      }
+    }
+  },
+  {
+    "filename": "Mobile_App_Developer_(iOSAndroid)_182.pdf",
+    "resume_id": "resume_321",
+    "true_entities": {
+      "skills": [
+        "swift",
+        "objective-c",
+        "kotlin",
+        "java",
+        "auto layout",
+        "constraintlayout",
+        "testflight",
+        "firebase test lab",
+        "biometric authentication",
+        "augmented reality",
+        "machine learning"
+      ],
+      "job_titles": [
+        "mobile app developer"
+      ]
+    },
+    "pred_entities": {
+      "skills": [
+        "java",
+        "objective-c",
+        "kotlin",
+        "swift",
+        "auto layout",
+        "firebase test lab",
+        "testing",
+        "testflight",
+        "machine learning",
+        "constraintlayout"
+      ],
+      "job_titles": [
+        "mobile app developer"
+      ]
+    },
+    "metrics": {
+      "skills": {
+        "TP": 9,
+        "FP": 1,
+        "FN": 2,
+        "precision": 0.9,
+        "recall": 0.818,
+        "f1": 0.857,
+        "true_count": 11,
+        "pred_count": 10
+      },
+      "job_titles": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "true_count": 1,
+        "pred_count": 1
+      }
+    }
+  },
+  {
+    "filename": "Full_Stack_Developer_168.pdf",
+    "resume_id": "resume_243",
+    "true_entities": {
+      "skills": [
+        "html",
+        "css",
+        "javascript",
+        "node.js",
+        "react.js",
+        "angular",
+        "express.js",
+        "mysql",
+        "mongodb",
+        "restful apis",
+        "socket.io",
+        "caching",
+        "lazy loading",
+        "jest",
+        "mocha"
+      ],
+      "job_titles": [
+        "full stack developer"
+      ]
+    },
+    "pred_entities": {
+      "skills": [
+        "node.js",
+        "css",
+        "javascript",
+        "html",
+        "express.js",
+        "react.js",
+        "angular",
+        "mongodb",
+        "mysql",
+        "testing",
+        "jest",
+        "mocha",
+        "restful apis",
+        "socket.io",
+        "caching"
+      ],
+      "job_titles": [
+        "full stack developer"
+      ]
+    },
+    "metrics": {
+      "skills": {
+        "TP": 14,
+        "FP": 1,
+        "FN": 1,
+        "precision": 0.933,
+        "recall": 0.933,
+        "f1": 0.933,
+        "true_count": 15,
+        "pred_count": 15
+      },
+      "job_titles": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "true_count": 1,
+        "pred_count": 1
+      }
+    }
+  },
+  {
+    "filename": "Mobile_App_Developer_(iOSAndroid)_344.pdf",
+    "resume_id": "resume_340",
+    "true_entities": {
+      "skills": [
+        "swift",
+        "objective-c",
+        "java",
+        "kotlin",
+        "ui/ux design",
+        "performance optimization",
+        "geolocation services",
+        "wearables",
+        "real-time communication",
+        "app store optimization"
+      ],
+      "job_titles": [
+        "mobile app developer"
+      ]
+    },
+    "pred_entities": {
+      "skills": [
+        "java",
+        "objective-c",
+        "kotlin",
+        "swift",
+        "optimization",
+        "app store"
+      ],
+      "job_titles": [
+        "mobile app developer"
+      ]
+    },
+    "metrics": {
+      "skills": {
+        "TP": 4,
+        "FP": 2,
+        "FN": 6,
+        "precision": 0.667,
+        "recall": 0.4,
+        "f1": 0.5,
+        "true_count": 10,
+        "pred_count": 6
+      },
+      "job_titles": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "true_count": 1,
+        "pred_count": 1
+      }
+    }
+  },
+  {
+    "filename": "Machine_Learning_Engineer_247.pdf",
+    "resume_id": "resume_287",
+    "true_entities": {
+      "skills": [
+        "python",
+        "scikit-learn",
+        "tensorflow",
+        "pytorch",
+        "data preprocessing",
+        "feature engineering",
+        "model evaluation",
+        "model explainability",
+        "fairness evaluation",
+        "model deployment"
+      ],
+      "job_titles": [
+        "machine learning engineer"
+      ]
+    },
+    "pred_entities": {
+      "skills": [
+        "python",
+        "scikit-learn",
+        "pytorch",
+        "tensorflow",
+        "anomaly detection",
+        "feature engineering",
+        "sentiment analysis",
+        "model evaluation",
+        "machine learning",
+        "model explainability",
+        "model deployment",
+        "data preprocessing"
+      ],
+      "job_titles": [
+        "machine learning engineer"
+      ]
+    },
+    "metrics": {
+      "skills": {
+        "TP": 9,
+        "FP": 3,
+        "FN": 1,
+        "precision": 0.75,
+        "recall": 0.9,
+        "f1": 0.818,
+        "true_count": 10,
+        "pred_count": 12
+      },
+      "job_titles": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "true_count": 1,
+        "pred_count": 1
+      }
+    }
+  },
+  {
+    "filename": "Python_Developer_353.pdf",
+    "resume_id": "resume_387",
+    "true_entities": {
+      "skills": [
+        "python",
+        "django",
+        "fastapi",
+        "sqlalchemy",
+        "flask sqlalchemy",
+        "alembic",
+        "microservices",
+        "oauth2",
+        "load testing",
+        "data pipelines",
+        "api integrations"
+      ],
+      "job_titles": [
+        "python developer"
+      ]
+    },
+    "pred_entities": {
+      "skills": [
+        "python",
+        "fastapi",
+        "alembic",
+        "sqlalchemy",
+        "django",
+        "data pipelines",
+        "microservices",
+        "load testing",
+        "testing"
+      ],
+      "job_titles": [
+        "python developer"
+      ]
+    },
+    "metrics": {
+      "skills": {
+        "TP": 8,
+        "FP": 1,
+        "FN": 3,
+        "precision": 0.889,
+        "recall": 0.727,
+        "f1": 0.8,
+        "true_count": 11,
+        "pred_count": 9
+      },
+      "job_titles": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "true_count": 1,
+        "pred_count": 1
+      }
+    }
+  },
+  {
+    "filename": "Backend_Developer_299.pdf",
+    "resume_id": "resume_046",
+    "true_entities": {
+      "skills": [
+        "java",
+        "python",
+        "node.js",
+        "spring boot",
+        "django",
+        "express.js",
+        "microservices",
+        "api development",
+        "cloud deployment",
+        "authentication",
+        "authorization",
+        "owasp",
+        "third-party apis"
+      ],
+      "job_titles": [
+        "backend developer"
+      ]
+    },
+    "pred_entities": {
+      "skills": [
+        "node.js",
+        "java",
+        "python",
+        "express.js",
+        "spring boot",
+        "django",
+        "microservices",
+        "owasp"
+      ],
+      "job_titles": [
+        "backend developer"
+      ]
+    },
+    "metrics": {
+      "skills": {
+        "TP": 8,
+        "FP": 0,
+        "FN": 5,
+        "precision": 1.0,
+        "recall": 0.615,
+        "f1": 0.762,
+        "true_count": 13,
+        "pred_count": 8
+      },
+      "job_titles": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "true_count": 1,
+        "pred_count": 1
+      }
+    }
+  },
+  {
+    "filename": "Data_Scientist_368.pdf",
+    "resume_id": "resume_152",
+    "true_entities": {
+      "skills": [
+        "python",
+        "pandas",
+        "scikit-learn",
+        "xgboost",
+        "exploratory data analysis",
+        "statistical inference",
+        "customer segmentation",
+        "recommendation engines",
+        "fraud detection",
+        "data warehouses",
+        "feature importance analysis"
+      ],
+      "job_titles": [
+        "data scientist"
+      ]
+    },
+    "pred_entities": {
+      "skills": [
+        "python",
+        "scikit-learn",
+        "xgboost",
+        "pandas",
+        "exploratory data analysis",
+        "data analysis",
+        "statistical inference",
+        "feature importance",
+        "customer segmentation",
+        "machine learning",
+        "data preprocessing"
+      ],
+      "job_titles": [
+        "data scientist"
+      ]
+    },
+    "metrics": {
+      "skills": {
+        "TP": 7,
+        "FP": 4,
+        "FN": 4,
+        "precision": 0.636,
+        "recall": 0.636,
+        "f1": 0.636,
+        "true_count": 11,
+        "pred_count": 11
+      },
+      "job_titles": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "true_count": 1,
+        "pred_count": 1
+      }
+    }
+  },
+  {
+    "filename": "Python_Developer_122.pdf",
+    "resume_id": "resume_359",
+    "true_entities": {
+      "skills": [
+        "python",
+        "django",
+        "flask",
+        "matplotlib",
+        "seaborn",
+        "web scrapers",
+        "data processing pipelines",
+        "microservices",
+        "unit tests",
+        "continuous integration"
+      ],
+      "job_titles": [
+        "python developer"
+      ]
+    },
+    "pred_entities": {
+      "skills": [
+        "python",
+        "seaborn",
+        "matplotlib",
+        "flask",
+        "django",
+        "microservices",
+        "continuous integration",
+        "data analysis",
+        "testing",
+        "unit tests",
+        "web scrapers"
+      ],
+      "job_titles": [
+        "python developer"
+      ]
+    },
+    "metrics": {
+      "skills": {
+        "TP": 9,
+        "FP": 2,
+        "FN": 1,
+        "precision": 0.818,
+        "recall": 0.9,
+        "f1": 0.857,
+        "true_count": 10,
+        "pred_count": 11
+      },
+      "job_titles": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "true_count": 1,
+        "pred_count": 1
+      }
+    }
+  },
+  {
+    "filename": "Backend_Developer_238.pdf",
+    "resume_id": "resume_028",
+    "true_entities": {
+      "skills": [
+        "python",
+        "ruby",
+        "scala",
+        "flask",
+        "sinatra",
+        "play framework",
+        "microservices",
+        "data pipelines",
+        "kafka",
+        "rest apis",
+        "akka",
+        "caching",
+        "load balancing",
+        "ci/cd",
+        "serverless computing",
+        "graphql"
+      ],
+      "job_titles": [
+        "backend developer"
+      ]
+    },
+    "pred_entities": {
+      "skills": [
+        "ruby",
+        "scala",
+        "python",
+        "play framework",
+        "sinatra",
+        "flask",
+        "microservices",
+        "ci/cd",
+        "serverless",
+        "load balancing",
+        "data pipelines",
+        "graphql",
+        "kafka",
+        "caching"
+      ],
+      "job_titles": [
+        "backend developer"
+      ]
+    },
+    "metrics": {
+      "skills": {
+        "TP": 13,
+        "FP": 1,
+        "FN": 3,
+        "precision": 0.929,
+        "recall": 0.812,
+        "f1": 0.867,
+        "true_count": 16,
+        "pred_count": 14
+      },
+      "job_titles": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "true_count": 1,
+        "pred_count": 1
+      }
+    }
+  },
+  {
+    "filename": "Mobile_App_Developer_(iOSAndroid)_181.pdf",
+    "resume_id": "resume_320",
+    "true_entities": {
+      "skills": [
+        "swift",
+        "objective-c",
+        "kotlin",
+        "java",
+        "react native",
+        "flutter",
+        "bluetooth integration",
+        "calendar integration",
+        "in-app purchases",
+        "third-party apis"
+      ],
+      "job_titles": [
+        "mobile app developer"
+      ]
+    },
+    "pred_entities": {
+      "skills": [
+        "java",
+        "objective-c",
+        "kotlin",
+        "swift",
+        "react native",
+        "react",
+        "flutter",
+        "calendar integration",
+        "in-app purchases",
+        "bluetooth integration"
+      ],
+      "job_titles": [
+        "mobile app developer",
+        "mobile developer"
+      ]
+    },
+    "metrics": {
+      "skills": {
+        "TP": 9,
+        "FP": 1,
+        "FN": 1,
+        "precision": 0.9,
+        "recall": 0.9,
+        "f1": 0.9,
+        "true_count": 10,
+        "pred_count": 10
+      },
+      "job_titles": {
+        "TP": 1,
+        "FP": 1,
+        "FN": 0,
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.667,
+        "true_count": 1,
+        "pred_count": 2
+      }
+    }
+  },
+  {
+    "filename": "Data_Scientist_27.pdf",
+    "resume_id": "resume_135",
+    "true_entities": {
+      "skills": [
+        "python",
+        "r",
+        "pandas",
+        "numpy",
+        "matplotlib",
+        "scikit-learn",
+        "tensorflow",
+        "aws",
+        "azure",
+        "git",
+        "github"
+      ],
+      "job_titles": [
+        "data scientist"
+      ]
+    },
+    "pred_entities": {
+      "skills": [
+        "r",
+        "python",
+        "pandas",
+        "matplotlib",
+        "numpy",
+        "tensorflow",
+        "scikit-learn",
+        "azure",
+        "aws",
+        "data visualization",
+        "git",
+        "github",
+        "customer segmentation",
+        "machine learning"
+      ],
+      "job_titles": [
+        "data scientist"
+      ]
+    },
+    "metrics": {
+      "skills": {
+        "TP": 11,
+        "FP": 3,
+        "FN": 0,
+        "precision": 0.786,
+        "recall": 1.0,
+        "f1": 0.88,
+        "true_count": 11,
+        "pred_count": 14
+      },
+      "job_titles": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "true_count": 1,
+        "pred_count": 1
+      }
+    }
+  },
+  {
+    "filename": "Mobile_App_Developer_(iOSAndroid)_176.pdf",
+    "resume_id": "resume_315",
+    "true_entities": {
+      "skills": [
+        "swift",
+        "objective-c",
+        "kotlin",
+        "java",
+        "uikit",
+        "swiftui",
+        "android sdk",
+        "jetpack",
+        "payment integration",
+        "real-time messaging",
+        "app store",
+        "google play store",
+        "push notifications",
+        "code profiling",
+        "optimization techniques"
+      ],
+      "job_titles": [
+        "mobile app developer"
+      ]
+    },
+    "pred_entities": {
+      "skills": [
+        "java",
+        "objective-c",
+        "kotlin",
+        "swift",
+        "android sdk",
+        "swiftui",
+        "uikit",
+        "jetpack",
+        "profiling",
+        "google play store",
+        "app store",
+        "optimization",
+        "push notifications"
+      ],
+      "job_titles": [
+        "mobile app developer"
+      ]
+    },
+    "metrics": {
+      "skills": {
+        "TP": 11,
+        "FP": 2,
+        "FN": 4,
+        "precision": 0.846,
+        "recall": 0.733,
+        "f1": 0.786,
+        "true_count": 15,
+        "pred_count": 13
+      },
+      "job_titles": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "true_count": 1,
+        "pred_count": 1
+      }
+    }
+  },
+  {
+    "filename": "Data_Scientist_132.pdf",
+    "resume_id": "resume_116",
+    "true_entities": {
+      "skills": [
+        "python",
+        "r",
+        "numpy",
+        "pandas",
+        "scikit-learn",
+        "matplotlib",
+        "seaborn",
+        "predictive models",
+        "demand forecasting",
+        "a/b testing",
+        "natural language processing",
+        "sentiment analysis",
+        "hypothesis testing",
+        "recommendation systems"
+      ],
+      "job_titles": [
+        "data scientist"
+      ]
+    },
+    "pred_entities": {
+      "skills": [
+        "r",
+        "python",
+        "pandas",
+        "seaborn",
+        "matplotlib",
+        "numpy",
+        "scikit-learn",
+        "data visualization",
+        "natural language processing",
+        "hypothesis testing",
+        "testing",
+        "a/b testing",
+        "recommendation systems",
+        "sentiment analysis",
+        "optimization",
+        "machine learning"
+      ],
+      "job_titles": [
+        "data scientist"
+      ]
+    },
+    "metrics": {
+      "skills": {
+        "TP": 12,
+        "FP": 4,
+        "FN": 2,
+        "precision": 0.75,
+        "recall": 0.857,
+        "f1": 0.8,
+        "true_count": 14,
+        "pred_count": 16
+      },
+      "job_titles": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "true_count": 1,
+        "pred_count": 1
+      }
+    }
+  },
+  {
+    "filename": "Python_Developer_148.pdf",
+    "resume_id": "resume_373",
+    "true_entities": {
+      "skills": [
+        "python",
+        "django",
+        "flask",
+        "numpy",
+        "pandas",
+        "scikit-learn",
+        "data pipelines",
+        "etl",
+        "restful apis",
+        "python scripting",
+        "profiling",
+        "optimization techniques"
+      ],
+      "job_titles": [
+        "python developer"
+      ]
+    },
+    "pred_entities": {
+      "skills": [
+        "python",
+        "pandas",
+        "django",
+        "numpy",
+        "flask",
+        "scikit-learn",
+        "profiling",
+        "data analysis",
+        "data pipelines",
+        "restful apis",
+        "etl",
+        "optimization",
+        "machine learning"
+      ],
+      "job_titles": [
+        "python developer"
+      ]
+    },
+    "metrics": {
+      "skills": {
+        "TP": 10,
+        "FP": 3,
+        "FN": 2,
+        "precision": 0.769,
+        "recall": 0.833,
+        "f1": 0.8,
+        "true_count": 12,
+        "pred_count": 13
+      },
+      "job_titles": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "true_count": 1,
+        "pred_count": 1
+      }
+    }
+  },
+  {
+    "filename": "Backend_Developer_228.pdf",
+    "resume_id": "resume_018",
+    "true_entities": {
+      "skills": [
+        "python",
+        "java",
+        "go",
+        "django",
+        "spring boot",
+        "gin",
+        "django rest framework",
+        "spring cloud",
+        "restful apis",
+        "microservices",
+        "oauth 2.0",
+        "caching",
+        "indexing",
+        "celery",
+        "rabbitmq"
+      ],
+      "job_titles": [
+        "backend developer"
+      ]
+    },
+    "pred_entities": {
+      "skills": [
+        "java",
+        "go",
+        "python",
+        "spring cloud",
+        "django",
+        "spring boot",
+        "django rest framework",
+        "celery",
+        "gin",
+        "microservices",
+        "indexing",
+        "oauth",
+        "oauth 2.0",
+        "rabbitmq",
+        "restful apis",
+        "caching"
+      ],
+      "job_titles": [
+        "backend developer"
+      ]
+    },
+    "metrics": {
+      "skills": {
+        "TP": 15,
+        "FP": 1,
+        "FN": 0,
+        "precision": 0.938,
+        "recall": 1.0,
+        "f1": 0.968,
+        "true_count": 15,
+        "pred_count": 16
+      },
+      "job_titles": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "true_count": 1,
+        "pred_count": 1
+      }
+    }
+  },
+  {
+    "filename": "Python_Developer_354.pdf",
+    "resume_id": "resume_388",
+    "true_entities": {
+      "skills": [
+        "python",
+        "django",
+        "flask",
+        "django rest framework",
+        "celery",
+        "redis",
+        "real-time chat",
+        "task management",
+        "data processing pipelines",
+        "database schemas",
+        "third-party apis",
+        "ci/cd"
+      ],
+      "job_titles": [
+        "python developer"
+      ]
+    },
+    "pred_entities": {
+      "skills": [
+        "python",
+        "celery",
+        "django rest framework",
+        "flask",
+        "django",
+        "redis",
+        "ci/cd"
+      ],
+      "job_titles": [
+        "python developer"
+      ]
+    },
+    "metrics": {
+      "skills": {
+        "TP": 7,
+        "FP": 0,
+        "FN": 5,
+        "precision": 1.0,
+        "recall": 0.583,
+        "f1": 0.737,
+        "true_count": 12,
+        "pred_count": 7
+      },
+      "job_titles": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "true_count": 1,
+        "pred_count": 1
+      }
+    }
+  },
+  {
+    "filename": "Cloud_Engineer_394.pdf",
+    "resume_id": "resume_094",
+    "true_entities": {
+      "skills": [
+        "aws",
+        "azure",
+        "gcp",
+        "ec2",
+        "rds",
+        "cloud storage",
+        "terraform",
+        "pulumi",
+        "microservices",
+        "serverless",
+        "resource tagging",
+        "budgeting",
+        "disaster recovery",
+        "monitoring",
+        "alerting",
+        "performance tuning"
+      ],
+      "job_titles": [
+        "cloud engineer"
+      ]
+    },
+    "pred_entities": {
+      "skills": [
+        "gcp",
+        "azure",
+        "rds",
+        "ec2",
+        "cloud storage",
+        "aws",
+        "pulumi",
+        "microservices",
+        "serverless",
+        "terraform"
+      ],
+      "job_titles": [
+        "cloud engineer"
+      ]
+    },
+    "metrics": {
+      "skills": {
+        "TP": 10,
+        "FP": 0,
+        "FN": 6,
+        "precision": 1.0,
+        "recall": 0.625,
+        "f1": 0.769,
+        "true_count": 16,
+        "pred_count": 10
+      },
+      "job_titles": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "true_count": 1,
+        "pred_count": 1
+      }
+    }
+  },
+  {
+    "filename": "Mobile_App_Developer_(iOSAndroid)_177.pdf",
+    "resume_id": "resume_316",
+    "true_entities": {
+      "skills": [
+        "swift",
+        "objective-c",
+        "kotlin",
+        "java",
+        "react native",
+        "flutter",
+        "bluetooth integration",
+        "calendar integration",
+        "in-app purchases",
+        "third-party apis"
+      ],
+      "job_titles": [
+        "mobile app developer"
+      ]
+    },
+    "pred_entities": {
+      "skills": [
+        "java",
+        "objective-c",
+        "kotlin",
+        "swift",
+        "react native",
+        "react",
+        "flutter",
+        "calendar integration",
+        "in-app purchases",
+        "bluetooth integration"
+      ],
+      "job_titles": [
+        "mobile app developer",
+        "mobile developer"
+      ]
+    },
+    "metrics": {
+      "skills": {
+        "TP": 9,
+        "FP": 1,
+        "FN": 1,
+        "precision": 0.9,
+        "recall": 0.9,
+        "f1": 0.9,
+        "true_count": 10,
+        "pred_count": 10
+      },
+      "job_titles": {
+        "TP": 1,
+        "FP": 1,
+        "FN": 0,
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.667,
+        "true_count": 1,
+        "pred_count": 2
+      }
+    }
+  },
+  {
+    "filename": "Data_Scientist_12.pdf",
+    "resume_id": "resume_115",
+    "true_entities": {
+      "skills": [
+        "python",
+        "r",
+        "tensorflow",
+        "scikit-learn",
+        "pytorch",
+        "apache spark",
+        "docker",
+        "kubernetes",
+        "recommendation systems",
+        "predictive maintenance",
+        "customer segmentation",
+        "data preprocessing",
+        "feature engineering",
+        "distributed computing"
+      ],
+      "job_titles": [
+        "data scientist"
+      ]
+    },
+    "pred_entities": {
+      "skills": [
+        "r",
+        "python",
+        "scikit-learn",
+        "pytorch",
+        "tensorflow",
+        "data visualization",
+        "recommendation systems",
+        "apache spark",
+        "docker",
+        "feature engineering",
+        "distributed computing",
+        "customer segmentation",
+        "machine learning",
+        "kubernetes",
+        "data preprocessing"
+      ],
+      "job_titles": [
+        "data scientist"
+      ]
+    },
+    "metrics": {
+      "skills": {
+        "TP": 13,
+        "FP": 2,
+        "FN": 1,
+        "precision": 0.867,
+        "recall": 0.929,
+        "f1": 0.897,
+        "true_count": 14,
+        "pred_count": 15
+      },
+      "job_titles": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "true_count": 1,
+        "pred_count": 1
+      }
+    }
+  },
+  {
+    "filename": "Cloud_Engineer_203.pdf",
+    "resume_id": "resume_061",
+    "true_entities": {
+      "skills": [
+        "aws",
+        "kubernetes",
+        "docker swarm",
+        "aws ecs",
+        "jenkins",
+        "gitlab ci/cd",
+        "aws codepipeline",
+        "docker",
+        "blue-green deployment",
+        "spot instances",
+        "reserved capacity",
+        "disaster recovery",
+        "elk stack",
+        "prometheus"
+      ],
+      "job_titles": [
+        "cloud engineer"
+      ]
+    },
+    "pred_entities": {
+      "skills": [
+        "docker swarm",
+        "aws",
+        "aws ecs",
+        "ci/cd",
+        "elk stack",
+        "docker",
+        "gitlab ci/cd",
+        "aws codepipeline",
+        "gitlab",
+        "prometheus",
+        "jenkins",
+        "kubernetes"
+      ],
+      "job_titles": [
+        "cloud engineer"
+      ]
+    },
+    "metrics": {
+      "skills": {
+        "TP": 10,
+        "FP": 2,
+        "FN": 4,
+        "precision": 0.833,
+        "recall": 0.714,
+        "f1": 0.769,
+        "true_count": 14,
+        "pred_count": 12
+      },
+      "job_titles": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "true_count": 1,
+        "pred_count": 1
+      }
+    }
+  },
+  {
+    "filename": "Frontend_Developer_23.pdf",
+    "resume_id": "resume_182",
+    "true_entities": {
+      "skills": [
+        "html",
+        "css",
+        "javascript",
+        "react.js",
+        "vue.js",
+        "svelte",
+        "redux",
+        "vuex",
+        "styled-components",
+        "git",
+        "github",
+        "responsive design",
+        "css-in-js"
+      ],
+      "job_titles": [
+        "frontend developer"
+      ]
+    },
+    "pred_entities": {
+      "skills": [
+        "css",
+        "javascript",
+        "html",
+        "vuex",
+        "vue.js",
+        "react.js",
+        "redux",
+        "svelte",
+        "styled-components",
+        "css-in-js",
+        "responsive design",
+        "git",
+        "github"
+      ],
+      "job_titles": [
+        "frontend developer"
+      ]
+    },
+    "metrics": {
+      "skills": {
+        "TP": 13,
+        "FP": 0,
+        "FN": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "true_count": 13,
+        "pred_count": 13
+      },
+      "job_titles": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "true_count": 1,
+        "pred_count": 1
+      }
+    }
+  }
+]

@@ -1,0 +1,347 @@
+[
+  {
+    "comment": "--- GROUP 1: REAL WORLD NOISY (Bullet Points & Formatting) ---",
+    "text": "John Doe\n• Senior Java Developer at Oracle (2019-Present)\n• Led migration to Microservices using Spring Boot and Docker.\n• Tech Stack: Java 11, Kafka, Kubernetes, AWS.\n• Previously: Software Engineer at IBM (2015-2019).\nEDUCATION:\n➢ BS Computer Science - Georgia Tech\n➢ MS Artificial Intelligence - Stanford University",
+    "ground_truth": {
+      "Name": ["John Doe"],
+      "Designation": ["Senior Java Developer", "Software Engineer"],
+      "Company": ["Oracle", "IBM"],
+      "Degree": ["BS Computer Science", "MS Artificial Intelligence"],
+      "College": ["Georgia Tech", "Stanford University"],
+      "Skills": ["Java", "Spring Boot", "Docker", "Kafka", "Kubernetes", "AWS"]
+    }
+  },
+  {
+    "text": "Priya Singh | Data Scientist | Amazon\nLocation: Seattle, WA\nSummary: Experienced in NLP and Computer Vision.\nEXPERIENCE:\n* Data Scientist @ Amazon (2020-Now) - Built recommendation engines using PyTorch.\n* Analyst @ Deloitte - SQL and Tableau dashboards.\nEDUCATION:\n* PhD Data Science - University of Washington",
+    "ground_truth": {
+      "Name": ["Priya Singh"],
+      "Designation": ["Data Scientist", "Analyst"],
+      "Company": ["Amazon", "Deloitte"],
+      "Location": ["Seattle, WA"],
+      "Degree": ["PhD Data Science"],
+      "College": ["University of Washington"],
+      "Skills": ["NLP", "Computer Vision", "PyTorch", "SQL", "Tableau"]
+    }
+  },
+  {
+    "text": "LIAM O'CONNOR\nDevOps Engineer  |  London, UK  |  liam.o@email.com\n\nPROFESSIONAL SUMMARY\nHighly skilled in CI/CD pipelines and Cloud Infrastructure.\n\nWORK HISTORY\n2018 - Present: DevOps Lead at Barclays\n- Managed Azure cloud infrastructure.\n- Implemented Terraform and Ansible scripts.\n\nEDUCATION\nB.Sc. Computer Science, King's College London",
+    "ground_truth": {
+      "Name": ["Liam O'Connor"],
+      "Email": ["liam.o@email.com"],
+      "Designation": ["DevOps Lead", "DevOps Engineer"],
+      "Company": ["Barclays"],
+      "Location": ["London, UK"],
+      "Degree": ["B.Sc. Computer Science"],
+      "College": ["King's College London"],
+      "Skills": ["CI/CD", "Azure", "Terraform", "Ansible"]
+    }
+  },
+  {
+    "text": "RESUME\nName: Chen Wei\nRole: Frontend Developer\nStack: React, Redux, TypeScript, Tailwind CSS\nExperience:\n> Frontend Developer at Tencent (Shenzhen)\n> UI Engineer at Alibaba (Hangzhou)\nEducation: Bachelor of Software Engineering, Peking University",
+    "ground_truth": {
+      "Name": ["Chen Wei"],
+      "Designation": ["Frontend Developer", "UI Engineer"],
+      "Company": ["Tencent", "Alibaba"],
+      "Location": ["Shenzhen", "Hangzhou"],
+      "Degree": ["Bachelor of Software Engineering"],
+      "College": ["Peking University"],
+      "Skills": ["React", "Redux", "TypeScript", "Tailwind CSS"]
+    }
+  },
+  {
+    "text": "SARAH CONNOR\nCybersecurity Analyst\nWashington DC\n\nSKILLS\nPenetration Testing, Wireshark, Metasploit, Linux, Python\n\nEXPERIENCE\nSecurity Consultant - Booz Allen Hamilton\nJunior Analyst - Raytheon\n\nEDUCATION\nMaster of Cybersecurity - George Mason University",
+    "ground_truth": {
+      "Name": ["Sarah Connor"],
+      "Designation": ["Cybersecurity Analyst", "Security Consultant", "Junior Analyst"],
+      "Company": ["Booz Allen Hamilton", "Raytheon"],
+      "Location": ["Washington DC"],
+      "Degree": ["Master of Cybersecurity"],
+      "College": ["George Mason University"],
+      "Skills": ["Penetration Testing", "Wireshark", "Metasploit", "Linux", "Python"]
+    }
+  },
+  {
+    "comment": "--- GROUP 2: KEYWORD DUMPS / BAD GRAMMAR ---",
+    "text": "python developer django flask sql docker kubernetes. worked at google as software engineer. education bs cs mit.",
+    "ground_truth": {
+      "Name": [],
+      "Designation": ["python developer", "software engineer"],
+      "Company": ["google"],
+      "Degree": ["bs cs"],
+      "College": ["mit"],
+      "Skills": ["python", "django", "flask", "sql", "docker", "kubernetes"]
+    }
+  },
+  {
+    "text": "DATA ENGINEER | SPARK | HADOOP | AWS | PYTHON. Previous: Big Data Lead at Cloudera. Education: MS Data Analytics, USC.",
+    "ground_truth": {
+      "Name": [],
+      "Designation": ["DATA ENGINEER", "Big Data Lead"],
+      "Company": ["Cloudera"],
+      "Degree": ["MS Data Analytics"],
+      "College": ["USC"],
+      "Skills": ["SPARK", "HADOOP", "AWS", "PYTHON"]
+    }
+  },
+  {
+    "text": "Role: Product Manager. Comp: Spotify. Loc: Stockholm. Skills: Agile, Scrum, Jira. Edu: MBA, Stockholm School of Economics.",
+    "ground_truth": {
+      "Name": [],
+      "Designation": ["Product Manager"],
+      "Company": ["Spotify"],
+      "Location": ["Stockholm"],
+      "Degree": ["MBA"],
+      "College": ["Stockholm School of Economics"],
+      "Skills": ["Agile", "Scrum", "Jira"]
+    }
+  },
+  {
+    "comment": "--- GROUP 3: PAKISTANI IT (Local Context) ---",
+    "text": "Bilal Ahmed - Senior Software Engineer @ Systems Limited (Lahore). BS CS from FAST NUCES. Stack: .NET, Azure, Angular.",
+    "ground_truth": {
+      "Name": ["Bilal Ahmed"],
+      "Designation": ["Senior Software Engineer"],
+      "Company": ["Systems Limited"],
+      "Location": ["Lahore"],
+      "Degree": ["BS CS"],
+      "College": ["FAST NUCES"],
+      "Skills": [".NET", "Azure", "Angular"]
+    }
+  },
+  {
+    "text": "Ayesha Malik. QA Engineer at 10Pearls Karachi. MS Software Engineering NED University. Tools: Selenium, JIRA, Postman.",
+    "ground_truth": {
+      "Name": ["Ayesha Malik"],
+      "Designation": ["QA Engineer"],
+      "Company": ["10Pearls"],
+      "Location": ["Karachi"],
+      "Degree": ["MS Software Engineering"],
+      "College": ["NED University"],
+      "Skills": ["Selenium", "JIRA", "Postman"]
+    }
+  },
+  {
+    "text": "Hamza Ali (DevOps Engineer). Works at Netsol Technologies Lahore. Graduated from UET Lahore (BS Computer Science). Skills: Docker, Jenkins, AWS.",
+    "ground_truth": {
+      "Name": ["Hamza Ali"],
+      "Designation": ["DevOps Engineer"],
+      "Company": ["Netsol Technologies"],
+      "Location": ["Lahore"],
+      "Degree": ["BS Computer Science"],
+      "College": ["UET Lahore"],
+      "Skills": ["Docker", "Jenkins", "AWS"]
+    }
+  },
+  {
+    "text": "Zainab Fatima, Data Analyst at Careem Islamabad. BS Math NUST. Python, SQL, PowerBI.",
+    "ground_truth": {
+      "Name": ["Zainab Fatima"],
+      "Designation": ["Data Analyst"],
+      "Company": ["Careem"],
+      "Location": ["Islamabad"],
+      "Degree": ["BS Math"],
+      "College": ["NUST"],
+      "Skills": ["Python", "SQL", "PowerBI"]
+    }
+  },
+  {
+    "text": "Usman Khan | MERN Stack Developer | Arbisoft Lahore. Bachelor IT from PUCIT. React Node MongoDB.",
+    "ground_truth": {
+      "Name": ["Usman Khan"],
+      "Designation": ["MERN Stack Developer"],
+      "Company": ["Arbisoft"],
+      "Location": ["Lahore"],
+      "Degree": ["Bachelor IT"],
+      "College": ["PUCIT"],
+      "Skills": ["React", "Node", "MongoDB"]
+    }
+  },
+  {
+    "comment": "--- GROUP 4: STANDARD / CLEAN (17 Resumes) ---",
+    "text": "Mark Stone is a Python Developer at Dropbox in San Francisco. He has a BS in Computer Science from University of California.",
+    "ground_truth": {
+      "Name": ["Mark Stone"],
+      "Designation": ["Python Developer"],
+      "Company": ["Dropbox"],
+      "Location": ["San Francisco"],
+      "Degree": ["BS in Computer Science"],
+      "College": ["University of California"]
+    }
+  },
+  {
+    "text": "Sarah Lee works as a Data Analyst at Nielsen in New York. She graduated from NYU with a MS in Statistics.",
+    "ground_truth": {
+      "Name": ["Sarah Lee"],
+      "Designation": ["Data Analyst"],
+      "Company": ["Nielsen"],
+      "Location": ["New York"],
+      "Degree": ["MS in Statistics"],
+      "College": ["NYU"]
+    }
+  },
+  {
+    "text": "David Hall is a Network Administrator at Cisco in San Jose. He earned a BS in Information Technology from Stanford University.",
+    "ground_truth": {
+      "Name": ["David Hall"],
+      "Designation": ["Network Administrator"],
+      "Company": ["Cisco"],
+      "Location": ["San Jose"],
+      "Degree": ["BS in Information Technology"],
+      "College": ["Stanford University"]
+    }
+  },
+  {
+    "text": "Jessica Pearson serves as a Backend Engineer at Uber in Chicago Illinois. She holds a Master of Computer Science from University of Illinois.",
+    "ground_truth": {
+      "Name": ["Jessica Pearson"],
+      "Designation": ["Backend Engineer"],
+      "Company": ["Uber"],
+      "Location": ["Chicago Illinois"],
+      "Degree": ["Master of Computer Science"],
+      "College": ["University of Illinois"]
+    }
+  },
+  {
+    "text": "James Wilson is a Cloud Architect at Amazon Web Services in Seattle Washington. He holds a Bachelor of Science from University of British Columbia.",
+    "ground_truth": {
+      "Name": ["James Wilson"],
+      "Designation": ["Cloud Architect"],
+      "Company": ["Amazon Web Services"],
+      "Location": ["Seattle Washington"],
+      "Degree": ["Bachelor of Science"],
+      "College": ["University of British Columbia"]
+    }
+  },
+  {
+    "text": "Jonathan Pierce is currently the VP of Engineering at Salesforce in San Francisco California. He holds an MBA from Wharton School.",
+    "ground_truth": {
+      "Name": ["Jonathan Pierce"],
+      "Designation": ["VP of Engineering"],
+      "Company": ["Salesforce"],
+      "Location": ["San Francisco California"],
+      "Degree": ["MBA"],
+      "College": ["Wharton School"]
+    }
+  },
+  {
+    "text": "Emily Blunt is a UI Designer at Ogilvy in New York. She holds a Master of Fine Arts from Rhode Island School of Design.",
+    "ground_truth": {
+      "Name": ["Emily Blunt"],
+      "Designation": ["UI Designer"],
+      "Company": ["Ogilvy"],
+      "Location": ["New York"],
+      "Degree": ["Master of Fine Arts"],
+      "College": ["Rhode Island School of Design"]
+    }
+  },
+  {
+    "text": "Michael O'Sullivan acts as a Site Reliability Engineer at Microsoft in Dublin Ireland. He earned a Bachelor of Engineering from Trinity College Dublin.",
+    "ground_truth": {
+      "Name": ["Michael O'Sullivan"],
+      "Designation": ["Site Reliability Engineer"],
+      "Company": ["Microsoft"],
+      "Location": ["Dublin Ireland"],
+      "Degree": ["Bachelor of Engineering"],
+      "College": ["Trinity College Dublin"]
+    }
+  },
+  {
+    "text": "Robert Kim is UX Research Director at Adobe Systems in San Jose California. He completed PhD in Human-Computer Interaction from Stanford University.",
+    "ground_truth": {
+      "Name": ["Robert Kim"],
+      "Designation": ["UX Research Director"],
+      "Company": ["Adobe Systems"],
+      "Location": ["San Jose California"],
+      "Degree": ["PhD in Human-Computer Interaction"],
+      "College": ["Stanford University"]
+    }
+  },
+  {
+    "text": "Sarah Goldberg is a Blockchain Developer at Coinbase in Miami Florida. She holds BS in Cryptography from UCLA.",
+    "ground_truth": {
+      "Name": ["Sarah Goldberg"],
+      "Designation": ["Blockchain Developer"],
+      "Company": ["Coinbase"],
+      "Location": ["Miami Florida"],
+      "Degree": ["BS in Cryptography"],
+      "College": ["UCLA"]
+    }
+  },
+  {
+    "text": "Rahul Verma is a DevOps Engineer at Infosys based in Pune India. He holds a B.Tech in Electronics from IIT Delhi.",
+    "ground_truth": {
+      "Name": ["Rahul Verma"],
+      "Designation": ["DevOps Engineer"],
+      "Company": ["Infosys"],
+      "Location": ["Pune India"],
+      "Degree": ["B.Tech in Electronics"],
+      "College": ["IIT Delhi"]
+    }
+  },
+  {
+    "text": "Carlos Mendez is a Mobile Developer at Spotify based in Stockholm Sweden. He graduated with a BS in Software Engineering from KTH Royal Institute.",
+    "ground_truth": {
+      "Name": ["Carlos Mendez"],
+      "Designation": ["Mobile Developer"],
+      "Company": ["Spotify"],
+      "Location": ["Stockholm Sweden"],
+      "Degree": ["BS in Software Engineering"],
+      "College": ["KTH Royal Institute"]
+    }
+  },
+  {
+    "text": "Anita Singh works as a Cyber Security Analyst at Wipro in Bangalore India. She earned a M.Tech in Information Security from VIT Vellore.",
+    "ground_truth": {
+      "Name": ["Anita Singh"],
+      "Designation": ["Cyber Security Analyst"],
+      "Company": ["Wipro"],
+      "Location": ["Bangalore India"],
+      "Degree": ["M.Tech in Information Security"],
+      "College": ["VIT Vellore"]
+    }
+  },
+  {
+    "text": "Wei Zhang acts as a Machine Learning Engineer at Tencent in Shenzhen China. He holds a Master of AI from Tsinghua University.",
+    "ground_truth": {
+      "Name": ["Wei Zhang"],
+      "Designation": ["Machine Learning Engineer"],
+      "Company": ["Tencent"],
+      "Location": ["Shenzhen China"],
+      "Degree": ["Master of AI"],
+      "College": ["Tsinghua University"]
+    }
+  },
+  {
+    "text": "Lucas Silva is a Full Stack Developer at Nubank based in Sao Paulo Brazil. He graduated with a BS in Computer Engineering from University of Sao Paulo.",
+    "ground_truth": {
+      "Name": ["Lucas Silva"],
+      "Designation": ["Full Stack Developer"],
+      "Company": ["Nubank"],
+      "Location": ["Sao Paulo Brazil"],
+      "Degree": ["BS in Computer Engineering"],
+      "College": ["University of Sao Paulo"]
+    }
+  },
+  {
+    "text": "Priya Patel is a QA Automation Engineer at Oracle in Austin Texas. She holds a MS in Computer Science from University of Texas.",
+    "ground_truth": {
+      "Name": ["Priya Patel"],
+      "Designation": ["QA Automation Engineer"],
+      "Company": ["Oracle"],
+      "Location": ["Austin Texas"],
+      "Degree": ["MS in Computer Science"],
+      "College": ["University of Texas"]
+    }
+  },
+  {
+    "text": "Dr. Elena Kosta works as a Research Scientist at DeepMind in London UK. She completed her PhD in Computational Neuroscience from University of Cambridge.",
+    "ground_truth": {
+      "Name": ["Elena Kosta"],
+      "Designation": ["Research Scientist"],
+      "Company": ["DeepMind"],
+      "Location": ["London UK"],
+      "Degree": ["PhD in Computational Neuroscience"],
+      "College": ["University of Cambridge"]
+    }
+  }
+]

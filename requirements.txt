@@ -2,6 +2,7 @@
 numpy
 pandas
 scikit-learn
+sklearn-crfsuite
 
 # NLP & embeddings
 spacy
@@ -21,3 +22,16 @@ streamlit
 textstat
 matplotlib
 plotly
+
+# ADDED FOR DISTILBERT HYBRID MODEL:
+torch
+accelerate>=0.26.0
+datasets
+evaluate
+seqeval
+tokenizers
+# Model download from the Hugging Face Hub
+huggingface_hub
+
+# Tests
+pytest

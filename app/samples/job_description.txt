@@ -1,0 +1,14 @@
+We are looking for an enthusiastic AI Intern to join our Machine Learning team.
+The candidate should have knowledge of Python, data preprocessing, and NLP concepts.
+Responsibilities include training models, analyzing data, and assisting in deployment of ML solutions.
+
+Required Skills:
+• Python
+• Machine Learning
+• Natural Language Processing (NLP)
+• Pandas, NumPy
+• Streamlit or Flask experience preferred
+
+Nice to Have:
+• Experience with Transformer-based models
+• Knowledge of Deep Learning frameworks (PyTorch or TensorFlow)

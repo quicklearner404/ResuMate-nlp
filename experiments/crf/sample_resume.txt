@@ -1,0 +1,27 @@
+John Doe
+Backend Developer
+Email: john.doe@email.com | Phone: (555) 123-4567
+
+SUMMARY
+Experienced Backend Developer with 5+ years of experience in building scalable applications. 
+Proficient in Python, Java, and Node.js with expertise in Django and Spring Boot frameworks.
+
+TECHNICAL SKILLS
+Programming Languages: Python, Java, JavaScript, SQL
+Frameworks: Django, Flask, Spring Boot, Express.js
+Databases: MySQL, PostgreSQL, MongoDB, Redis
+Cloud & Tools: AWS, Docker, Kubernetes, Git, Jenkins
+
+EXPERIENCE
+Senior Backend Developer - Tech Company (2020-2023)
+- Developed RESTful APIs using Django and Flask
+- Implemented microservices architecture with Docker and Kubernetes
+- Optimized database queries for improved performance
+
+Backend Developer - Startup Inc (2018-2020)
+- Built web applications using Python and Java
+- Managed MySQL and MongoDB databases
+- Deployed applications on AWS cloud
+
+EDUCATION
+Bachelor of Computer Science - University of Technology (2018)
