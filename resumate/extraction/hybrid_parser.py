@@ -9,6 +9,29 @@ from resumate.extraction.rules import extract_entities
 # ==============================================================================
 # 1. THE BERT MODEL ENGINE (Using Training Logic)
 # ==============================================================================
+SECTION_HEADINGS = {
+    "summary", "profile", "objective", "experience", "work experience", "work history",
+    "employment", "education", "skills", "technical skills", "projects", "certifications",
+    "contact", "languages", "interests", "references", "achievements",
+}
+EDGE_WORDS = {
+    "is", "a", "an", "the", "at", "in", "of", "to", "from", "with", "and", "&",
+    "based", "works", "served", "serves", "as", "formerly", "currently", "previously",
+    "holds", "earned", "completed", "graduated", "her", "his", "their", "my", "our",
+}
+EDGE_PUNCT = " .,;:-|()"
+
+
+def _trim_edges(txt: str) -> str:
+    """Strip connector words (whole words only) and punctuation from both ends."""
+    words = txt.strip(EDGE_PUNCT).split()
+    while words and words[0].lower().strip(EDGE_PUNCT) in EDGE_WORDS:
+        words.pop(0)
+    while words and words[-1].lower().strip(EDGE_PUNCT) in EDGE_WORDS:
+        words.pop()
+    return " ".join(words).strip(EDGE_PUNCT)
+
+
 # Fine-tuned weights are published on the Hugging Face Hub; a local copy in
 # models/final_model takes precedence if present.
 HUB_MODEL_ID = "quicklearner404/DistillbertNER"
@@ -119,20 +142,32 @@ class BertExtractor:
                 for t in ["dr. ", "mr. ", "ms. ", "prof. "]: 
                     if txt.lower().startswith(t): txt = txt[len(t):]
 
-            # Aggressive Scrubbing
-            dirty = True
-            while dirty:
-                dirty = False
-                txt_lower = txt.lower()
-                
-                for j in junk_edges:
-                    if txt_lower.endswith(f" {j}") or txt_lower.endswith(j):
-                        if txt_lower.endswith(j): txt = txt[:-len(j)].strip()
-                        else: txt = txt[:-len(j)-1].strip()
-                        dirty = True; txt_lower = txt.lower()
-                    if txt_lower.startswith(f"{j} ") or txt_lower == j:
-                        txt = txt[len(j)+1:].strip(); dirty = True; txt_lower = txt.lower()
-                if ". " in txt: txt = txt.split(". ")[0]; dirty = True
+            # Trim connector words ("at", "based in", ...) and punctuation from
+            # both edges. Words are matched whole: matching raw suffixes used to
+            # cut real words ("Berlin" -> "Berl", "India" -> "Indi").
+            txt = _trim_edges(txt)
+            if ". " in txt:
+                txt = _trim_edges(txt.split(". ")[0])
+
+            # Names are capitalised; a trailing lowercase word is usually the start
+            # of the email address that follows the name ("Hina Qureshi hina").
+            if e['label'] == 'Name':
+                words = txt.split()
+                while len(words) > 1 and words[-1].islower():
+                    words.pop()
+                txt = " ".join(words)
+
+            # Digits before a place name come from a neighbouring phone number or
+            # postcode ("0000000 Lahore").
+            if e['label'] == 'Location':
+                words = txt.split()
+                while len(words) > 1 and words[0].strip("+-()").isdigit():
+                    words.pop(0)
+                txt = " ".join(words)
+
+            # Section headings are layout, not entities ("SUMMARY", "EDUCATION")
+            if txt.lower() in SECTION_HEADINGS:
+                txt = ""
 
             # Final check for bad phrases
             for phrase in bad_phrases:

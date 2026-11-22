@@ -3,21 +3,21 @@
   "n_resumes": 30,
   "exact": {
     "micro": {
-      "precision": 0.5777,
-      "recall": 0.5992,
-      "f1": 0.5882,
-      "tp": 145,
-      "fp": 106,
-      "fn": 97
+      "precision": 0.66,
+      "recall": 0.6818,
+      "f1": 0.6707,
+      "tp": 165,
+      "fp": 85,
+      "fn": 77
     },
     "per_label": {
       "Name": {
-        "precision": 0.7241,
-        "recall": 0.7778,
-        "f1": 0.75,
-        "tp": 21,
-        "fp": 8,
-        "fn": 6
+        "precision": 0.8966,
+        "recall": 0.963,
+        "f1": 0.9286,
+        "tp": 26,
+        "fp": 3,
+        "fn": 1
       },
       "Email": {
         "precision": 1.0,
@@ -28,20 +28,20 @@
         "fn": 0
       },
       "Company": {
-        "precision": 0.6087,
-        "recall": 0.4118,
-        "f1": 0.4912,
-        "tp": 14,
-        "fp": 9,
-        "fn": 20
+        "precision": 0.7391,
+        "recall": 0.5,
+        "f1": 0.5965,
+        "tp": 17,
+        "fp": 6,
+        "fn": 17
       },
       "Designation": {
-        "precision": 0.7647,
-        "recall": 0.6842,
-        "f1": 0.7222,
-        "tp": 26,
+        "precision": 0.7714,
+        "recall": 0.7105,
+        "f1": 0.7397,
+        "tp": 27,
         "fp": 8,
-        "fn": 12
+        "fn": 11
       },
       "Degree": {
         "precision": 0.2683,
@@ -52,20 +52,20 @@
         "fn": 20
       },
       "College": {
-        "precision": 0.3393,
-        "recall": 0.6129,
-        "f1": 0.4368,
-        "tp": 19,
-        "fp": 37,
-        "fn": 12
+        "precision": 0.4717,
+        "recall": 0.8065,
+        "f1": 0.5952,
+        "tp": 25,
+        "fp": 28,
+        "fn": 6
       },
       "Location": {
-        "precision": 0.5,
-        "recall": 0.3929,
-        "f1": 0.44,
-        "tp": 11,
-        "fp": 11,
-        "fn": 17
+        "precision": 0.6957,
+        "recall": 0.5714,
+        "f1": 0.6275,
+        "tp": 16,
+        "fp": 7,
+        "fn": 12
       },
       "Skills": {
         "precision": 0.9333,
@@ -76,15 +76,15 @@
         "fn": 10
       }
     },
-    "resumes_fully_correct": "1/30"
+    "resumes_fully_correct": "2/30"
   },
   "lenient": {
     "micro": {
-      "precision": 0.8171,
+      "precision": 0.8238,
       "recall": 0.8306,
-      "f1": 0.8238,
+      "f1": 0.8272,
       "tp": 201,
-      "fp": 45,
+      "fp": 43,
       "fn": 41
     },
     "per_label": {
@@ -129,19 +129,19 @@
         "fn": 1
       },
       "College": {
-        "precision": 0.5179,
+        "precision": 0.5472,
         "recall": 0.9355,
-        "f1": 0.6667,
+        "f1": 0.6905,
         "tp": 29,
-        "fp": 27,
+        "fp": 24,
         "fn": 2
       },
       "Location": {
-        "precision": 1.0,
+        "precision": 0.9545,
         "recall": 0.75,
-        "f1": 0.8571,
+        "f1": 0.84,
         "tp": 21,
-        "fp": 0,
+        "fp": 1,
         "fn": 7
       },
       "Skills": {

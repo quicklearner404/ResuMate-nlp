@@ -1,169 +1,202 @@
-import streamlit as st
+"""ResuMate Streamlit app: upload a resume, paste a job description, see the fit.
+
+    streamlit run app/streamlit_app.py
+"""
+
 import os
 import sys
-import time
-import random
+from pathlib import Path
 
-# --- PATH SETUP ---
-current_dir = os.path.dirname(os.path.abspath(__file__))
-project_root = os.path.abspath(os.path.join(current_dir, ".."))
-sys.path.append(project_root)
+import streamlit as st
 
-from resumate.extraction.pdf_parser import process_resume
-from resumate.matching.role_classifier import (
+APP_DIR = Path(__file__).resolve().parent
+sys.path.append(str(APP_DIR.parent))
+
+from resumate.extraction.pdf_parser import process_resume  # noqa: E402
+from resumate.matching.role_classifier import (  # noqa: E402
     ml_score,
-    generate_recommendations,
-    predict_job_title
+    predict_job_title,
+    skill_gap,
 )
 
-# --- PAGE CONFIGURATION ---
-st.set_page_config(
-    page_title="ResuMate Platform",
-    page_icon="📄",
-    layout="wide",
-    initial_sidebar_state="collapsed"
-)
+SAMPLE_RESUME = APP_DIR / "samples" / "resume.pdf"
+SAMPLE_JOB = APP_DIR / "samples" / "job_description.txt"
 
-# --- CACHING ---
-@st.cache_data(show_spinner=False)
-def analyze_resume_fast(file):
-    return process_resume(file)
+st.set_page_config(page_title="ResuMate", page_icon="📄", layout="wide")
 
-# --- SESSION STATE ---
-if 'analyzed' not in st.session_state:
-    st.session_state.analyzed = False
-
-def trigger_analysis():
-    st.session_state.analyzed = True
-
-# --- LOADING TIPS ---
-loading_tips = [
-    "💡 Tip: ATS systems often reject resumes with complex columns or graphics.",
-    "💡 Did you know? 75% of resumes are never seen by a human recruiter.",
-    "💡 Tip: Use standard section headers like 'Experience' and 'Education'.",
-    "💡 Fact: Tailoring your resume keywords increases interview chances by 50%.",
-    "💡 Tip: Avoid putting your photo on US/UK resumes to prevent bias.",
-    "💡 Fact: Most recruiters spend less than 7 seconds scanning a resume.",
-    "💡 Tip: PDF is the safest format to ensure your formatting stays intact.",
-    "💡 Tip: Quantify your achievements! (e.g., 'Increased sales by 20%')."
-]
-
-# --- CSS ---
-st.markdown("""
+st.markdown(
+    """
 <style>
-    .block-container { padding-top: 1.5rem; padding-bottom: 2rem; }
-    div[data-testid="stExpander"] {
-        border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    }
-    .skill-chip {
-        display: inline-flex; align-items: center; background-color: #f1f5f9; color: #334155; 
-        border: 1px solid #cbd5e1; padding: 4px 12px; border-radius: 16px; margin: 4px; 
-        font-size: 0.85rem; font-weight: 600;
-    }
-    div[data-testid="metric-container"] {
-        background-color: #ffffff; border: 1px solid #f0f2f6; padding: 10px; 
-        border-radius: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-    }
-    div.stButton > button {
-        background-color: #2563eb; color: white; border-radius: 6px; height: 3rem; font-size: 1rem;
-    }
+  .block-container { padding-top: 2rem; padding-bottom: 2rem; max-width: 1200px; }
+  h1 { margin-bottom: 0 !important; }
+  .subtitle { color: #64748b; margin-top: 0.2rem; margin-bottom: 1.2rem; }
+  .pill { display: inline-block; padding: 2px 10px; margin: 0 6px 6px 0; border-radius: 999px;
+          font-size: 0.78rem; background: #eef2ff; color: #3730a3; border: 1px solid #e0e7ff; }
+  .chip { display: inline-block; padding: 4px 12px; margin: 0 6px 8px 0; border-radius: 999px;
+          font-size: 0.85rem; font-weight: 600; border: 1px solid; }
+  .chip-ok   { background: #ecfdf5; color: #047857; border-color: #a7f3d0; }
+  .chip-miss { background: #fffbeb; color: #b45309; border-color: #fde68a; }
+  .chip-misc { background: #f8fafc; color: #334155; border-color: #e2e8f0; }
+  .field { color: #64748b; font-size: 0.8rem; text-transform: uppercase; letter-spacing: .04em;
+           margin-top: 0.6rem; }
+  .value { font-size: 1rem; color: #0f172a; }
+  .muted { color: #94a3b8; }
 </style>
-""", unsafe_allow_html=True)
+""",
+    unsafe_allow_html=True,
+)
 
-# --- HEADER ---
-col1, col2 = st.columns([6, 1])
-with col1:
-    st.title("ResuMate Analytics")
-    st.caption("Professional Resume & Job Description Matching Engine")
 
-# --- INPUT SECTION ---
-with st.expander("📂 Upload Resume & Job Details", expanded=not st.session_state.analyzed):
-    col_input_1, col_input_2 = st.columns([1, 1.5], gap="large")
-    with col_input_1:
-        st.subheader("1. Candidate")
-        uploaded_file = st.file_uploader("Upload PDF Resume", type=["pdf"])
-    with col_input_2:
-        st.subheader("2. Target")
-        job_description = st.text_area("Job Description", height=130, placeholder="Paste JD here...")
+# --------------------------------------------------------------------------- #
+# Helpers
+# --------------------------------------------------------------------------- #
+@st.cache_data(show_spinner=False)
+def analyze(pdf_bytes: bytes, job_description: str):
+    import io
 
-    analyze_btn = st.button("Run Compatibility Analysis ⚡", type="primary", use_container_width=True, on_click=trigger_analysis)
+    resume_text, fields = process_resume(io.BytesIO(pdf_bytes))
+    matched, missing = skill_gap(resume_text, job_description)
+    return {
+        "text": resume_text,
+        "fields": fields,
+        "score": ml_score(resume_text, job_description),
+        # Prefer the job title the model extracted; fall back to a keyword guess.
+        "role": (fields.get("Designation") or [predict_job_title(resume_text)])[0],
+        "matched": matched,
+        "missing": missing,
+    }
 
-# --- RESULTS SECTION ---
-if st.session_state.analyzed:
-    if uploaded_file and job_description.strip():
-        
-        # 🎲 Select a random tip
-        tip = random.choice(loading_tips)
-        
-        # 🎬 COOL LOADING UI
-        with st.status("🚀 Launching AI Agents...", expanded=True) as status:
-            c1, c2 = st.columns([1, 4])
-            with c1:
-                # Scanning GIF
-                st.image("https://cdn.dribbble.com/users/107759/screenshots/2436386/media/cfd558d7c433390f7079234f9a12c45e.gif", width=80)
-            with c2:
-                st.markdown(f"**{tip}**") # Random Fact
-            
-            st.write("📄 Parsing PDF structure (Cached)...")
-            resume_text, entities = analyze_resume_fast(uploaded_file)
-            
-            st.write("🧠 Identifying technical entities...")
-            predicted_role = predict_job_title(resume_text)
-            
-            st.write("⚖️ Calculating vector similarity...")
-            score = ml_score(resume_text, job_description)
-            recs = generate_recommendations(resume_text, job_description)
-            
-            status.update(label="✅ Analysis Complete!", state="complete", expanded=False)
 
-        st.divider()
-        
-        # 1. KPI ROW
-        kpi1, kpi2, kpi3, kpi4 = st.columns(4)
-        with kpi1: st.metric("Match Score", f"{score}%", delta="Confidence")
-        with kpi2: st.metric("Detected Role", predicted_role)
-        with kpi3: st.metric("Skills Found", len(set(entities.get("Skills", []))))
-        with kpi4: st.metric("Contact Info", "Present" if entities.get("Email") else "Missing")
-        
-        # 2. TABS
-        tab_skills, tab_gaps, tab_hist, tab_json = st.tabs(["🛠️ Skills", "⚠️ Gaps", "🏢 History", "🔍 Raw"])
+def chips(items, kind):
+    if not items:
+        return '<span class="muted">None</span>'
+    return "".join(f'<span class="chip chip-{kind}">{i}</span>' for i in items)
 
-        with tab_skills:
-            c1, c2 = st.columns([1, 2])
-            with c1:
-                st.write(f"**Name:** {entities.get('Name', ['N/A'])[0]}")
-                st.write(f"**Email:** {entities.get('Email', ['N/A'])[0]}")
-            with c2:
-                skills = list(set(entities.get("Skills", [])))
-                if skills:
-                    st.markdown("".join([f'<span class="skill-chip">{s}</span>' for s in skills]), unsafe_allow_html=True)
-                else:
-                    st.warning("No skills extracted.")
 
-        with tab_gaps:
-            if recs:
-                for rec in recs:
-                    if "Great match" in rec: st.success(rec)
-                    else: st.warning(rec.replace("⚠️", "").strip())
-            else: st.info("No suggestions available.")
+def unique(values):
+    """Drop case-insensitive duplicates, keeping the first spelling."""
+    seen, out = set(), []
+    for v in values:
+        if v.lower() not in seen:
+            seen.add(v.lower())
+            out.append(v)
+    return out
 
-        with tab_hist:
-            comps = entities.get("Company", [])
-            desigs = entities.get("Designation", [])
-            if comps or desigs:
-                for i in range(max(len(comps), len(desigs))):
-                    r = desigs[i] if i < len(desigs) else "Role N/A"
-                    c = comps[i] if i < len(comps) else "Company N/A"
-                    st.markdown(f"**{r}** | {c}")
-                    st.divider()
-            else:
-                st.caption("No work history found.")
-            for d in entities.get("Degree", []): st.markdown(f"🎓 {d}")
 
-        with tab_json:
-            st.json(entities)
-            with st.expander("See extracted text"): st.text(resume_text)
+def field(label, values, limit=1):
+    values = unique(values)
+    shown = ", ".join(values[:limit]) if values else '<span class="muted">Not found</span>'
+    st.markdown(f'<div class="field">{label}</div><div class="value">{shown}</div>', unsafe_allow_html=True)
 
-    else:
-        st.error("Please upload a resume and paste a job description.")
-        st.session_state.analyzed = False
+
+def fit_label(score):
+    if score >= 60:
+        return "Strong match"
+    if score >= 35:
+        return "Moderate match"
+    return "Low match"
+
+
+# --------------------------------------------------------------------------- #
+# Header and inputs
+# --------------------------------------------------------------------------- #
+st.title("📄 ResuMate")
+st.markdown(
+    '<div class="subtitle">Extract structured fields from a PDF resume and check how well it fits a job.</div>'
+    '<span class="pill">DistilBERT NER</span><span class="pill">Rule-based email, phone, skills</span>'
+    '<span class="pill">TF-IDF job matching</span>',
+    unsafe_allow_html=True,
+)
+
+if "use_sample" not in st.session_state:
+    st.session_state.use_sample = False
+
+with st.container(border=True):
+    col_resume, col_job = st.columns([1, 1.4], gap="large")
+    with col_resume:
+        st.markdown("**1. Resume**")
+        uploaded = st.file_uploader("PDF resume", type=["pdf"], label_visibility="collapsed")
+        if st.session_state.use_sample and not uploaded:
+            st.caption(f"Using sample resume: `{SAMPLE_RESUME.name}` (fictional candidate)")
+    with col_job:
+        st.markdown("**2. Job description**")
+        default_job = SAMPLE_JOB.read_text(encoding="utf-8") if st.session_state.use_sample else ""
+        job_description = st.text_area(
+            "Job description", value=default_job, height=150,
+            placeholder="Paste the job description here...", label_visibility="collapsed",
+        )
+
+    b1, b2, _ = st.columns([1.2, 1.2, 3])
+    run = b1.button("Analyze resume", type="primary", use_container_width=True)
+    if b2.button("Try the sample", use_container_width=True):
+        st.session_state.use_sample = True
+        st.rerun()
+
+pdf_bytes = uploaded.getvalue() if uploaded else (
+    SAMPLE_RESUME.read_bytes() if st.session_state.use_sample else None
+)
+
+if not (run or st.session_state.use_sample):
+    st.info("Upload a PDF resume and paste a job description, or click **Try the sample**.")
+    st.stop()
+if not pdf_bytes or not job_description.strip():
+    st.warning("Please provide both a resume and a job description.")
+    st.stop()
+
+with st.spinner("Reading the resume and running the model..."):
+    result = analyze(pdf_bytes, job_description)
+
+fields = result["fields"]
+if "Error" in fields:
+    st.error("Could not read any text from this PDF.")
+    st.stop()
+
+# --------------------------------------------------------------------------- #
+# Results
+# --------------------------------------------------------------------------- #
+required = len(result["matched"]) + len(result["missing"])
+k1, k2, k3, k4 = st.columns(4)
+with k1, st.container(border=True):
+    st.metric("Match score", f"{result['score']:.0f}%")
+    st.progress(min(int(result["score"]), 100), text=fit_label(result["score"]))
+with k2, st.container(border=True):
+    st.metric("Job skills covered", f"{len(result['matched'])} / {required}" if required else "–")
+with k3, st.container(border=True):
+    st.metric("Skills on resume", len(set(fields.get("Skills", []))))
+with k4, st.container(border=True):
+    st.markdown(
+        f'<div style="font-size:0.875rem;color:#31333f">Current role</div>'
+        f'<div style="font-size:1.35rem;line-height:1.3;margin-top:0.35rem">{result["role"]}</div>',
+        unsafe_allow_html=True,
+    )
+
+left, right = st.columns([1, 1.4], gap="large")
+
+with left, st.container(border=True):
+    st.subheader("Candidate")
+    field("Name", fields.get("Name", []))
+    field("Email", fields.get("Email", []))
+    field("Phone", fields.get("Phone", []))
+    field("Location", fields.get("Location", []))
+    field("Roles", fields.get("Designation", []), limit=3)
+    field("Companies", fields.get("Company", []), limit=3)
+    field("Education", fields.get("Degree", []) + fields.get("College", []), limit=2)
+
+with right, st.container(border=True):
+    st.subheader("Fit for this job")
+    st.markdown('<div class="field">Required skills found on the resume</div>', unsafe_allow_html=True)
+    st.markdown(chips(result["matched"], "ok"), unsafe_allow_html=True)
+    st.markdown('<div class="field">Required skills missing</div>', unsafe_allow_html=True)
+    st.markdown(chips(result["missing"], "miss"), unsafe_allow_html=True)
+    other = sorted(set(fields.get("Skills", [])) - set(result["matched"]))
+    st.markdown('<div class="field">Other skills on the resume</div>', unsafe_allow_html=True)
+    st.markdown(chips(other, "misc"), unsafe_allow_html=True)
+    if result["missing"]:
+        st.caption("Tip: if you have the missing skills, mention them explicitly. Matching is keyword-based.")
+
+with st.expander("Raw extraction"):
+    c1, c2 = st.columns(2)
+    c1.json(fields)
+    c2.text(result["text"])
+
+st.caption(os.environ.get("RESUMATE_FOOTER", "Model: quicklearner404/DistillbertNER · see README for evaluation results"))
