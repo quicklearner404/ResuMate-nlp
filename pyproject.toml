@@ -1,0 +1,4 @@
+[tool.pytest.ini_options]
+# tests/test.py and tests/embedding_test.py are standalone evaluation scripts, not unit tests.
+testpaths = ["tests"]
+addopts = "-ra --ignore=tests/test.py --ignore=tests/embedding_test.py"
