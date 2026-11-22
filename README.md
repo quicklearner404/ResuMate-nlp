@@ -1,133 +1,117 @@
+# ResuMate-NLP: Resume Parser and Job Matcher
 
-# ResuMate-NLP: Intelligent AI Resume Parser
+[![CI](https://github.com/quicklearner404/ResuMate-nlp/actions/workflows/ci.yml/badge.svg)](https://github.com/quicklearner404/ResuMate-nlp/actions/workflows/ci.yml)
+[![Python](https://img.shields.io/badge/Python-3.12-blue)](https://www.python.org/)
+[![Model on HF](https://img.shields.io/badge/%F0%9F%A4%97-DistillbertNER-yellow)](https://huggingface.co/quicklearner404/DistillbertNER)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-[![Python](https://img.shields.io/badge/Python-3.9%2B-blue)](https://www.python.org/)
-[![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B)](https://streamlit.io/)
-[![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97-Transformers-yellow)](https://huggingface.co/)
-[![Accuracy](https://img.shields.io/badge/F1%20Score-94%25-brightgreen)]()
+ResuMate extracts structured fields from PDF resumes (name, email, phone, job titles, companies, degrees, colleges, locations and skills) and compares the resume against a job description in a Streamlit app.
 
-**ResuMate** is a state-of-the-art Named Entity Recognition (NER) system designed to extract structured information from resumes (PDFs). It utilizes a **Hybrid Architecture** that combines a fine-tuned **DistilBERT model** (Deep Learning) with **Smart Heuristics**, achieving a **93.90% Weighted F1-Score**.
+It is a **hybrid system**:
+- a **DistilBERT token classifier** fine-tuned on about 2,200 annotated resumes, for free-text fields (name, designation, company, degree, college, location)
+- **rules** for structured fields: regex for email and phone, and a phrase matcher with a skill dictionary.
 
-Unlike traditional parsers, ResuMate understands layout context, separates "Job Titles" from "Company Names" even on the same line, and provides a real-time visualization dashboard.
+## Results
 
----
+Evaluated on **30 hand-annotated test resumes** that are not in the training data, with the published model [`quicklearner404/DistillbertNER`](https://huggingface.co/quicklearner404/DistillbertNER). Everything below is reproducible with `python evaluation/evaluate.py` and re-checked in CI.
 
-##  Key Features
+| Matching | Precision | Recall | F1 |
+|---|---|---|---|
+| Lenient: substring match, e.g. "London" vs "London UK" | 81.7% | 83.1% | **82.4%** |
+| Exact: normalized strings must be equal | 57.8% | 59.9% | **58.8%** |
 
-* ** Hybrid Intelligence Engine:**
-    * **DistilBERT (Fine-Tuned):** Precision extraction for complex entities (Names, Companies, Designations, Degrees).
-    * **Rule-Based Logic:** 100% accuracy for structured data (Emails, Phone Numbers).
-    * **Skill Matcher:** Dictionary-based identification of 1,000+ technical skills.
-* ** Structure-Aware Parsing:**
-    * Uses `pdfplumber` with layout analysis to handle multi-column resumes.
-    * **Smart Cleaning:** Automatically removes bullet points, emojis, and visual noise while preserving document structure.
-* ** Interactive Dashboard:**
-    * A user-friendly **Streamlit** frontend.
-    * Real-time parsing and JSON visualization.
-    * **Job Compatibility Check:** Calculates similarity between the resume and a job description.
+The large gap between the two rows comes from boundary errors. The model usually finds the right entity but includes or drops a word ("MBA, Stockholm School" vs "Stockholm School of Economics").
 
----
+Per field, lenient matching ([full report with every error](evaluation/results/report.md)):
 
-##  System Performance
+| Field | Method | Precision | Recall | F1 |
+|---|---|---|---|---|
+| Name | DistilBERT | 96.4% | 100.0% | 98.2% |
+| Designation | DistilBERT | 94.1% | 84.2% | 88.9% |
+| Skills | Phrase matcher | 95.6% | 82.7% | 88.7% |
+| Degree | DistilBERT + rules | 79.0% | 96.8% | 87.0% |
+| Location | DistilBERT | 100.0% | 75.0% | 85.7% |
+| College | DistilBERT | 51.8% | 93.5% | 66.7% |
+| Company | DistilBERT | 78.3% | 52.9% | 63.2% |
 
-The model was evaluated on a held-out test set of annotated resumes.
+### Evaluation audit: what changed and why
 
-| Metric | Score | Assessment |
-| :--- | :--- | :--- |
-| ** Weighted F1-Score** | **93.90%** | **Outstanding.** Captures nearly all relevant data. |
-| ** Precision** | **100.00%** | **Trustworthy.** Zero false positives (no hallucinations). |
-| ** Recall** | **89.36%** | **High.** Misses very little information. |
-| ** Exact Match (EM)** | **53.33%** | **Strong.** >50% of documents parsed with zero errors. |
+An earlier version of this README reported **93.90% weighted F1 with 100% precision**. Those numbers came from a flawed evaluation script and have been withdrawn.
 
-### 📈 Evidence of Training
-**Learning Curve:**
-![Accuracy Graph](src/parsing/accuracy_graph.png)
-*The Dual-Line graph demonstrates strong learning (Orange) and excellent generalization on validation data (Green), peaking at 94%.*
+1. **False positives were never counted.** For each gold field the old script recorded either the correct label or `"MISSED"`, so a wrong prediction (for example *"washington"* returned as the company) could not appear in the precision calculation. Precision was 100% by construction. The new scorer ([`evaluation/evaluate.py`](evaluation/evaluate.py)) counts every unmatched prediction as a false positive. [`tests/test_evaluation.py`](tests/test_evaluation.py) pins this behaviour.
+2. **One field match counted as the whole field.** Finding one of two companies counted as fully correct. Each gold value is now scored separately.
+3. **A training-curve graph was partly synthetic.** When F1 values were missing from the training log, the plotting script filled them with `np.linspace` estimates. The graph and its script have been removed. The loss curve below is kept: its values are transcribed from the Colab training logs.
+4. **The published checkpoint does not reproduce the old numbers**, even with the old scorer (90.9% versus 93.9% weighted F1), so the original figures probably came from a different checkpoint. All numbers here are for the published model, which anyone can download and check.
 
-**Loss Convergence:**
-![Loss Graph](src/parsing/training_curves.png)
-*Training and Validation loss stabilize early, indicating a healthy model fit without overfitting.*
+### A decoding bug found by the new evaluation
 
-**Confusion Matrix:**
-![Loss Graph](src/parsing/confusion_matrix.png)
-*Confusion matrix shows that no labels are mistaken for other entities.*
----
+The error report showed entity fragments such as *"care"* for **Careem** and *"kubernet"* for **Kubernetes**. Entities were being assembled from WordPiece sub-tokens, so when the model labelled only the first piece of a word, the entity was cut off mid-word.
 
-##  Project Structure
+`BertExtractor.predict` now decodes at **word level**: each word takes the label of its first sub-token and its full character span, which matches how the model was trained. Results on the same model and test set:
 
-```text
-ResuMate-nlp/
-├── models/                  # Training logs & Checkpoints (Weights ignored by Git)
-├── src/
-│   ├── frontend/            # Streamlit Dashboard UI
-│   │   └── app.py           # Main Web Application
-│   └── parsing/             # Core Logic
-│       ├── hybridBert.py    # The "Brain" (DistilBERT + Regex Rules)
-│       └── parser.py        # The "Bridge" (PDF Cleaning + Smart Fallbacks)
-├── data/                    # Test Data
-├── final_metrics.csv        # Detailed performance metrics per entity
-├── em_score.txt             # Exact Match Score evidence
-├── accuracy_graph.png       # Training visualization
-├── loss_graph.png           # Loss visualization
-├── requirements.txt         # Project Dependencies
-└── README.md                # Documentation
-```
+| | Lenient F1 | Exact F1 | Name F1 | Location precision |
+|---|---|---|---|---|
+| Sub-token decoding (before) | 81.1% | 58.0% | 92.9% | 95.5% |
+| Word-level decoding (now) | **82.4%** | **58.8%** | **98.2%** | **100%** |
 
----
+[`tests/test_decoding.py`](tests/test_decoding.py) reproduces the bug with a stub model: it fails on the old decoder (`['Care']`) and passes on the new one (`['Careem']`).
 
-##  Installation & Usage
+### Known weaknesses
 
-### 1\. Setup
+- **College precision (51.8%)**: the model often labels employers as colleges (Arbisoft, Nielsen, Raytheon). This is a model error, not a decoding error, and needs more training examples with a company and a college close together.
+- **Company recall (52.9%)**: about half of employers are missed, especially in short bullet-point layouts.
+- **Small test set**: 30 resumes, so per-field numbers can move several points with a single resume.
 
-Clone the repository and install the required dependencies.
+### Training
+
+DistilBERT (`distilbert-base-uncased`) fine-tuned for token classification with 13 BIO labels on 2,216 resumes: 2,000 annotated resumes plus about 220 synthetic resumes (`src/parsing/createResume.py`, `clean.py`, `trainBert.py`). Training ran for 15 epochs. Validation loss was lowest at epoch 4 and rose afterwards, a sign of overfitting:
+
+![Training and validation loss](src/parsing/training_curves.png)
+
+## Quick start
 
 ```bash
-git clone [https://github.com/YOUR_USERNAME/resumate-nlp.git](https://github.com/YOUR_USERNAME/resumate-nlp.git)
-cd resumate-nlp
+git clone https://github.com/quicklearner404/ResuMate-nlp.git
+cd ResuMate-nlp
+python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
-```
-
-### 2\. Run the Dashboard
-
-Launch the web interface to test the model in real-time.
-
-```bash
+python -m spacy download en_core_web_sm
 streamlit run src/frontend/app.py
 ```
 
-### 3\. Usage
+The model downloads from the Hugging Face Hub on first run. To use a local copy, put it in `models/final_model/`.
 
-1.  **Upload:** Drag & drop any PDF resume into the UI.
-2.  **Analyze:** The system extracts **Name, Email, Skills, Degree, Designation, and Company**.
-3.  **Match:** Paste a Job Description to see a **Compatibility Score**.
+**Reproduce the evaluation and run the tests:**
 
----
+```bash
+python evaluation/evaluate.py      # writes evaluation/results/report.md and metrics.json
+pytest
+```
 
-##  Entity Extraction Capabilities
+## Project structure
 
-| Entity Type | Method | Performance |
-| :--- | :--- | :--- |
-| **Name** | DistilBERT + Heuristic Fallback | **98.1% F1** |
-| **Designation** | DistilBERT | **88.9% F1** |
-| **Company** | DistilBERT + Layout Analysis | **90.9% F1** |
-| **Degree/College** | DistilBERT | **96.5% F1** |
-| **Skills** | Phrase Matcher (Dictionary) | **100% Precision** |
-| **Email/Phone** | Regex Patterns | **100% Precision** |
+```text
+src/
+  parsing/
+    hybridBert.py      DistilBERT extractor + rule merge (ResumeParser)
+    parser.py          PDF text extraction, cleaning and fallbacks
+    entities.py        regex and skill-dictionary rules (spaCy PhraseMatcher)
+    trainBert.py       fine-tuning script
+    test_resumes.json  30 annotated test resumes
+  frontend/            Streamlit app, TF-IDF job-matching model
+  scoring/             embedding-based resume–job similarity
+evaluation/
+  evaluate.py          entity-level scorer (exact + lenient)
+  results/             report.md, metrics.json, pre-fix report
+tests/                 scorer and decoding regression tests
+ML_model_train.py, ml_training_data2.py, DL1.py
+                       baseline designation classifiers (logistic regression, SVM, LSTM)
+```
 
----
+## Team
 
-##  Development Workflow
+Built as a university NLP project by **Fatima Kashif** (NER pipeline, hybrid parser, training and evaluation), **Bilal Asghar** (frontend, scoring and skill recommendations) and **Muhammad Abdullah** (resume embeddings).
 
-### Improving the Model
+## License
 
-1.  **Code Logic:** Edit `src/parsing/parser.py` to improve text cleaning or fallback logic.
-2.  **Model Weights:** The model is loaded from `models/final_model`. To retrain, use the training scripts (not included in this release version).
-3.  **Frontend:** Modify `src/frontend/app.py` to change the UI layout.
-
----
-
-## 📄 License
-
-MIT License - Open for personal and academic use.
-
-
+MIT

@@ -30,3 +30,8 @@ datasets
 evaluate
 seqeval
 tokenizers
+# Model download from the Hugging Face Hub
+huggingface_hub
+
+# Tests
+pytest

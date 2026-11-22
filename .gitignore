@@ -34,9 +34,14 @@ dist/
 
 # --- LOGS & IDE/System Files ---
 *.log
-*.idea/
-*.vscode/
+.idea/
+.vscode/
 *.sublime-project
 *.sublime-workspace
 .DS_Store
 Thumbs.db
+
+# Evaluation outputs are committed on purpose
+!evaluation/results/
+.pytest_cache/
+models/
