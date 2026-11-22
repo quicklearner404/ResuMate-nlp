@@ -1,0 +1,13 @@
+# Runtime dependencies for the Streamlit app (used by Streamlit Community Cloud).
+# Training and experiment dependencies live in the root requirements.txt.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch
+transformers==5.24.0
+huggingface_hub==2.4.0
+spacy==3.8.18
+en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl
+pdfplumber==0.11.11
+scikit-learn==1.9.1
+joblib==1.6.0
+numpy==2.5.5
+streamlit==1.67.0
