@@ -1,5 +1,6 @@
 # ResuMate-NLP: Resume Parser and Job Matcher
 
+[![Live demo](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://resumate-nlp-xog54tmzkmdswhloiun2bn.streamlit.app/)
 [![CI](https://github.com/quicklearner404/ResuMate-nlp/actions/workflows/ci.yml/badge.svg)](https://github.com/quicklearner404/ResuMate-nlp/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/badge/Python-3.12-blue)](https://www.python.org/)
 [![Model on HF](https://img.shields.io/badge/%F0%9F%A4%97-DistillbertNER-yellow)](https://huggingface.co/quicklearner404/DistillbertNER)
@@ -12,6 +13,8 @@ It is a **hybrid system**:
 - **rules** for structured fields: regex for email and phone, and a phrase matcher with a skill dictionary.
 
 ![ResuMate app analysing the fictional sample resume against the sample job description](docs/app_screenshot.png)
+
+**[Try it live](https://resumate-nlp-xog54tmzkmdswhloiun2bn.streamlit.app/)**: click *Try the sample* or upload your own PDF resume. The free host sleeps when idle, so the first load can take about a minute.
 
 ## Results
 
@@ -89,6 +92,8 @@ python training/train_distilbert.py     # -> models/final_model/
 ```
 
 ## Quick start
+
+No install needed to try it: **[live demo](https://resumate-nlp-xog54tmzkmdswhloiun2bn.streamlit.app/)**. To run it locally:
 
 ```bash
 git clone https://github.com/quicklearner404/ResuMate-nlp.git
