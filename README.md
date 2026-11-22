@@ -11,6 +11,8 @@ It is a **hybrid system**:
 - a **DistilBERT token classifier** for free-text fields (name, designation, company, degree, college, location), fine-tuned on 220 hand-annotated resumes plus 2,000 template-generated ones
 - **rules** for structured fields: regex for email and phone, and a phrase matcher with a skill dictionary.
 
+![ResuMate app analysing the sample resume against the sample job description](docs/app_screenshot.png)
+
 ## Results
 
 Evaluated on **30 hand-annotated test resumes** that are not in the training data, with the published model [`quicklearner404/DistillbertNER`](https://huggingface.co/quicklearner404/DistillbertNER). Everything below is reproducible with `python evaluation/evaluate.py` and re-checked in CI.

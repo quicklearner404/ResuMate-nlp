@@ -11,6 +11,9 @@ VEC_PATH = os.path.join(BASE_DIR, "tfidf_vectorizer.pkl")
 MODEL_PATH = os.path.join(BASE_DIR, "logistic_model.pkl")
 CLASSES_PATH = os.path.join(BASE_DIR, "classes.npy")
 
+# Lowest match score shown in the app (a floor, not an offset).
+MIN_DISPLAY_SCORE = 15.0
+
 # --- 2. TRY TO LOAD TEAM MODELS ---
 vectorizer = None
 ml_model = None
@@ -92,7 +95,9 @@ def ml_score(resume_text, job_description):
         temp_vec = TfidfVectorizer(stop_words='english')
         tfidf = temp_vec.fit_transform([resume_text, job_description])
         cosine_val = cosine_similarity(tfidf[0:1], tfidf[1:2])[0][0]
-        scores.append(round(cosine_val * 100, 2) + 15) 
+        # Show at least MIN_DISPLAY_SCORE so an unrelated resume reads as a low
+        # match rather than 0%. (Previously +15 was added to every score.)
+        scores.append(max(round(cosine_val * 100, 2), MIN_DISPLAY_SCORE))
     except:
         scores.append(0.0)
 
