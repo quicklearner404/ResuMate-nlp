@@ -3,7 +3,7 @@ import pandas as pd
 import os
 
 # loading scoring results (with similarity_score) 
-path = os.path.join(os.path.dirname(__file__), "../../data/resume/match_results.csv")
+path = os.path.join(os.path.dirname(__file__), "../data/resume/match_results.csv")
 df = pd.read_csv(path)
 
 
@@ -41,7 +41,7 @@ df["keyword_match_score"] = coverage_scores
 df["final_score"] = (df["similarity_score"] * 0.8) + (df["keyword_match_score"] * 0.2)
 
 
-out_path = os.path.join(os.path.dirname(__file__), "../../data/resume/final_results.csv")
+out_path = os.path.join(os.path.dirname(__file__), "../data/resume/final_results.csv")
 df.to_csv(out_path, index=False)
 print(f"✅ Done! Saved final results to: {out_path}")
 

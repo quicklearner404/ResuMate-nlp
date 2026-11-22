@@ -8,7 +8,7 @@
 ResuMate extracts structured fields from PDF resumes (name, email, phone, job titles, companies, degrees, colleges, locations and skills) and compares the resume against a job description in a Streamlit app.
 
 It is a **hybrid system**:
-- a **DistilBERT token classifier** fine-tuned on about 2,200 annotated resumes, for free-text fields (name, designation, company, degree, college, location)
+- a **DistilBERT token classifier** for free-text fields (name, designation, company, degree, college, location), fine-tuned on 220 hand-annotated resumes plus 2,000 template-generated ones
 - **rules** for structured fields: regex for email and phone, and a phrase matcher with a skill dictionary.
 
 ## Results
@@ -58,15 +58,26 @@ The error report showed entity fragments such as *"care"* for **Careem** and *"k
 
 ### Known weaknesses
 
-- **College precision (51.8%)**: the model often labels employers as colleges (Arbisoft, Nielsen, Raytheon). This is a model error, not a decoding error, and needs more training examples with a company and a college close together.
+- **The training data is mostly synthetic.** Only 220 of the 2,216 training resumes are real. The other 2,000 come from a template generator with fixed layouts, so the model has seen little variety in real resume formatting. This is the most likely cause of the two weakest fields below, and of noisier output on real PDFs than on the test set (for example a skill name returned as a company).
+- **College precision (51.8%)**: employers are often labelled as colleges (Arbisoft, Nielsen, Raytheon). This is a model error, not a decoding error.
 - **Company recall (52.9%)**: about half of employers are missed, especially in short bullet-point layouts.
 - **Small test set**: 30 resumes, so per-field numbers can move several points with a single resume.
 
+The most promising next step is more real annotated resumes rather than more synthetic ones.
+
 ### Training
 
-DistilBERT (`distilbert-base-uncased`) fine-tuned for token classification with 13 BIO labels on 2,216 resumes: 2,000 annotated resumes plus about 220 synthetic resumes (`src/parsing/createResume.py`, `clean.py`, `trainBert.py`). Training ran for 15 epochs. Validation loss was lowest at epoch 4 and rose afterwards, a sign of overfitting:
+DistilBERT (`distilbert-base-uncased`) fine-tuned for token classification with 13 BIO labels on 2,216 resumes after cleaning: **220 hand-annotated resumes** (`data/train/annotated_resumes.json`) plus **2,000 template-generated resumes** (`data/train/synthetic_resumes.json`). Training ran for 15 epochs. Validation loss was lowest at epoch 4 and rose afterwards, a sign of overfitting:
 
-![Training and validation loss](src/parsing/training_curves.png)
+![Training and validation loss](docs/training_curves.png)
+
+To rebuild the training data and retrain (GPU recommended):
+
+```bash
+python training/generate_synthetic.py   # writes synthetic + combined data to data/train/
+python training/clean_data.py           # -> data/train/cleaned_training_data.json
+python training/train_distilbert.py     # -> models/final_model/
+```
 
 ## Quick start
 
@@ -76,7 +87,7 @@ cd ResuMate-nlp
 python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 python -m spacy download en_core_web_sm
-streamlit run src/frontend/app.py
+streamlit run app/streamlit_app.py
 ```
 
 The model downloads from the Hugging Face Hub on first run. To use a local copy, put it in `models/final_model/`.
@@ -91,26 +102,35 @@ pytest
 ## Project structure
 
 ```text
-src/
-  parsing/
-    hybridBert.py      DistilBERT extractor + rule merge (ResumeParser)
-    parser.py          PDF text extraction, cleaning and fallbacks
-    entities.py        regex and skill-dictionary rules (spaCy PhraseMatcher)
-    trainBert.py       fine-tuning script
-    test_resumes.json  30 annotated test resumes
-  frontend/            Streamlit app, TF-IDF job-matching model
-  scoring/             embedding-based resume–job similarity
-evaluation/
-  evaluate.py          entity-level scorer (exact + lenient)
-  results/             report.md, metrics.json, pre-fix report
-tests/                 scorer and decoding regression tests
-ML_model_train.py, ml_training_data2.py, DL1.py
-                       baseline designation classifiers (logistic regression, SVM, LSTM)
+resumate/                  the library used by the app and the evaluation
+  extraction/
+    hybrid_parser.py       DistilBERT extractor + merge with rule-based fields
+    rules.py               regex (email, phone) and skill dictionary (spaCy PhraseMatcher)
+    pdf_parser.py          PDF text extraction, cleaning and fallbacks
+  matching/
+    role_classifier.py     resume–job match score and missing-skill suggestions
+app/                       Streamlit app (streamlit_app.py) and sample inputs
+training/                  synthetic data generation, cleaning, fine-tuning, loss plot
+evaluation/                entity-level scorer and committed results
+data/
+  train/                   annotated, synthetic, combined and cleaned training data
+  test/                    30 hand-annotated test resumes
+  resume/                  400 generated PDF resumes and job-matching outputs
+scripts/                   batch jobs: embedding-based matching, keyword analysis, CSV to PDF
+experiments/               earlier approaches: CRF tagger, job-title classifiers (see its README)
+tests/                     scorer, decoding and end-to-end pipeline tests
+docs/                      figures
 ```
+
+The original layout from the course project is preserved on the [`dev` branch](https://github.com/quicklearner404/ResuMate-nlp/tree/dev).
 
 ## Team
 
-Built as a university NLP project by **Fatima Kashif** (NER pipeline, hybrid parser, training and evaluation), **Bilal Asghar** (frontend, scoring and skill recommendations) and **Muhammad Abdullah** (resume embeddings).
+Built as a university NLP project.
+
+- **Fatima Kashif** (project lead): NER pipeline, DistilBERT training, synthetic data generation and cleaning, rule-based extraction, PDF parsing, the CRF experiments and the evaluation; the Streamlit app with Bilal
+- **Bilal Asghar**: job-title classifiers (logistic regression, SVM, LSTM), skill recommendations, Streamlit frontend and parser integration
+- **Muhammad Abdullah**: embedding-based resume–job matching and keyword analysis
 
 ## License
 

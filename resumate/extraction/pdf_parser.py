@@ -1,18 +1,9 @@
-import sys
-import os
 import re
-import pdfplumber
 import unicodedata
 
-sys.path.append(os.getcwd())
+import pdfplumber
 
-try:
-    from src.parsing.hybridBert import ResumeParser
-except ImportError:
-    try:
-        from hybridBert import ResumeParser
-    except:
-        pass
+from resumate.extraction.hybrid_parser import ResumeParser
 
 def parse_pdf_robust(file_obj):
     text = ""

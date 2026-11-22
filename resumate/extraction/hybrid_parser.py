@@ -4,15 +4,7 @@ import torch
 import re
 from transformers import DistilBertTokenizerFast, DistilBertForTokenClassification
 
-# 🔗 IMPORT YOUR RULE-BASED MODULE
-try:
-    from entities import extract_entities
-except ImportError:
-    try:
-        from src.parsing.entities import extract_entities
-    except ImportError:
-        # Fallback for different folder structures
-        from src.entities import extract_entities
+from resumate.extraction.rules import extract_entities
 
 # ==============================================================================
 # 1. THE BERT MODEL ENGINE (Using Training Logic)
@@ -20,7 +12,7 @@ except ImportError:
 # Fine-tuned weights are published on the Hugging Face Hub; a local copy in
 # models/final_model takes precedence if present.
 HUB_MODEL_ID = "quicklearner404/DistillbertNER"
-LOCAL_MODEL_DIR = "models/final_model"
+LOCAL_MODEL_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "models", "final_model")
 
 
 class BertExtractor:

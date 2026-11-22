@@ -1,6 +1,10 @@
 import json
 import random
 from datetime import datetime, timedelta
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+TRAIN_DIR = ROOT / "data" / "train"
 
 def generate_tech_focused_resumes(num_samples=2000):
     """Generate tech-focused synthetic resume data with PROPER NER annotations"""
@@ -301,18 +305,16 @@ if __name__ == "__main__":
     synthetic_resumes = generate_tech_focused_resumes(num_samples=2000)
     
     # Save synthetic data
-    save_synthetic_data(synthetic_resumes, "tech_resumes.json")
+    save_synthetic_data(synthetic_resumes, TRAIN_DIR / "synthetic_resumes.json")
     
     # Try to combine with original
-    final_file = combine_datasets("entities2.json", "tech_resumes.json")
+    final_file = combine_datasets(
+        TRAIN_DIR / "annotated_resumes.json",
+        TRAIN_DIR / "synthetic_resumes.json",
+        TRAIN_DIR / "combined_resumes.json",
+    )
     
-    print("\n📊 DATASET COMPOSITION:")
-    print(f"   • Total Companies: {len(pakistani_tech_companies + international_tech_companies + tech_service_companies)}")
-    print(f"   • Total Designations: {len(tech_designations)}")
-    print(f"   • Total Locations: {len(all_locations)}")
-    print(f"   • Total Degrees: {len(tech_degrees)}")
-    print(f"   • Total Colleges: {len(tech_colleges)}")
-    print(f"   • Total Resumes: {len(synthetic_resumes)}")
+    print(f"\n📊 Synthetic resumes generated: {len(synthetic_resumes)}")
     
     print("\n🎯 READY FOR TRAINING!")
     print(f"Use this file: {final_file}")

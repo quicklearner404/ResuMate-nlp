@@ -9,12 +9,9 @@
 *.pkl
 *.joblib
 optimizer.pt
-crf_model.pkl
+
 
 # 2. Model & Data Folders (Ignore contents recursively)
-src/parsing/models/
-data/
-test/
 
 # 3. Virtual Environments
 venv/

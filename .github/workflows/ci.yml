@@ -18,7 +18,7 @@ jobs:
       - name: Install (CPU-only PyTorch)
         run: |
           pip install torch --index-url https://download.pytorch.org/whl/cpu
-          pip install transformers huggingface_hub spacy pytest
+          pip install transformers huggingface_hub spacy pdfplumber pytest
           python -m spacy download en_core_web_sm
       - name: Unit and regression tests
         run: pytest -v

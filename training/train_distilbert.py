@@ -16,6 +16,12 @@ from transformers import (
     TrainerCallback
 )
 from torch.nn import CrossEntropyLoss
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+TRAIN_DIR = ROOT / "data" / "train"
+RUN_DIR = ROOT / "models" / "training_run"        # checkpoints and logs
+FINAL_MODEL_DIR = ROOT / "models" / "final_model"  # loaded by the app and evaluation
 
 # ==========================================
 # 1. UTILITY & CALLBACK CLASSES
@@ -98,7 +104,7 @@ class ImprovedNER:
         self.load_model()
 
     def load_model(self):
-        model_dir = "models/improved_ner/final_model"
+        model_dir = str(FINAL_MODEL_DIR)
         if os.path.exists(model_dir):
             print(f"\U0001f5de Loading existing model from {model_dir}")
             self.tokenizer = DistilBertTokenizerFast.from_pretrained(model_dir)
@@ -247,10 +253,10 @@ class ImprovedNER:
         print(f"\U0001f680 STARTING TRAINING (Epochs: {epochs})")
 
         # 1. Cleanup Old Data
-        if os.path.exists("models/improved_ner"):
+        if os.path.exists(str(RUN_DIR)):
             try:
-                shutil.rmtree("models/improved_ner/results")
-                shutil.rmtree("models/improved_ner/logs")
+                shutil.rmtree(str(RUN_DIR / "results"))
+                shutil.rmtree(str(RUN_DIR / "logs"))
             except: pass
 
         # 2. Prepare Data
@@ -272,7 +278,7 @@ class ImprovedNER:
         eval_dataset = dataset_split["test"]
 
         training_args = TrainingArguments(
-            output_dir="models/improved_ner/results",
+            output_dir=str(RUN_DIR / "results"),
             # 🚀 1. TRAIN LONGER
             num_train_epochs=15,             # Increased from 8 to 15.
                                              # Companies need more time to be memorized.
@@ -317,8 +323,8 @@ class ImprovedNER:
         trainer.train()
 
         print("\U0001f4c7 Saving Model...")
-        self.model.save_pretrained("models/improved_ner/final_model")
-        self.tokenizer.save_pretrained("models/improved_ner/final_model")
+        self.model.save_pretrained(str(FINAL_MODEL_DIR))
+        self.tokenizer.save_pretrained(str(FINAL_MODEL_DIR))
         print("\u2705 DONE!")
 
     def predict_entities(self, text):
@@ -421,14 +427,12 @@ class ImprovedNER:
 # 3. EXECUTION BLOCK
 # ==========================================
 if __name__ == "__main__":
-    # Update this path to point to your generated data
-    TRAINING_FILE = "cleaned_training_data.json"
+    TRAINING_FILE = TRAIN_DIR / "cleaned_training_data.json"
 
     # Disable Weights & Biases logging explicitly
     os.environ["WANDB_DISABLED"] = "true"
 
     ner = ImprovedNER()
 
-    # Run training
-    # subset_size=None means use ALL data
-    #ner.train(TRAINING_FILE, epochs=15)
+    # The published model was trained for 15 epochs (best validation loss at epoch 4).
+    ner.train(str(TRAINING_FILE), epochs=15)

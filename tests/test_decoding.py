@@ -9,8 +9,8 @@ import pytest
 torch = pytest.importorskip("torch")
 transformers = pytest.importorskip("transformers")
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src" / "parsing"))
-from hybridBert import BertExtractor  # noqa: E402
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from resumate.extraction.hybrid_parser import BertExtractor  # noqa: E402
 
 MODEL_ID = "quicklearner404/DistillbertNER"
 LABELS = {0: "O", 3: "B-Company", 4: "I-Company"}

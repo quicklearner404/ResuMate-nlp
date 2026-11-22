@@ -1,9 +1,10 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from pathlib import Path
 
 def plot_curves():
     # ---------------------------------------------------------
-    # 📝 REAL DATA (Extracted from your Colab Logs)
+    # Values transcribed from the Colab training logs of the published model
     # ---------------------------------------------------------
     epochs = np.arange(1, 16) # Epochs 1 to 15
     
@@ -54,7 +55,7 @@ def plot_curves():
     
     # Save image for your report
     plt.tight_layout()
-    plt.savefig("training_curves.png", dpi=300)
+    plt.savefig(Path(__file__).resolve().parents[1] / "docs" / "training_curves.png", dpi=300)
     print("✅ Graph saved as 'training_curves.png'")
     plt.show()
 

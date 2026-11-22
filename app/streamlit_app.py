@@ -6,11 +6,11 @@ import random
 
 # --- PATH SETUP ---
 current_dir = os.path.dirname(os.path.abspath(__file__))
-project_root = os.path.abspath(os.path.join(current_dir, "..", ".."))
+project_root = os.path.abspath(os.path.join(current_dir, ".."))
 sys.path.append(project_root)
 
-from src.parsing.parser import process_resume
-from src.frontend.nlp_model import (
+from resumate.extraction.pdf_parser import process_resume
+from resumate.matching.role_classifier import (
     ml_score,
     generate_recommendations,
     predict_job_title

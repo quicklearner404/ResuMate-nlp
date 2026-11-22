@@ -7,7 +7,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 import os
 
 
-embeddings_path = os.path.join(os.path.dirname(__file__), "../../data/resume/resume_embeddings.pkl")
+embeddings_path = os.path.join(os.path.dirname(__file__), "../data/resume/resume_embeddings.pkl")
 
 if not os.path.exists(embeddings_path):
     raise FileNotFoundError(" Embeddings file not found. Run embedding_test.py first!")
@@ -44,7 +44,7 @@ for i in range(5):
     print(f"{i+1}. {df_sorted.loc[i, 'filename'] if 'filename' in df_sorted.columns else 'Resume_'+str(i+1)} — Score: {df_sorted.loc[i, 'similarity_score']:.3f}")
 
 
-output_path = os.path.join(os.path.dirname(__file__), "../../data/resume/match_results.csv")
+output_path = os.path.join(os.path.dirname(__file__), "../data/resume/match_results.csv")
 df_sorted.to_csv(output_path, index=False)
 
 print(f"\n Full results saved to: {output_path}")

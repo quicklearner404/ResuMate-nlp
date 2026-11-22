@@ -2,6 +2,10 @@
 import json
 import re
 from collections import Counter
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+TRAIN_DIR = ROOT / "data" / "train"
 
 def clean_annotations(input_file, output_file):
     """Clean the messy annotations in your training data with detailed analysis"""
@@ -145,8 +149,8 @@ def check_original_data_size(input_file):
 
 # Run the cleaner with analysis
 if __name__ == "__main__":
-    input_file = "enhanced_tech_resumes.json"  # Your original data
-    output_file = "cleaned_training_data.json"
+    input_file = TRAIN_DIR / "combined_resumes.json"  # annotated + synthetic
+    output_file = TRAIN_DIR / "cleaned_training_data.json"
     
     # First check original data size
     original_count = check_original_data_size(input_file)
@@ -156,7 +160,7 @@ if __name__ == "__main__":
     
     print(f"\n🎯 NEXT STEPS:")
     if len(cleaned_data) >= 500:
-        print(f"✅ Ready to train! Use: python hybridBert_fixed.py")
+        print("✅ Ready to train! Use: python training/train_distilbert.py")
         print(f"   Update training_file to: '{output_file}'")
     else:
         print(f"❌ Need more data! Options:")
